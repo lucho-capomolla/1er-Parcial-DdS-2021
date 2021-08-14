@@ -1,10 +1,19 @@
 package business.comestibles;
 
-public abstract class Pochoclos implements TipoComestible {
+public class Bebida implements TipoComestible{
+    private TipoBebida tipoDeBebida;
     private double precio;
     private double porcentajeLlenado;
 
     // Getters and Setters
+    public TipoBebida getTipoDeBebida() {
+        return tipoDeBebida;
+    }
+
+    public void setTipoDeBebida(TipoBebida tipoDeBebida) {
+        this.tipoDeBebida = tipoDeBebida;
+    }
+
     public double getPrecio() {
         return precio;
     }
@@ -13,19 +22,15 @@ public abstract class Pochoclos implements TipoComestible {
         this.precio = precio;
     }
 
-    public double getPorcentajeLlenado() {
-        return porcentajeLlenado;
-    }
-
-    public void setPorcentajeLlenado(double porcentajeLlenado) {
-        this.porcentajeLlenado = porcentajeLlenado;
-    }
 
     // Constructor
-    public Pochoclos(double precio) {
+    public Bebida(TipoBebida tipoDeBebida, double precio) {
+        this.tipoDeBebida = tipoDeBebida;
         this.precio = precio;
     }
 
+
+    // Metodos
     @Override
     public void rellenar() {
         this.porcentajeLlenado = 100;

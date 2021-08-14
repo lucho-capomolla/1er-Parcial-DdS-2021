@@ -1,4 +1,4 @@
-package business;
+package business.comestibles;
 
 public enum TipoBebida {
     SPRITE,

@@ -3,6 +3,8 @@ package business;
 import java.util.ArrayList;
 
 public class Combo extends Producto{
+
+    // Getters and Setters
     private ArrayList<Producto> productosDelCombo = new ArrayList<>();
 
     public void agregarProducto(Producto nuevoProducto) {
@@ -17,6 +19,14 @@ public class Combo extends Producto{
         return productosDelCombo;
     }
 
+
+    // Constructor
+    public Combo(ArrayList<Producto> productosDelCombo) {
+        this.productosDelCombo = productosDelCombo;
+    }
+
+
+    // Metodos
     @Override
     public double obtenerPrecio() {
         double precioTotal = 0;
