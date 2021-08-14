@@ -1,6 +1,6 @@
 package business;
 
-public abstract class Producto {
+public abstract class Producto extends Compra{
     private String articulo;
 
     // Getters and Setters
@@ -11,6 +11,4 @@ public abstract class Producto {
     public void setArticulo(String articulo) {
         this.articulo = articulo;
     }
-
-    public abstract double obtenerPrecio();
 }
