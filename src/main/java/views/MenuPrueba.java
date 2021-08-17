@@ -3,6 +3,7 @@ package views;
 import business.Ticket;
 import business.comestibles.Combo;
 import business.comestibles.*;
+import security.Usuario;
 
 import java.util.Scanner;
 
@@ -61,6 +62,21 @@ public class MenuPrueba {
         System.out.println("Precio Final: " + nuevoTicket.getPrecioTotal());
         System.out.println("Los productos que usted tiene en su ticket son:");
         nuevoTicket.obtenerProductos();
+
+
+
+
+
+
+        Usuario usuario = new Usuario();
+        if(usuario.getRol().puedoAdministrarPrecios()) {
+            //TODO: logica para cambiar los precios;
+        }
+
+
+
+
+
 
     }
 

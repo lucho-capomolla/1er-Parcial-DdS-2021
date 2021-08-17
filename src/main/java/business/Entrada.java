@@ -57,21 +57,14 @@ public class Entrada implements Compra {
     // Constructor
     public Entrada(){}
 
-    public Entrada(Date fechaEmision, LocalTime horarioFuncion, Pelicula pelicula, Butaca butaca, int sala) {
-        this.fechaEmision = fechaEmision;
-        this.horarioFuncion = horarioFuncion;
-        this.pelicula = pelicula;
-        this.butaca = butaca;
-        this.sala = sala;
-    }
 
-
+    // Metodos
     public void elegirButaca(int numeroButaca) {
-
+        // Todo: en Views, el Sistema deberia mostrar las butacas disponibles, y el usuario elige el numero de asiento deseado
     }
 
     public void elegirPelicula(Pelicula pelicula) {
-
+        // Todo: en Views, el Sistema deberia mostrar las peliculas disponibles, y el usuario elige dicha pelicula y envia en este metodo
     }
 
     @Override

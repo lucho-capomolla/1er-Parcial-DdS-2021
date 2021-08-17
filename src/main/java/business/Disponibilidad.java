@@ -1,4 +1,4 @@
-package business.pelicula;
+package business;
 
 public enum Disponibilidad {
     OCUPADA,

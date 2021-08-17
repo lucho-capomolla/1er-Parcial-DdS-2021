@@ -1,8 +1,12 @@
 package security;
 
-public class Usuario {
+import business.Cliente;
+
+public class Usuario{
     private String email;
     private String contrasenia;
+    private Cliente cliente;
+    private Rol rol;
 
     // Getters and Setters
     public String getEmail() {
@@ -21,6 +25,21 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
     // Constructor
     public Usuario() {}

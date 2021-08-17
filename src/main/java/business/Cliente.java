@@ -9,7 +9,7 @@ public class Cliente {
     private String email;
     private Date fechaDeNacimiento;
     private int nroDocumento;
-    private ArrayList<Ticket> carrito = new ArrayList<>();
+    private ArrayList<Ticket> tickets = new ArrayList<>();
 
     // Getters and Setters
     public String getNombre() { return nombre; }
@@ -33,22 +33,22 @@ public class Cliente {
     public void setNroDocumento(int nroDocumento) { this.nroDocumento = nroDocumento; }
 
     public ArrayList<Ticket> obtenerCarrito() {
-        return carrito;
+        return tickets;
     }
 
     public void setCarrito(ArrayList<Ticket> carrito) {
-        this.carrito = carrito;
+        this.tickets = carrito;
     }
 
     public void agregarAlCarrito(Ticket nuevaTicket) {
-        this.carrito.add(nuevaTicket);
+        this.tickets.add(nuevaTicket);
     }
 
     // Constructor
     private Cliente() {}
 
     // Metodos
-    public void comprar(Ticket nuevaTicket) {
-        agregarAlCarrito(nuevaTicket);
+    public void comprar(Ticket nuevoTicket) {
+        agregarAlCarrito(nuevoTicket);
     }
 }

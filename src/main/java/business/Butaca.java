@@ -1,7 +1,5 @@
 package business;
 
-import business.pelicula.Disponibilidad;
-
 public class Butaca {
     private int numeroButaca;
     private Disponibilidad disponibilidad;
