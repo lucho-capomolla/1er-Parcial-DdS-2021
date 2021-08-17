@@ -1,4 +1,4 @@
-package business;
+package business.pelicula;
 
 public class Promocion implements EstadoPelicula{
     @Override

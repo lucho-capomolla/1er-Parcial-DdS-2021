@@ -1,38 +1,17 @@
 package business.comestibles;
 
 public abstract class Pochoclos implements TipoComestible {
-    private double precio;
-    private double porcentajeLlenado;
+    private double precioEstandar;
 
     // Getters and Setters
-    public double getPrecio() {
-        return precio;
+    public double getPrecioEstandar() {
+        return precioEstandar;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public double getPorcentajeLlenado() {
-        return porcentajeLlenado;
-    }
-
-    public void setPorcentajeLlenado(double porcentajeLlenado) {
-        this.porcentajeLlenado = porcentajeLlenado;
+    public void setPrecioEstandar(double precio) {
+        this.precioEstandar = precio;
     }
 
     // Constructor
-    public Pochoclos(double precio) {
-        this.precio = precio;
-    }
-
-    @Override
-    public void rellenar() {
-        this.porcentajeLlenado = 100;
-    }
-
-    @Override
-    public double obtenerPrecio() {
-        return this.getPrecio();
-    }
+    public Pochoclos(double precioEstandar) { this.precioEstandar = precioEstandar; }
 }

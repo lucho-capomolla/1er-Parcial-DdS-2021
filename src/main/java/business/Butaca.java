@@ -1,5 +1,7 @@
 package business;
 
+import business.pelicula.Disponibilidad;
+
 public class Butaca {
     private int numeroButaca;
     private Disponibilidad disponibilidad;
@@ -13,13 +15,11 @@ public class Butaca {
         this.numeroButaca = numeroButaca;
     }
 
-    public void ocuparButaca() {
-        this.disponibilidad = Disponibilidad.OCUPADA;
-    }
+    public void ocuparButaca() { this.disponibilidad = Disponibilidad.OCUPADA; }
 
-    public void liberarButaca() {
-        this.disponibilidad = Disponibilidad.LIBRE;
-    }
+    public void liberarButaca() { this.disponibilidad = Disponibilidad.LIBRE; }
+
+    public boolean isLibre() { return this.disponibilidad.equals(Disponibilidad.LIBRE); }
 
     // Constructor
     public Butaca(int numeroButaca) {
@@ -27,3 +27,4 @@ public class Butaca {
         this.disponibilidad = Disponibilidad.LIBRE;
     }
 }
+

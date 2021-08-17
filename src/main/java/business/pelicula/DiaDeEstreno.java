@@ -1,6 +1,6 @@
-package business;
+package business.pelicula;
 
-public class DiaDeEstreno implements EstadoPelicula{
+public class DiaDeEstreno implements EstadoPelicula {
 
     @Override
     public double calcularPrecio(double precioEntrada) {

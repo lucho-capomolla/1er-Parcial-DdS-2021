@@ -1,9 +1,11 @@
 package business.comestibles;
 
 public class Balde extends Pochoclos{
-    private double precio = 400;
 
-    public Balde(double precio) {
-        super(precio);
+    public Balde(double precio) { super(precio); }
+
+    @Override
+    public double obtenerPrecio() {
+        return this.getPrecioEstandar() * 4;
     }
 }

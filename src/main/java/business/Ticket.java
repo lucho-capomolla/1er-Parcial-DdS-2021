@@ -1,71 +1,89 @@
 package business;
 
-import java.time.LocalTime;
+import business.comestibles.Producto;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Ticket extends Compra{
-    private Date fechaEmision;
-    private LocalTime horarioFuncion;
-    private Pelicula pelicula;
-    private Butaca butaca;
-    private int sala;
+
+public class Ticket {
+    private static int contador = 0;
+
+    private int idTicket;
+    private String horaCreacion;
+    private String fechaCreacion;
+    private double precioTotal;
+    private ArrayList<Compra> productosListados = new ArrayList<>();
 
     // Getters and Setters
-    public Date getFechaEmision() {
-        return fechaEmision;
+    public int getIdTicket() {
+        return idTicket;
     }
 
-    public void setFechaEmision(Date fechaEmision) {
-        this.fechaEmision = fechaEmision;
+    public void setIdTicket(int idTicket) {
+        this.idTicket = idTicket;
     }
 
-    public LocalTime getHorarioFuncion() {
-        return horarioFuncion;
+    public String getHoraCreacion() {
+        return horaCreacion;
     }
 
-    public void setHorarioFuncion(LocalTime horarioFuncion) {
-        this.horarioFuncion = horarioFuncion;
+    public void setHoraCreacion(String horaCreacion) {
+        this.horaCreacion = horaCreacion;
     }
 
-    public Pelicula getPelicula() {
-        return pelicula;
+    public String getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
-    public Butaca getButaca() {
-        return butaca;
+    public double getPrecioTotal() {
+        return precioTotal;
     }
 
-    public void setButaca(Butaca butaca) {
-        this.butaca = butaca;
+    public void setPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
-    public int getSala() {
-        return sala;
+    public ArrayList<Compra> getProductosListados() {
+        return productosListados;
     }
 
-    public void setSala(int sala) {
-        this.sala = sala;
+    public void agregarProductoATicket(Producto nuevoProducto) {
+        this.productosListados.add(nuevoProducto);
     }
-
 
     // Constructor
-    public Ticket(){}
+    public Ticket() {}
 
-    public Ticket(Date fechaEmision, LocalTime horarioFuncion, Pelicula pelicula, Butaca butaca, int sala) {
-        this.fechaEmision = fechaEmision;
-        this.horarioFuncion = horarioFuncion;
-        this.pelicula = pelicula;
-        this.butaca = butaca;
-        this.sala = sala;
+
+    public void generarTicket() {
+        contador++;
+        this.setIdTicket(contador);
+        Date date = new Date();
+        DateFormat hora = new SimpleDateFormat("HH:mm:ss");
+        this.setHoraCreacion(hora.format(date));
+        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        this.setFechaCreacion(fecha.format(date));
+        this.setPrecioTotal(this.obtenerPrecioFinal());
     }
 
+    public void obtenerProductos() {
+        for(Compra compra : productosListados) {
+            compra.mostrarCompra();
+        }
+    }
 
-    @Override
-    public double obtenerPrecio() {
-        return 0;
+    private double obtenerPrecioFinal() {
+        double precioFinal = 0;
+        for(Compra compra : productosListados) {
+            precioFinal += compra.obtenerPrecio();
+        }
+        return precioFinal;
     }
 }

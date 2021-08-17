@@ -1,4 +1,4 @@
-package security;
+package security.password;
 
 public class ValidadorPasswordNull implements Validador {
 

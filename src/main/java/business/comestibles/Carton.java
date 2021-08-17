@@ -1,9 +1,11 @@
 package business.comestibles;
 
 public class Carton extends Pochoclos{
-    private double precio = 250;
 
-    public Carton(double precio) {
-        super(precio);
+    public Carton(double precio) { super(precio); }
+
+    @Override
+    public double obtenerPrecio() {
+        return this.getPrecioEstandar() * 2;
     }
 }

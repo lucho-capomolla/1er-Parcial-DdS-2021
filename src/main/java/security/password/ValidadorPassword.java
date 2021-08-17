@@ -1,4 +1,4 @@
-package security;
+package security.password;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
 package business;
 
-public abstract class Compra {
-
-    public abstract double obtenerPrecio();
+public interface Compra {
+    public double obtenerPrecio();
+    public void mostrarCompra();
 }
