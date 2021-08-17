@@ -7,7 +7,7 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String email;
-    private Date fechaDeNacimiento;
+    private String fechaDeNacimiento;
     private int nroDocumento;
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
@@ -24,9 +24,9 @@ public class Cliente {
 
     public void setEmail(String email) { this.email = email; }
 
-    public Date getFechaDeNacimiento() { return fechaDeNacimiento; }
+    public String getFechaDeNacimiento() { return fechaDeNacimiento; }
 
-    public void setFechaDeNacimiento(Date fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
+    public void setFechaDeNacimiento(String fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
 
     public int getNroDocumento() { return nroDocumento; }
 
@@ -45,7 +45,15 @@ public class Cliente {
     }
 
     // Constructor
-    private Cliente() {}
+    public Cliente() {}
+
+    public Cliente(String nombre, String apellido, String email, String fechaDeNacimiento, int nroDocumento) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.fechaDeNacimiento = fechaDeNacimiento;
+        this.nroDocumento = nroDocumento;
+    }
 
     // Metodos
     public void comprar(Ticket nuevoTicket) {

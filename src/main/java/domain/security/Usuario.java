@@ -37,7 +37,7 @@ public class Usuario{
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void cambiarRol(Rol rol) {
         this.rol = rol;
     }
 
@@ -47,6 +47,7 @@ public class Usuario{
     public Usuario(String email, String contrasenia) {
         this.email = email;
         this.contrasenia = contrasenia;
+        this.rol = new User();
     }
 
 }

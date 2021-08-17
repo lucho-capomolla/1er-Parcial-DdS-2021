@@ -3,7 +3,9 @@ package domain.business;
 import domain.business.pelicula.Pelicula;
 import domain.security.Admin;
 import domain.security.Usuario;
+import domain.security.password.ValidadorPassword;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,16 +17,17 @@ public class Cinema {
     private static List<Pelicula> cartelera = new ArrayList<>();
 
     // Por ahora, los Admins vamos a ser nosotros dos
-    public static Usuario lucho = new Usuario("lucho@hotmail.com", "Luchhoo7");
+    public static Usuario lucho = new Usuario("lucho@hotmail.com", "contrasenia1234");
     {
-        this.lucho.setRol(new Admin());
-        this.usuarios.add(lucho);
+        //this.lucho.cambiarRol(new Admin());
+        lucho.setCliente(new Cliente("Luciano", "Capomolla", "lucho@hotmail.com", "24/08/1996", 39810375 ));
+        this.agregarUsuario(lucho);
     }
 
-    private double precioPochoclos;
-    private double precioBebida;
-    private double precioNachos;
-    private double precioEntrada;
+    private double precioPochoclos = 100;
+    private double precioBebida = 80;
+    private double precioNachos = 120;
+    private double precioEntrada = 95;
 
     // Getters and Setters de Precios
     public double getPrecioPochoclos() {
@@ -59,6 +62,21 @@ public class Cinema {
         this.precioEntrada = precioEntrada;
     }
 
+    public static List<Pelicula> getCartelera() {
+        return cartelera;
+    }
+
+    public static void agregarPeliculaEnCartelera(Pelicula pelicula) {
+        Cinema.cartelera.add(pelicula);
+    }
+
+    public static List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public static void agregarUsuario(Usuario usuario) {
+        Cinema.usuarios.add(usuario);
+    }
 
     // Singleton del Cinema
     public static Cinema getInstance() {
@@ -81,6 +99,15 @@ public class Cinema {
         else {
             return usuarios.stream().anyMatch(usuario -> usuario.getEmail().equals(email) && usuario.getContrasenia().equals(contrasenia));
         }
+    }
+
+    public boolean validarUsuario(String email) {
+        return usuarios.stream().anyMatch(usuario -> usuario.getEmail().equals(email));
+    }
+
+    public boolean validarContrasenia(String contrasenia) {
+        ValidadorPassword validador = new ValidadorPassword();
+        return validador.esValida(contrasenia);
     }
 
 

@@ -13,6 +13,10 @@ public class Nachos implements TipoComestible{
 
     public Nachos() {}
 
+    public Nachos(double precio) {
+        this.precio = precio;
+    }
+
     @Override
     public double obtenerPrecio() {
         return this.getPrecio();
