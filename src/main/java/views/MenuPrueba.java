@@ -192,7 +192,7 @@ public class MenuPrueba {
         System.out.println("    - Pochoclos: $" + miCinema.obtenerPrecioPochoclos());
         System.out.println("    - Bebidas: $" + miCinema.obtenerPrecioBebidas());
         System.out.println("    - Nachos: $" + miCinema.obtenerPrecioNachos());
-        System.out.println("    - Precio estándar: $" + miCinema.obtenerPrecioEntrada());
+        System.out.println("    - Precio estándar de las Entradas: $" + miCinema.obtenerPrecioEntrada());
         System.out.println();
     }
 

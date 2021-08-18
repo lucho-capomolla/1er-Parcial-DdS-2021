@@ -14,7 +14,7 @@ public class PreciosDAO {
     // Cambio de Precios
     public void cambiarPrecioEntrada(double precioEntrada) {
 
-        String consulta = "UPDATE precios SET VALUES precio_entrada = '" + precioEntrada + "';";
+        String consulta = "UPDATE precios SET precio_entrada = '" + precioEntrada + "';";
 
         try {
             this.conn = newConnection();
@@ -33,7 +33,7 @@ public class PreciosDAO {
 
     public void cambiarPrecioPochoclos(double precioPochoclos) {
 
-        String consulta = "UPDATE precios SET VALUES precio_pochoclos = '" + precioPochoclos + "';";
+        String consulta = "UPDATE precios SET precio_pochoclos = '" + precioPochoclos + "';";
 
         try {
             this.conn = newConnection();
@@ -52,7 +52,7 @@ public class PreciosDAO {
 
     public void cambiarPrecioBebidas(double precioBebida) {
 
-        String consulta = "UPDATE precios SET VALUES precio_bebidas = '" + precioBebida + "';";
+        String consulta = "UPDATE precios SET precio_bebidas = '" + precioBebida + "';";
 
         try {
             this.conn = newConnection();
@@ -71,7 +71,7 @@ public class PreciosDAO {
 
     public void cambiarPrecioNachos(double precioNachos) {
 
-        String consulta = "UPDATE precios SET VALUES precio_nachos = '" + precioNachos + "';";
+        String consulta = "UPDATE precios SET precio_nachos = '" + precioNachos + "';";
 
         try {
             this.conn = newConnection();
