@@ -1,0 +1,12 @@
+[
+{"type":"header","version":"5.1.0","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"cinemadb"},
+{"type":"table","name":"cliente","database":"cinemadb","data":
+[
+{"email":"kirby@aol.com","nombre":"Mister","apellido":"Kirby","fecha_nacimiento":"17\/11\/1965","nro_documento":"1324658"},
+{"email":"lucho@hotmail.com","nombre":"Luciano","apellido":"Capomolla","fecha_nacimiento":"24\/08\/1996","nro_documento":"39810375"},
+{"email":"pepita@gmail.com","nombre":"Pepita","apellido":"LaPaloma","fecha_nacimiento":"18\/08\/2020","nro_documento":"40000000"},
+{"email":"pri@hotmail.com","nombre":"Priscila","apellido":"D'Antoni","fecha_nacimiento":"nose","nro_documento":"11111111"}
+]
+}
+]

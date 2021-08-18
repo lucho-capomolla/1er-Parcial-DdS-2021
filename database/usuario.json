@@ -1,0 +1,12 @@
+[
+{"type":"header","version":"5.1.0","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"cinemadb"},
+{"type":"table","name":"usuario","database":"cinemadb","data":
+[
+{"id_usuario":"1","email":"lucho@hotmail.com","contrasenia":"contrasenia1234","rol":"ADMIN"},
+{"id_usuario":"2","email":"pri@hotmail.com","contrasenia":"password1234","rol":"ADMIN"},
+{"id_usuario":"3","email":"pepita@gmail.com","contrasenia":"pepitapaloma","rol":"USER"},
+{"id_usuario":"4","email":"kirby@aol.com","contrasenia":"kirby1234","rol":"USER"}
+]
+}
+]
