@@ -2,7 +2,11 @@ package domain.business;
 
 import domain.business.pelicula.Pelicula;
 import domain.security.Admin;
+import domain.security.TipoRol;
 import domain.security.Usuario;
+import domain.security.database.PreciosDAO;
+import domain.security.database.UsuarioDAO;
+import domain.security.database.UsuariosDAO;
 import domain.security.password.ValidadorPassword;
 
 import java.lang.reflect.Array;
@@ -16,52 +20,7 @@ public class Cinema {
     private static List<Sala> salas = new ArrayList<>();
     private static List<Pelicula> cartelera = new ArrayList<>();
 
-    // Por ahora, los Admins vamos a ser nosotros dos
-    public static Usuario lucho = new Usuario("lucho@hotmail.com", "contrasenia1234");
-    {
-        //this.lucho.cambiarRol(new Admin());
-        lucho.setCliente(new Cliente("Luciano", "Capomolla", "lucho@hotmail.com", "24/08/1996", 39810375 ));
-        this.agregarUsuario(lucho);
-    }
-
-    private double precioPochoclos = 100;
-    private double precioBebida = 80;
-    private double precioNachos = 120;
-    private double precioEntrada = 95;
-
-    // Getters and Setters de Precios
-    public double getPrecioPochoclos() {
-        return precioPochoclos;
-    }
-
-    public void setPrecioPochoclos(double precioPochoclos) {
-        this.precioPochoclos = precioPochoclos;
-    }
-
-    public double getPrecioBebida() {
-        return precioBebida;
-    }
-
-    public void setPrecioBebida(double precioBebida) {
-        this.precioBebida = precioBebida;
-    }
-
-    public double getPrecioNachos() {
-        return precioNachos;
-    }
-
-    public void setPrecioNachos(double precioNachos) {
-        this.precioNachos = precioNachos;
-    }
-
-    public double getPrecioEntrada() {
-        return precioEntrada;
-    }
-
-    public void setPrecioEntrada(double precioEntrada) {
-        this.precioEntrada = precioEntrada;
-    }
-
+    // Getters and Setters
     public static List<Pelicula> getCartelera() {
         return cartelera;
     }
@@ -78,6 +37,9 @@ public class Cinema {
         Cinema.usuarios.add(usuario);
     }
 
+    public static void setUsuarios(List<Usuario> usuarios) { Cinema.usuarios = usuarios; }
+
+
     // Singleton del Cinema
     public static Cinema getInstance() {
         if(instance == null) {
@@ -87,22 +49,23 @@ public class Cinema {
     }
 
     // Metodos
-    public static Usuario obtenerUsuario(String email, String contrasenia) {
-        return usuarios.stream().filter(usuario -> usuario.getEmail().equals(email)).collect(Collectors.toList()).get(0);
+    public Usuario buscarUsuario(String emailBuscado) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+        Usuario usuarioBuscado = usuarioDAO.buscarUsuario(emailBuscado);
+
+        return usuarioBuscado;
     }
 
-    public boolean existeUsuario(String email, String contrasenia) {
-        if(usuarios.isEmpty()) {
-            System.out.println("No hay usuarios cargados.");
+    public boolean validarUsuario(String email, String contrasenia) {
+        Usuario usuarioBuscado = this.buscarUsuario(email);
+
+        if(usuarioBuscado == null) {
             return false;
         }
         else {
-            return usuarios.stream().anyMatch(usuario -> usuario.getEmail().equals(email) && usuario.getContrasenia().equals(contrasenia));
+            return (usuarioBuscado.getContrasenia().equals(contrasenia));
         }
-    }
-
-    public boolean validarUsuario(String email) {
-        return usuarios.stream().anyMatch(usuario -> usuario.getEmail().equals(email));
     }
 
     public boolean validarContrasenia(String contrasenia) {
@@ -110,8 +73,64 @@ public class Cinema {
         return validador.esValida(contrasenia);
     }
 
+// Siempre que creo un nuevo usuario, va a tener un Rol de USER
+    public Usuario crearUsuario(String email, String contrasenia) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    /*public static void crearUsuario(String usuario, String contraseña, String email) {
-        // TODO: validar que no exista el mismo Cliente ni Email; además validar la contraseña
-    }*/
+        usuarioDAO.insert(email, contrasenia, TipoRol.USER);
+
+        Usuario nuevoUsuario = new Usuario(email, contrasenia, TipoRol.USER);
+
+        return nuevoUsuario;
+    }
+
+    private List<Usuario> obtenerUsuarios() {
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+
+        return usuariosDAO.obtenerUsuarios();
+    }
+
+
+    // Consulto los Precios
+    public double obtenerPrecioEntrada() {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        return preciosDAO.obtenerPrecioEntrada();
+    }
+
+    public double obtenerPrecioPochoclos() {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        return preciosDAO.obtenerPrecioPochoclos();
+    }
+
+    public double obtenerPrecioBebidas() {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        return preciosDAO.obtenerPrecioBebidas();
+    }
+
+    public double obtenerPrecioNachos() {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        return preciosDAO.obtenerPrecioNachos();
+    }
+
+    // Cambios de Precios
+    public void cambiarPrecioPochoclos(double precioPochoclos) {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        preciosDAO.cambiarPrecioPochoclos(precioPochoclos);
+    }
+
+    public void cambiarPrecioBebidas(double precioBebidas) {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        preciosDAO.cambiarPrecioBebidas(precioBebidas);
+    }
+
+    public void cambiarPrecioNachos(double precioNachos) {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        preciosDAO.cambiarPrecioNachos(precioNachos);
+    }
+
+    public void cambiarPrecioEntrada(double precioEntrada) {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        preciosDAO.cambiarPrecioEntrada(precioEntrada);
+    }
+
 }

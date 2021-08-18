@@ -10,10 +10,13 @@ import java.util.Date;
 
 public class Pelicula {
     private String titulo;
-    private int duracionEnMin;
+    private String descripcion;
+    private String nombreDirector;
     private Genero genero;
+    private int duracionEnMin;
     private String fechaDeEstreno;
     private String clasificacion;
+
     private EstadoPelicula estadoPelicula;
     private Sala sala;
 
@@ -85,6 +88,6 @@ public class Pelicula {
         }
 
         Cinema elCinema = Cinema.getInstance();
-        return this.estadoPelicula.calcularPrecio(elCinema.getPrecioEntrada());
+        return this.estadoPelicula.calcularPrecio(elCinema.obtenerPrecioEntrada());
     }
 }

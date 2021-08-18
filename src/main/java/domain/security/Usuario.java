@@ -44,10 +44,15 @@ public class Usuario{
     // Constructor
     public Usuario() {}
 
-    public Usuario(String email, String contrasenia) {
+    public Usuario(String email, String contrasenia, TipoRol rol) {
         this.email = email;
         this.contrasenia = contrasenia;
-        this.rol = new User();
+        if(rol == TipoRol.ADMIN) {
+            this.rol = new Admin();
+        }
+        else if(rol == TipoRol.USER) {
+            this.rol = new User();
+        }
     }
 
 }

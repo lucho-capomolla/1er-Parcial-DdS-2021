@@ -7,5 +7,6 @@ public enum Genero {
     ROMANCE,
     DRAMA,
     ACCION,
+    SUSPENSO,
     COMEDIA
 }

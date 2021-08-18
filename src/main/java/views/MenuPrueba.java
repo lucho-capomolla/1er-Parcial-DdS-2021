@@ -6,6 +6,7 @@ import domain.business.Ticket;
 import domain.business.comestibles.*;
 import domain.business.pelicula.Pelicula;
 import domain.security.Usuario;
+import domain.security.database.ClienteDAO;
 
 import java.util.Scanner;
 
@@ -24,7 +25,9 @@ public class MenuPrueba {
             System.out.println("- Si no tiene un usuario, puede crearlo ingresando 2.");
             System.out.println("- Si quiere ver las películas que estan en cartelera, ingrese 3.");
             System.out.println("- Si desea salir, ingrese 4.");
+            System.out.print("> ");
             opcionElegida = entrada.nextInt();
+            System.out.println("-----------------------------------------------------");
 
             switch(opcionElegida) {
                 case 1: // Iniciar Sesion
@@ -45,58 +48,6 @@ public class MenuPrueba {
             }
         }
         System.out.println("¡Gracias por utilizar Cinema! Lo esperamos nuevamente.");
-
-        /*System.out.print("Ingrese un precio estandar: ");
-        double precio = entrada.nextInt();
-
-        Combo combo = new Combo();
-        combo.setArticulo("Combo Pochoclos");
-
-        Balde balde = new Balde(precio);
-        Comestible comestible1 = new Comestible(balde);
-        comestible1.setArticulo("Baldecito");
-        System.out.println("El valor de " + comestible1.getArticulo() + " es $" + comestible1.obtenerPrecio());
-        combo.agregarProducto(comestible1);
-
-        Carton carton = new Carton(precio);
-        Comestible comestible2 = new Comestible(carton);
-        comestible2.setArticulo("Cartoncito");
-        System.out.println("El valor de " + comestible2.getArticulo() + " es $" + comestible2.obtenerPrecio());
-        combo.agregarProducto(comestible2);
-
-        Bolsita bolsita = ;
-        Comestible comestible3 = new Comestible(new Bolsita(precio));
-        comestible3.setArticulo("Bolsita");
-        System.out.println("El valor de " + comestible3.getArticulo() + " es $" + comestible3.obtenerPrecio());
-        combo.agregarProducto(comestible3);
-
-        Combo combo2 = new Combo();
-        combo2.setArticulo("Combo chiquito");
-        Bebida bebida = new Bebida(TipoBebida.AGUA, 300);
-        Comestible comestible4 = new Comestible(bebida);
-        comestible4.setArticulo("Agua");
-        System.out.println("El valor de " + comestible4.getArticulo() + " es $" + comestible4.obtenerPrecio());
-        combo2.agregarProducto(comestible4);
-        //combo.agregarProducto(combo2);
-        System.out.println("El valor de " + combo2.getArticulo() + " es $" + combo2.obtenerPrecio());
-        System.out.println("Los productos del " + combo2.getArticulo() + " son: " + combo2.obtenerProductosDelCombo());
-
-        System.out.println("El valor de " + combo.getArticulo() + " es $" + combo.obtenerPrecio());
-        System.out.println("Los productos del " + combo.getArticulo() + " son: " + combo.obtenerProductosDelCombo());
-
-
-        Ticket nuevoTicket = new Ticket();
-        nuevoTicket.agregarProductoATicket(combo);
-        nuevoTicket.agregarProductoATicket(combo2);
-        nuevoTicket.generarTicket();
-
-        System.out.println("ID Ticket: " + nuevoTicket.getIdTicket());
-        System.out.println("Hora Creación: " + nuevoTicket.getHoraCreacion());
-        System.out.println("Fecha Creación: " + nuevoTicket.getFechaCreacion());
-        System.out.println("Precio Final: " + nuevoTicket.getPrecioTotal());
-        System.out.println("Los productos que usted tiene en su ticket son:");
-        nuevoTicket.obtenerProductos();*/
-
     }
 
     public void iniciarSesion() {
@@ -110,7 +61,7 @@ public class MenuPrueba {
         System.out.print("Ingrese su contraseña: ");
         String contrasenia = entrada.nextLine();
         contador--;
-        while(!miCinema.existeUsuario(email, contrasenia)) {
+        while(!miCinema.validarUsuario(email, contrasenia)) {
             System.out.println("Datos incorrectos. Le quedan " + contador + " intentos restantes.");
             System.out.print("Ingrese su email: ");
             email = entrada.nextLine();
@@ -122,14 +73,16 @@ public class MenuPrueba {
                 return;
             }
         }
-        Usuario usuarioLogin = miCinema.obtenerUsuario(email, contrasenia);
+        Usuario usuarioLogin = miCinema.buscarUsuario(email);
+        ClienteDAO clienteDAO = new ClienteDAO();
+        usuarioLogin.setCliente(clienteDAO.buscarCliente(email));
 
         if(usuarioLogin.getRol().puedoAdministrarPrecios()) {
-            System.out.println("----ADMIN----");
+            System.out.println("-----ADMIN-----");
             this.administrarPrecios();
         }
         else {
-            System.out.println("----USER----");
+            System.out.println("-----USER-----");
             this.inicioCliente(usuarioLogin);
         }
     }
@@ -138,12 +91,11 @@ public class MenuPrueba {
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
-        String contraseniaCheck;
 
         System.out.println("Ingrese un email para crear el usuario: ");
         String email = entrada.nextLine();
 
-        while(miCinema.validarUsuario(email)) {
+        while(miCinema.buscarUsuario(email) != null) {
             System.out.println("Ese email ya está en uso. Ingrese otro email: ");
             email = entrada.nextLine();
         }
@@ -156,21 +108,24 @@ public class MenuPrueba {
             contrasenia = entrada.nextLine();
         }
 
-        do{
-            System.out.println("Confirme la contraseña: ");
+        System.out.println("Confirme la contraseña: ");
+        String contraseniaCheck = entrada.nextLine();
+
+        while(!contrasenia.equals(contraseniaCheck)){
+            System.out.println("La contraseña no coincide. Confirme la contraseña nuevamente: ");
             contraseniaCheck = entrada.nextLine();
-        }while(!contrasenia.equals(contraseniaCheck));
+        };
 
-        Usuario nuevoUsuario = new Usuario(email, contrasenia);
         System.out.println("A continuación, le pediremos los datos para crear la Cuenta en nuestro Sistema: ");
+        Usuario nuevoUsuario = miCinema.crearUsuario(email, contrasenia);
         nuevoUsuario.setCliente(this.crearCliente(email));
-
         miCinema.agregarUsuario(nuevoUsuario);
 
     }
 
     private Cliente crearCliente(String email) {
         Scanner entrada = new Scanner(System.in);
+        ClienteDAO clienteDAO = new ClienteDAO();
 
         System.out.println("    - Ingrese su nombre: ");
         String nombre = entrada.nextLine();
@@ -181,6 +136,7 @@ public class MenuPrueba {
         System.out.println("    - Ingrese su documento: ");
         int documento = entrada.nextInt();
 
+        clienteDAO.crearCliente(email, nombre, apellido, fechaNacimiento, documento);
         Cliente nuevoCliente = new Cliente(nombre, apellido, email, fechaNacimiento, documento);
         return nuevoCliente;
     }
@@ -233,10 +189,10 @@ public class MenuPrueba {
         Cinema miCinema = Cinema.getInstance();
 
         System.out.println("Los precios de los Comestibles y la Entrada estándar son los siguientes:");
-        System.out.println("    - Pochoclos: $" + miCinema.getPrecioPochoclos());
-        System.out.println("    - Bebidas: $" + miCinema.getPrecioBebida());
-        System.out.println("    - Nachos: $" + miCinema.getPrecioNachos());
-        System.out.println("    - Precio estándar: $" + miCinema.getPrecioEntrada());
+        System.out.println("    - Pochoclos: $" + miCinema.obtenerPrecioPochoclos());
+        System.out.println("    - Bebidas: $" + miCinema.obtenerPrecioBebidas());
+        System.out.println("    - Nachos: $" + miCinema.obtenerPrecioNachos());
+        System.out.println("    - Precio estándar: $" + miCinema.obtenerPrecioEntrada());
         System.out.println();
     }
 
@@ -255,23 +211,23 @@ public class MenuPrueba {
             switch(entrada.nextInt()) {
                 case 1: // Cambiar precio Pochoclos
                     System.out.print("Ingrese el nuevo precio de los Pochoclos: $");
-                    miCinema.setPrecioPochoclos(entrada.nextDouble());
-                    System.out.println("Se actualizó el precio de los Pochoclos a $" + miCinema.getPrecioPochoclos());
+                    miCinema.cambiarPrecioPochoclos(entrada.nextDouble());
+                    System.out.println("Se actualizó el precio de los Pochoclos a $" + miCinema.obtenerPrecioPochoclos());
                     break;
                 case 2: // Cambiar precio Bebidas
                     System.out.print("Ingrese el nuevo precio de las Bebidas: $");
-                    miCinema.setPrecioBebida(entrada.nextDouble());
-                    System.out.println("Se actualizó el precio de las Bebidas a $" + miCinema.getPrecioBebida());
+                    miCinema.cambiarPrecioBebidas(entrada.nextDouble());
+                    System.out.println("Se actualizó el precio de las Bebidas a $" + miCinema.obtenerPrecioBebidas());
                     break;
                 case 3: // Cambiar precio Nachos
                     System.out.print("Ingrese el nuevo precio de los Nachos: $");
-                    miCinema.setPrecioNachos(entrada.nextDouble());
-                    System.out.println("Se actualizó el precio de los Nachos a $" + miCinema.getPrecioNachos());
+                    miCinema.cambiarPrecioNachos(entrada.nextDouble());
+                    System.out.println("Se actualizó el precio de los Nachos a $" + miCinema.obtenerPrecioNachos());
                     break;
                 case 4: // Cambiar precio estándar de Entradas
                     System.out.print("Ingrese el nuevo precio estándar de las Entradas: $");
-                    miCinema.setPrecioEntrada(entrada.nextDouble());
-                    System.out.println("Se actualizó el precio estándar de las Entradas a $" + miCinema.getPrecioEntrada());
+                    miCinema.cambiarPrecioEntrada(entrada.nextDouble());
+                    System.out.println("Se actualizó el precio estándar de las Entradas a $" + miCinema.obtenerPrecioEntrada());
                     break;
                 case 5: // Salir
                     salir = true;
@@ -321,6 +277,9 @@ public class MenuPrueba {
         boolean salir = false;
 
         while(!salir) {
+
+
+
 /*
  ToDo: para elegir una pelicula, tendria que listar todas las peliculas, y si la quiero elegir:
     A) Escribo el Titulo de la Pelicula (lo malo es si uno lo escribe mal)
@@ -401,22 +360,22 @@ public class MenuPrueba {
         int opcionElegida = entrada.nextInt();
         switch(opcionElegida) {
             case 1: // Comprar Bolsita
-                comestible = new Comestible(new Bolsita(miCinema.getPrecioPochoclos()));
+                comestible = new Comestible(new Bolsita(miCinema.obtenerPrecioPochoclos()));
                 comestible.setArticulo("Bolsita");
                 break;
             case 2: // Comprar Carton
-                comestible = new Comestible(new Carton(miCinema.getPrecioPochoclos()));
+                comestible = new Comestible(new Carton(miCinema.obtenerPrecioPochoclos()));
                 comestible.setArticulo("Carton");
                 break;
             case 3: // Comprar Balde
-                comestible = new Comestible(new Balde(miCinema.getPrecioPochoclos()));
+                comestible = new Comestible(new Balde(miCinema.obtenerPrecioPochoclos()));
                 comestible.setArticulo("Balde");
                 break;
             case 4: // Comprar Bebida
                 comestible = this.eleccionBebida();
                 break;
             case 5: // Comprar Nachos
-                comestible = new Comestible(new Nachos(miCinema.getPrecioNachos()));
+                comestible = new Comestible(new Nachos(miCinema.obtenerPrecioNachos()));
                 comestible.setArticulo("Nachos");
                 break;
             default:
@@ -443,27 +402,27 @@ public class MenuPrueba {
         int opcionElegida = entrada.nextInt();
         switch(opcionElegida){
             case 1:
-                bebida = new Comestible(new Bebida(TipoBebida.SPRITE, miCinema.getPrecioBebida()));
+                bebida = new Comestible(new Bebida(TipoBebida.SPRITE, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Sprite");
                 break;
             case 2:
-                bebida = new Comestible(new Bebida(TipoBebida.MANAOS, miCinema.getPrecioBebida()));
+                bebida = new Comestible(new Bebida(TipoBebida.MANAOS, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Manaos");
                 break;
             case 3:
-                bebida = new Comestible(new Bebida(TipoBebida.PEPSI, miCinema.getPrecioBebida()));
+                bebida = new Comestible(new Bebida(TipoBebida.PEPSI, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Pepsi");
                 break;
             case 4:
-                bebida = new Comestible(new Bebida(TipoBebida.AGUA, miCinema.getPrecioBebida()));
+                bebida = new Comestible(new Bebida(TipoBebida.AGUA, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Agua Mineral");
                 break;
             case 5:
-                bebida = new Comestible(new Bebida(TipoBebida.JUGO, miCinema.getPrecioBebida()));
+                bebida = new Comestible(new Bebida(TipoBebida.JUGO, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Jugo de Frutas");
                 break;
             case 6:
-                bebida = new Comestible(new Bebida(TipoBebida.MIRINDA, miCinema.getPrecioBebida()));
+                bebida = new Comestible(new Bebida(TipoBebida.MIRINDA, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Mirinda");
                 break;
             default:
