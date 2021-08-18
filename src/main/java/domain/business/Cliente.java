@@ -9,7 +9,9 @@ public class Cliente {
     private String email;
     private String fechaDeNacimiento;
     private int nroDocumento;
-    private ArrayList<Ticket> tickets = new ArrayList<>();
+    // Queda Hardcodeada la Billetera Virtual
+    private BilleteraVirtual billeteraVirtual = new BilleteraVirtual(10000);
+    private ArrayList<Ticket> carrito = new ArrayList<>();
 
     // Getters and Setters
     public String getNombre() { return nombre; }
@@ -33,16 +35,18 @@ public class Cliente {
     public void setNroDocumento(int nroDocumento) { this.nroDocumento = nroDocumento; }
 
     public ArrayList<Ticket> obtenerCarrito() {
-        return tickets;
+        return carrito;
     }
 
     public void setCarrito(ArrayList<Ticket> carrito) {
-        this.tickets = carrito;
+        this.carrito = carrito;
     }
 
     public void agregarAlCarrito(Ticket nuevaTicket) {
-        this.tickets.add(nuevaTicket);
+        this.carrito.add(nuevaTicket);
     }
+
+    public BilleteraVirtual getBilleteraVirtual() { return billeteraVirtual; }
 
     // Constructor
     public Cliente() {}
@@ -57,6 +61,11 @@ public class Cliente {
 
     // Metodos
     public void comprar(Ticket nuevoTicket) {
-        agregarAlCarrito(nuevoTicket);
+        if(this.getBilleteraVirtual().debitar(nuevoTicket.obtenerPrecioFinal())) {
+            agregarAlCarrito(nuevoTicket);
+        }
+        else {
+            System.out.println("ERROR 404: MONEY NOT FOUND.");
+        }
     }
 }

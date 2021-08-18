@@ -14,7 +14,7 @@ public class PreciosDAO {
     // Cambio de Precios
     public void cambiarPrecioEntrada(double precioEntrada) {
 
-        String consulta = "UPDATE precios SET precio_entrada = '" + precioEntrada + "';";
+        String consulta = "UPDATE venta SET precio = '" + precioEntrada + "' WHERE descripcion = 'precio_entrada';";
 
         try {
             this.conn = newConnection();
@@ -33,7 +33,7 @@ public class PreciosDAO {
 
     public void cambiarPrecioPochoclos(double precioPochoclos) {
 
-        String consulta = "UPDATE precios SET precio_pochoclos = '" + precioPochoclos + "';";
+        String consulta = "UPDATE venta SET precio = '" + precioPochoclos + "' WHERE descripcion = 'precio_pochoclos';";
 
         try {
             this.conn = newConnection();
@@ -52,7 +52,7 @@ public class PreciosDAO {
 
     public void cambiarPrecioBebidas(double precioBebida) {
 
-        String consulta = "UPDATE precios SET precio_bebidas = '" + precioBebida + "';";
+        String consulta = "UPDATE venta SET precio = '" + precioBebida + "' WHERE descripcion = 'precio_bebidas';";
 
         try {
             this.conn = newConnection();
@@ -71,7 +71,7 @@ public class PreciosDAO {
 
     public void cambiarPrecioNachos(double precioNachos) {
 
-        String consulta = "UPDATE precios SET precio_nachos = '" + precioNachos + "';";
+        String consulta = "UPDATE venta SET precio = '" + precioNachos + "' WHERE descripcion = 'precio_nachos';";
 
         try {
             this.conn = newConnection();
@@ -92,7 +92,7 @@ public class PreciosDAO {
     // Obtener los Precios
     public double obtenerPrecioEntrada() {
 
-        String consulta = "SELECT precio_entrada FROM precios;";
+        String consulta = "SELECT precio FROM venta WHERE descripcion = 'precio_entrada';";
 
         try {
             this.conn = newConnection();
@@ -102,7 +102,7 @@ public class PreciosDAO {
             ResultSet rs = stmt.executeQuery(consulta);
             rs.next();
 
-            double precioEntrada = rs.getDouble("precio_entrada");
+            double precioEntrada = rs.getDouble("precio");
 
             return precioEntrada;
 
@@ -115,7 +115,7 @@ public class PreciosDAO {
 
     public double obtenerPrecioPochoclos() {
 
-        String consulta = "SELECT precio_pochoclos FROM precios;";
+        String consulta = "SELECT precio FROM venta WHERE descripcion = 'precio_pochoclos';";
 
         try {
             this.conn = newConnection();
@@ -125,7 +125,7 @@ public class PreciosDAO {
             ResultSet rs = stmt.executeQuery(consulta);
             rs.next();
 
-            double precioPochoclos = rs.getDouble("precio_pochoclos");
+            double precioPochoclos = rs.getDouble("precio");
 
             return precioPochoclos;
 
@@ -138,7 +138,7 @@ public class PreciosDAO {
 
     public double obtenerPrecioBebidas() {
 
-        String consulta = "SELECT precio_bebidas FROM precios;";
+        String consulta = "SELECT precio FROM venta WHERE descripcion = 'precio_bebidas';";
 
         try {
             this.conn = newConnection();
@@ -148,7 +148,7 @@ public class PreciosDAO {
             ResultSet rs = stmt.executeQuery(consulta);
             rs.next();
 
-            double precioBebidas = rs.getDouble("precio_bebidas");
+            double precioBebidas = rs.getDouble("precio");
 
             return precioBebidas;
 
@@ -161,7 +161,7 @@ public class PreciosDAO {
 
     public double obtenerPrecioNachos() {
 
-        String consulta = "SELECT precio_nachos FROM precios;";
+        String consulta = "SELECT precio FROM venta WHERE descripcion = 'precio_nachos';";
 
         try {
             this.conn = newConnection();
@@ -171,7 +171,7 @@ public class PreciosDAO {
             ResultSet rs = stmt.executeQuery(consulta);
             rs.next();
 
-            double precioNachos = rs.getDouble("precio_nachos");
+            double precioNachos = rs.getDouble("precio");
 
             return precioNachos;
 

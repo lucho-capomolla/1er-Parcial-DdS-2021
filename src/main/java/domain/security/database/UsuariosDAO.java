@@ -33,6 +33,7 @@ public class UsuariosDAO {
                 String email = rs.getString("email");
                 String contrasenia = rs.getString("contrasenia");
                 String rol = rs.getString("rol");
+                int idCliente = rs.getInt("id_cliente");
 
                 TipoRol mapeoRol = null;
                 if(rol.equals("ADMIN")) {
@@ -42,7 +43,7 @@ public class UsuariosDAO {
                     mapeoRol = TipoRol.USER;
                 }
 
-                Usuario usuarioEncontrado = new Usuario(email, contrasenia, mapeoRol);
+                Usuario usuarioEncontrado = new Usuario(email, contrasenia, mapeoRol, idCliente);
                 usuarios.add(usuarioEncontrado);
             }
             return usuarios;

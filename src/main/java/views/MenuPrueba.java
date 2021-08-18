@@ -7,11 +7,11 @@ import domain.business.comestibles.*;
 import domain.business.pelicula.Pelicula;
 import domain.security.Usuario;
 import domain.security.database.ClienteDAO;
+import domain.security.database.UsuarioDAO;
 
 import java.util.Scanner;
 
 public class MenuPrueba {
-
 
     public void iniciarMenu() {
         Scanner entrada = new Scanner(System.in);
@@ -67,22 +67,27 @@ public class MenuPrueba {
             email = entrada.nextLine();
             System.out.print("Ingrese su contraseña: ");
             contrasenia = entrada.nextLine();
-            contador--;
+
             if(contador == 0) {
                 System.out.println("Se acabaron los intentos, volviendo al Menú Principal...");
                 return;
             }
+            contador--;
         }
         Usuario usuarioLogin = miCinema.buscarUsuario(email);
         ClienteDAO clienteDAO = new ClienteDAO();
-        usuarioLogin.setCliente(clienteDAO.buscarCliente(email));
+        //usuarioLogin.setCliente(clienteDAO.buscarCliente(email));
 
         if(usuarioLogin.getRol().puedoAdministrarPrecios()) {
-            System.out.println("-----ADMIN-----");
+            // Es para indicar que ingresaste como ADMIN
+            System.out.println("");
+            System.out.println("                       -----ADMIN-----");
             this.administrarPrecios();
         }
         else {
-            System.out.println("-----USER-----");
+            // Es para indicar que ingresaste como USER
+            System.out.println("");
+            System.out.println("                       -----USER-----");
             this.inicioCliente(usuarioLogin);
         }
     }
@@ -118,12 +123,17 @@ public class MenuPrueba {
 
         System.out.println("A continuación, le pediremos los datos para crear la Cuenta en nuestro Sistema: ");
         Usuario nuevoUsuario = miCinema.crearUsuario(email, contrasenia);
-        nuevoUsuario.setCliente(this.crearCliente(email));
+
+        ClienteDAO clienteDAO = new ClienteDAO();
+        int idCliente = this.crearCliente(email);
+        nuevoUsuario.setCliente(clienteDAO.buscarCliente(idCliente));
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.insertIDCliente(idCliente);
         miCinema.agregarUsuario(nuevoUsuario);
 
     }
 
-    private Cliente crearCliente(String email) {
+    private int crearCliente(String email) {
         Scanner entrada = new Scanner(System.in);
         ClienteDAO clienteDAO = new ClienteDAO();
 
@@ -136,9 +146,9 @@ public class MenuPrueba {
         System.out.println("    - Ingrese su documento: ");
         int documento = entrada.nextInt();
 
-        clienteDAO.crearCliente(email, nombre, apellido, fechaNacimiento, documento);
-        Cliente nuevoCliente = new Cliente(nombre, apellido, email, fechaNacimiento, documento);
-        return nuevoCliente;
+        return clienteDAO.crearCliente(email, nombre, apellido, fechaNacimiento, documento);
+       // Cliente nuevoCliente = new Cliente(nombre, apellido, email, fechaNacimiento, documento);
+       // return nuevoCliente;
     }
 
 
@@ -166,7 +176,7 @@ public class MenuPrueba {
         while(!salir) {
             System.out.println("• Para consultar los precios de los Comestibles y la Entrada, ingrese 1.");
             System.out.println("• Para cambiar los precios, ingrese 2.");
-            System.out.println("• Para finalizar, ingrese 3.");
+            System.out.println("• Para volver al Menú Principal, ingrese 3.");
 
             switch(entrada.nextInt()) {
                 case 1: // Consultar precios
@@ -185,7 +195,7 @@ public class MenuPrueba {
         }
     }
 
-    private void consultarPrecios() {
+    public void consultarPrecios() {
         Cinema miCinema = Cinema.getInstance();
 
         System.out.println("Los precios de los Comestibles y la Entrada estándar son los siguientes:");
@@ -243,16 +253,17 @@ public class MenuPrueba {
     // SIENDO CLIENTE
     private void inicioCliente(Usuario usuarioLogin) {
         Scanner entrada = new Scanner(System.in);
-        Cinema miCinema = Cinema.getInstance();
+        //Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
 
         while(!salir) {
 
+            System.out.println("-----------------------MENÚ PRINCIPAL------------------------");
             System.out.println("• Si desea comprar una Entrada para una Película, ingrese 1.");
             System.out.println("• Si desea comprar alguna Bebida, Pochoclos, Nachos o un Combo, ingrese 2.");
-            System.out.println("• Si desea finalizar, ingrese 3.");
-
+            System.out.println("• Si desea cerrar sesión, ingrese 3.");
             int opcionElegida = entrada.nextInt();
+            System.out.println("");
 
             switch(opcionElegida) {
                 case 1: //Comprar Entrada
@@ -311,11 +322,12 @@ public class MenuPrueba {
 
         while(!salir) {
             System.out.println("--------COMPRAS--------");
-            System.out.println("    - Si desea consultar los precios, ingrese 1.");
-            System.out.println("    - Si desea comprar solo un producto, ingrese 2.");
+            System.out.println("    - Si desea consultar los Precios, ingrese 1.");
+            System.out.println("    - Si desea comprar solo un Producto, ingrese 2.");
             System.out.println("    - Si desea preparar un Combo, ingrese 3.");
-
+            System.out.println("    - Si desea volver al Menú Principal, ingrese 4.");
             int opcionElegida = entrada.nextInt();
+            System.out.println("");
 
             switch(opcionElegida) {
                 case 1: // Mostrar Menú
@@ -323,10 +335,15 @@ public class MenuPrueba {
                     break;
                 case 2: // Para comprar solamente un producto, sin necesidad de armar un Combo
                     producto = this.eleccionComestible();
-                    salir = true;
+                    if(producto != null) {
+                        salir = true;
+                    }
                     break;
                 case 3: // Preparar Combo
                     producto = this.prepararCombo();
+                    //salir = true;
+                    break;
+                case 4:
                     salir = true;
                     break;
                 default:
@@ -335,12 +352,23 @@ public class MenuPrueba {
             }
         }
 
+/*
+ TODO:   - A) acumular todo en un carrito de compras del cliente, y pagar al final
+         - B) pagar cada producto a medida que lo va "comprando"
+ */
+
+
+
+        //this.debitar(producto);
         System.out.println("¡Producto comprado!");
         System.out.println("Costo: $" + producto.obtenerPrecio());
+
+        Cinema miCinema = Cinema.getInstance();
 
         Ticket nuevoTicket = new Ticket();
         nuevoTicket.agregarProductoATicket(producto);
         nuevoTicket.generarTicket();
+        miCinema.agregarTicket(nuevoTicket);
         cliente.comprar(nuevoTicket);
 
     }
@@ -356,8 +384,10 @@ public class MenuPrueba {
         System.out.println("    - Si desea comprar un Balde de Pochoclos, ingrese 3.");
         System.out.println("    - Si desea comprar una Bebida, ingrese 4.");
         System.out.println("    - Si desea comprar Nachos, ingrese 5.");
-
+        System.out.println("    - Si no quiere comprar nada, ingrese 6.");
         int opcionElegida = entrada.nextInt();
+        System.out.println("");
+
         switch(opcionElegida) {
             case 1: // Comprar Bolsita
                 comestible = new Comestible(new Bolsita(miCinema.obtenerPrecioPochoclos()));
@@ -377,6 +407,8 @@ public class MenuPrueba {
             case 5: // Comprar Nachos
                 comestible = new Comestible(new Nachos(miCinema.obtenerPrecioNachos()));
                 comestible.setArticulo("Nachos");
+                break;
+            case 6:
                 break;
             default:
                 System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
@@ -398,8 +430,10 @@ public class MenuPrueba {
         System.out.println("    - Si desea comprar un Agua Mineral, ingrese 4.");
         System.out.println("    - Si desea comprar un Jugo de Frutas, ingrese 5.");
         System.out.println("    - Si desea comprar una Mirinda, ingrese 6.");
-
+        System.out.println("    - Si no quiere comprar nada, ingrese 7.");
         int opcionElegida = entrada.nextInt();
+        System.out.println("");
+
         switch(opcionElegida){
             case 1:
                 bebida = new Comestible(new Bebida(TipoBebida.SPRITE, miCinema.obtenerPrecioBebidas()));
@@ -425,6 +459,8 @@ public class MenuPrueba {
                 bebida = new Comestible(new Bebida(TipoBebida.MIRINDA, miCinema.obtenerPrecioBebidas()));
                 bebida.setArticulo("Mirinda");
                 break;
+            case 7:
+                break;
             default:
                 System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
                 break;
@@ -439,25 +475,20 @@ public class MenuPrueba {
         Combo combo = new Combo();
         combo.setArticulo("Combo Bestia Cinema");
 
-        System.out.println("-----PREPARACION COMBO-----");
-
         while(!salir) {
 
-            System.out.println("    - Si desea agregar comida en el combo, ingrese 1.");
-            System.out.println("    - Si desea agregar una bebida en el combo, ingrese 2.");
-            System.out.println("    - Si desea finalizar, ingrese 3.");
-
+            System.out.println("-------PREPARACION COMBO-------");
+            System.out.println("    - Si desea agregar Comida/Bebida en el combo, ingrese 1.");
+            System.out.println("    - Si no quiere realizar un Combo, ingrese 2.");
             int opcionElegida = entrada.nextInt();
+            System.out.println("");
+
             switch(opcionElegida) {
                 case 1:
                     Comestible comida = this.eleccionComestible();
                     combo.agregarProducto(comida);
                     break;
                 case 2:
-                    Comestible bebida = this.eleccionBebida();
-                    combo.agregarProducto(bebida);
-                    break;
-                case 3:
                     salir = true;
                     break;
                 default:

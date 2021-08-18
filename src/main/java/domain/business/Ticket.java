@@ -1,6 +1,7 @@
 package domain.business;
 
 import domain.business.comestibles.Producto;
+import domain.security.database.TicketDAO;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -71,6 +72,9 @@ public class Ticket {
         DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         this.setFechaCreacion(fecha.format(date));
         this.setPrecioTotal(this.obtenerPrecioFinal());
+
+        TicketDAO ticketDAO = new TicketDAO();
+        ticketDAO.almacenarTicket(this.getIdTicket(), this.getHoraCreacion(), this.getFechaCreacion(), this.getPrecioTotal());
     }
 
     public void obtenerProductos() {
@@ -79,7 +83,7 @@ public class Ticket {
         }
     }
 
-    private double obtenerPrecioFinal() {
+    public double obtenerPrecioFinal() {
         double precioFinal = 0;
         for(Compra compra : productosListados) {
             precioFinal += compra.obtenerPrecio();

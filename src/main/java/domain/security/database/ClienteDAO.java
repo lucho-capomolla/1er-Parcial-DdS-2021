@@ -12,7 +12,7 @@ public class ClienteDAO {
 
     private Connection conn;
 
-    public void crearCliente(String email, String nombre, String apellido, String fechaNacimiento, int nroDocumento) {
+    public int crearCliente(String email, String nombre, String apellido, String fechaNacimiento, int nroDocumento) {
 
         String consulta = "INSERT INTO cliente (email, nombre, apellido, fecha_nacimiento, nro_documento) VALUES ('" + email + "','" + nombre + "','" + apellido + "','" + fechaNacimiento + "','" + nroDocumento + "');";
 
@@ -25,15 +25,22 @@ public class ClienteDAO {
             // Execute the PreparedStatement
             stmt.executeUpdate();
 
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next())
+                return generatedKeys.getInt(1);
+            else
+                return 0;
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("No se pudo ingresar el Cliente a la BD.");
+            return 0;
         }
     }
 
 
-    public Cliente buscarCliente(String emailBuscado) {
-        String consulta = "SELECT * FROM cliente WHERE email = '" + emailBuscado + "';";
+    public Cliente buscarCliente(int idCliente) {
+        String consulta = "SELECT * FROM cliente WHERE id_cliente = '" + idCliente + "';";
 
         try {
             this.conn = newConnection();

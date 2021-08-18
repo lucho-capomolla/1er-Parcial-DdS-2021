@@ -1,6 +1,7 @@
 package domain.security;
 
 import domain.business.Cliente;
+import domain.security.database.ClienteDAO;
 
 public class Usuario{
     private String email;
@@ -44,7 +45,7 @@ public class Usuario{
     // Constructor
     public Usuario() {}
 
-    public Usuario(String email, String contrasenia, TipoRol rol) {
+    public Usuario(String email, String contrasenia, TipoRol rol, int idCliente) {
         this.email = email;
         this.contrasenia = contrasenia;
         if(rol == TipoRol.ADMIN) {
@@ -53,6 +54,8 @@ public class Usuario{
         else if(rol == TipoRol.USER) {
             this.rol = new User();
         }
+        ClienteDAO clienteDAO = new ClienteDAO();
+        this.cliente = clienteDAO.buscarCliente(idCliente);
     }
 
 }
