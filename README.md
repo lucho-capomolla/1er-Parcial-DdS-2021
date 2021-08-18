@@ -25,7 +25,6 @@ Las películas se estrenan los días jueves y duran en cartelera 3 semanas.
 El cliente podrá elegir entre los dos productos o ambos, en caso de elegir tres o más en un combo se le otorgará un descuento del 10%.
 
 Requerimientos no funcionales: 
-- Contabilizar las ganancias que tuvo el cine por cada mes.
 - Cuando el cliente esté por efectuar la compra aparecerá un cartel preguntadole si está seguro que desea realizarla o si quisiera quitar algún producto del carrito. 
 - La sesión del usuario deberá cerrarse luego de 5 minutos de inactividad.
 - Si existieran ya asientos tomados, estos aparecerán en gris y no permitirá seleccionarlos. De no haber más butacas, se mostrará el mapa deshabilitado y una leyenda: “Función agotada”.
