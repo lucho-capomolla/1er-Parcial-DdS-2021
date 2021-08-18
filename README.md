@@ -1,10 +1,13 @@
 # Diseño de Sistemas - 1er Parcial 
 
-**Integrantes**\
-*Capomolla, Luciano. 160.843-5*\
-*D'Antoni Gammuto, Priscila Sharon. 167.275-7*
+### Integrantes
+Capomolla, Luciano\
+*Legajo: 160.843-5*
 
-**Link**\
+D'Antoni Gammuto, Priscila Sharon\
+*Legajo: 167.275-7*
+
+### Link
 [Google Drive](https://drive.google.com/drive/u/1/folders/1LmEufCj5gzect8zBlHH6bKDe1CgIHYDt)
 
 ## Cinema :clapper: :popcorn:	
