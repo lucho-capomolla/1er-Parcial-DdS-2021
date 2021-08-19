@@ -1,9 +1,9 @@
 # Diseño de Sistemas - 1er Parcial 
 
 ### Integrantes
-Capomolla, Luciano\
+Capomolla, Luciano
 
-D'Antoni G., Priscila S.\
+D'Antoni G., Priscila S.
 
 ### Link
 [Google Drive](https://drive.google.com/drive/u/1/folders/1LmEufCj5gzect8zBlHH6bKDe1CgIHYDt)
