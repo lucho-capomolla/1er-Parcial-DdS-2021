@@ -9,6 +9,8 @@ public class Usuario{
     private Cliente cliente;
     private Rol rol;
 
+    //private int idCliente;
+
     // Getters and Setters
     public String getEmail() {
         return email;
@@ -54,6 +56,7 @@ public class Usuario{
         else if(rol == TipoRol.USER) {
             this.rol = new User();
         }
+        //this.idCliente = idCliente;
         ClienteDAO clienteDAO = new ClienteDAO();
         this.cliente = clienteDAO.buscarCliente(idCliente);
     }

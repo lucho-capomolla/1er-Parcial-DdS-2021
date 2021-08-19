@@ -37,9 +37,9 @@ public class UsuarioDAO {
         }
     }
 
-    public void insertIDCliente(int idCliente) {
+    public void insertIDCliente(int idCliente, String email) {
 
-        String consulta = "INSERT INTO usuario (id_cliente) VALUES ('" + idCliente + "');";
+        String consulta = "UPDATE usuario SET id_cliente = '" + idCliente + "' WHERE email = '" + email +"';";
 
         try {
             this.conn = newConnection();

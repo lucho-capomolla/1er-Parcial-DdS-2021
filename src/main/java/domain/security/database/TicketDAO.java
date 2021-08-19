@@ -11,9 +11,9 @@ public class TicketDAO {
 
     private Connection conn;
 
-    public void almacenarTicket(int id_ticket, String horaCreacion, String fechaCreacion, double precioTotal) {
+    public void almacenarTicket(int idTicket, String horaCreacion, String fechaCreacion, double precioTotal) {
 
-        String consulta = "INSERT INTO ticket (id_ticket, hora_creacion, fecha_creacion, precio_total) VALUES ('" + id_ticket + "','" + horaCreacion + "','" + fechaCreacion + "','" + precioTotal + "';";
+        String consulta = "INSERT INTO ticket (id_ticket, hora_creacion, fecha_creacion, precio_total) VALUES ('" + idTicket + "','" + horaCreacion + "','" + fechaCreacion + "','" + precioTotal + "');";
 
         try {
             this.conn = newConnection();
@@ -26,7 +26,7 @@ public class TicketDAO {
 
         } catch (SQLException ex) {
             // handle any errors
-            System.out.println("No se pudo actualizar el Precio de las Bebidas en la BD.");
+            System.out.println("No se pudo almacenar el Ticket en la BD.");
         }
     }
 

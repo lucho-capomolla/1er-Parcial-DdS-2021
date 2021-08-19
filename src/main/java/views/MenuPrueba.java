@@ -17,7 +17,6 @@ public class MenuPrueba {
         Scanner entrada = new Scanner(System.in);
         boolean salir = false;
         int opcionElegida;
-        Cinema miCinema = Cinema.getInstance();
 
         while(!salir) {
             System.out.println("---------------¡Bienvenido a Cinema!---------------");
@@ -57,15 +56,19 @@ public class MenuPrueba {
         int contador = 3;
 
         System.out.print("Ingrese su email: ");
+        System.out.print("> ");
         String email = entrada.nextLine();
         System.out.print("Ingrese su contraseña: ");
+        System.out.print("> ");
         String contrasenia = entrada.nextLine();
         contador--;
         while(!miCinema.validarUsuario(email, contrasenia)) {
             System.out.println("Datos incorrectos. Le quedan " + contador + " intentos restantes.");
             System.out.print("Ingrese su email: ");
+            System.out.print("> ");
             email = entrada.nextLine();
             System.out.print("Ingrese su contraseña: ");
+            System.out.print("> ");
             contrasenia = entrada.nextLine();
 
             if(contador == 0) {
@@ -98,37 +101,43 @@ public class MenuPrueba {
         boolean salir = false;
 
         System.out.println("Ingrese un email para crear el usuario: ");
+        System.out.print("> ");
         String email = entrada.nextLine();
 
         while(miCinema.buscarUsuario(email) != null) {
             System.out.println("Ese email ya está en uso. Ingrese otro email: ");
+            System.out.print("> ");
             email = entrada.nextLine();
         }
 
         System.out.println("Ingrese una contraseña: ");
+        System.out.print("> ");
         String contrasenia = entrada.nextLine();
 
         while(!miCinema.validarContrasenia(contrasenia)) {
             System.out.println("La contraseña no cumple con los parámetros de seguridad. Ingrese una nueva contraseña: ");
+            System.out.print("> ");
             contrasenia = entrada.nextLine();
         }
 
         System.out.println("Confirme la contraseña: ");
+        System.out.print("> ");
         String contraseniaCheck = entrada.nextLine();
 
         while(!contrasenia.equals(contraseniaCheck)){
             System.out.println("La contraseña no coincide. Confirme la contraseña nuevamente: ");
+            System.out.print("> ");
             contraseniaCheck = entrada.nextLine();
         };
 
         System.out.println("A continuación, le pediremos los datos para crear la Cuenta en nuestro Sistema: ");
         Usuario nuevoUsuario = miCinema.crearUsuario(email, contrasenia);
 
-        ClienteDAO clienteDAO = new ClienteDAO();
         int idCliente = this.crearCliente(email);
+        ClienteDAO clienteDAO = new ClienteDAO();
         nuevoUsuario.setCliente(clienteDAO.buscarCliente(idCliente));
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.insertIDCliente(idCliente);
+        usuarioDAO.insertIDCliente(idCliente, email);
         miCinema.agregarUsuario(nuevoUsuario);
 
     }
@@ -138,17 +147,19 @@ public class MenuPrueba {
         ClienteDAO clienteDAO = new ClienteDAO();
 
         System.out.println("    - Ingrese su nombre: ");
+        System.out.print("> ");
         String nombre = entrada.nextLine();
         System.out.println("    - Ingrese su apellido: ");
+        System.out.print("> ");
         String apellido = entrada.nextLine();
         System.out.println("    - Ingrese su fecha de nacimiento: ");
+        System.out.print("> ");
         String fechaNacimiento = entrada.nextLine();
         System.out.println("    - Ingrese su documento: ");
+        System.out.print("> ");
         int documento = entrada.nextInt();
 
         return clienteDAO.crearCliente(email, nombre, apellido, fechaNacimiento, documento);
-       // Cliente nuevoCliente = new Cliente(nombre, apellido, email, fechaNacimiento, documento);
-       // return nuevoCliente;
     }
 
 
@@ -174,10 +185,12 @@ public class MenuPrueba {
         boolean salir = false;
 
         while(!salir) {
+            System.out.println("---------------------------MENU PRINCIPAL--------------------------");
             System.out.println("• Para consultar los precios de los Comestibles y la Entrada, ingrese 1.");
             System.out.println("• Para cambiar los precios, ingrese 2.");
             System.out.println("• Para volver al Menú Principal, ingrese 3.");
-
+            System.out.print("> ");
+            System.out.print("");
             switch(entrada.nextInt()) {
                 case 1: // Consultar precios
                     this.consultarPrecios();
@@ -217,25 +230,30 @@ public class MenuPrueba {
             System.out.println("• Para cambiar el precio de los Nachos, ingrese 3.");
             System.out.println("• Para cambiar el precio estándar de las entradas, ingrese 4.");
             System.out.println("• Para finalizar, ingrese 5.");
+            System.out.print("> ");
 
             switch(entrada.nextInt()) {
                 case 1: // Cambiar precio Pochoclos
                     System.out.print("Ingrese el nuevo precio de los Pochoclos: $");
+                    System.out.print("> ");
                     miCinema.cambiarPrecioPochoclos(entrada.nextDouble());
                     System.out.println("Se actualizó el precio de los Pochoclos a $" + miCinema.obtenerPrecioPochoclos());
                     break;
                 case 2: // Cambiar precio Bebidas
                     System.out.print("Ingrese el nuevo precio de las Bebidas: $");
+                    System.out.print("> ");
                     miCinema.cambiarPrecioBebidas(entrada.nextDouble());
                     System.out.println("Se actualizó el precio de las Bebidas a $" + miCinema.obtenerPrecioBebidas());
                     break;
                 case 3: // Cambiar precio Nachos
                     System.out.print("Ingrese el nuevo precio de los Nachos: $");
+                    System.out.print("> ");
                     miCinema.cambiarPrecioNachos(entrada.nextDouble());
                     System.out.println("Se actualizó el precio de los Nachos a $" + miCinema.obtenerPrecioNachos());
                     break;
                 case 4: // Cambiar precio estándar de Entradas
                     System.out.print("Ingrese el nuevo precio estándar de las Entradas: $");
+                    System.out.print("> ");
                     miCinema.cambiarPrecioEntrada(entrada.nextDouble());
                     System.out.println("Se actualizó el precio estándar de las Entradas a $" + miCinema.obtenerPrecioEntrada());
                     break;
@@ -262,6 +280,7 @@ public class MenuPrueba {
             System.out.println("• Si desea comprar una Entrada para una Película, ingrese 1.");
             System.out.println("• Si desea comprar alguna Bebida, Pochoclos, Nachos o un Combo, ingrese 2.");
             System.out.println("• Si desea cerrar sesión, ingrese 3.");
+            System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             System.out.println("");
 
@@ -296,6 +315,7 @@ public class MenuPrueba {
     A) Escribo el Titulo de la Pelicula (lo malo es si uno lo escribe mal)
     B) Listar las peliculas, y medio que "hardcodear", de forma que elija mediante un numero la pelicula deseada
  */
+            System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             switch(opcionElegida) {
                 case 1: // Mostrar peliculas en Cartelera
@@ -326,6 +346,7 @@ public class MenuPrueba {
             System.out.println("    - Si desea comprar solo un Producto, ingrese 2.");
             System.out.println("    - Si desea preparar un Combo, ingrese 3.");
             System.out.println("    - Si desea volver al Menú Principal, ingrese 4.");
+            System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             System.out.println("");
 
@@ -336,12 +357,16 @@ public class MenuPrueba {
                 case 2: // Para comprar solamente un producto, sin necesidad de armar un Combo
                     producto = this.eleccionComestible();
                     if(producto != null) {
+                        this.debitar(producto, cliente);
                         salir = true;
                     }
                     break;
                 case 3: // Preparar Combo
                     producto = this.prepararCombo();
-                    //salir = true;
+                    if(producto != null) {
+                        this.debitar(producto, cliente);
+                        salir = true;
+                    }
                     break;
                 case 4:
                     salir = true;
@@ -356,11 +381,8 @@ public class MenuPrueba {
  TODO:   - A) acumular todo en un carrito de compras del cliente, y pagar al final
          - B) pagar cada producto a medida que lo va "comprando"
  */
-
-
-
-        //this.debitar(producto);
-        System.out.println("¡Producto comprado!");
+        //this.debitar(producto, cliente);
+        /*System.out.println("¡Producto comprado!");
         System.out.println("Costo: $" + producto.obtenerPrecio());
 
         Cinema miCinema = Cinema.getInstance();
@@ -369,7 +391,7 @@ public class MenuPrueba {
         nuevoTicket.agregarProductoATicket(producto);
         nuevoTicket.generarTicket();
         miCinema.agregarTicket(nuevoTicket);
-        cliente.comprar(nuevoTicket);
+        cliente.comprar(nuevoTicket);*/
 
     }
 
@@ -385,6 +407,7 @@ public class MenuPrueba {
         System.out.println("    - Si desea comprar una Bebida, ingrese 4.");
         System.out.println("    - Si desea comprar Nachos, ingrese 5.");
         System.out.println("    - Si no quiere comprar nada, ingrese 6.");
+        System.out.print("> ");
         int opcionElegida = entrada.nextInt();
         System.out.println("");
 
@@ -431,6 +454,7 @@ public class MenuPrueba {
         System.out.println("    - Si desea comprar un Jugo de Frutas, ingrese 5.");
         System.out.println("    - Si desea comprar una Mirinda, ingrese 6.");
         System.out.println("    - Si no quiere comprar nada, ingrese 7.");
+        System.out.print("> ");
         int opcionElegida = entrada.nextInt();
         System.out.println("");
 
@@ -480,6 +504,7 @@ public class MenuPrueba {
             System.out.println("-------PREPARACION COMBO-------");
             System.out.println("    - Si desea agregar Comida/Bebida en el combo, ingrese 1.");
             System.out.println("    - Si no quiere realizar un Combo, ingrese 2.");
+            System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             System.out.println("");
 
@@ -499,5 +524,21 @@ public class MenuPrueba {
 
         return combo;
     }
+
+    // TODO: falta meterlo en el Diagrama de clases
+    private void debitar(Producto producto, Cliente cliente) {
+
+        System.out.println("¡Producto comprado!");
+        System.out.println("Costo: $" + producto.obtenerPrecio());
+
+        Cinema miCinema = Cinema.getInstance();
+
+        Ticket nuevoTicket = new Ticket();
+        nuevoTicket.agregarProductoATicket(producto);
+        nuevoTicket.generarTicket();
+        miCinema.agregarTicket(nuevoTicket);
+        cliente.comprar(nuevoTicket);
+    }
+
 
 }
