@@ -1,12 +1,10 @@
-package domain.security.database;
+package domain.database;
 
 import domain.business.Cliente;
-import domain.security.TipoRol;
-import domain.security.Usuario;
 
 import java.sql.*;
 
-import static domain.security.database.ConexionDB.newConnection;
+import static domain.database.ConexionDB.newConnection;
 
 public class ClienteDAO {
 

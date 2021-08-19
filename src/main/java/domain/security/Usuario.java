@@ -1,7 +1,7 @@
 package domain.security;
 
 import domain.business.Cliente;
-import domain.security.database.ClienteDAO;
+import domain.database.ClienteDAO;
 
 public class Usuario{
     private String email;

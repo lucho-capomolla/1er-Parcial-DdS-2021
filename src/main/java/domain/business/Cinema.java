@@ -1,12 +1,11 @@
 package domain.business;
 
 import domain.business.pelicula.Pelicula;
-import domain.security.Admin;
 import domain.security.TipoRol;
 import domain.security.Usuario;
-import domain.security.database.PreciosDAO;
-import domain.security.database.UsuarioDAO;
-import domain.security.database.UsuariosDAO;
+import domain.database.PreciosDAO;
+import domain.database.UsuarioDAO;
+import domain.database.UsuariosDAO;
 import domain.security.password.ValidadorPassword;
 
 import java.util.ArrayList;

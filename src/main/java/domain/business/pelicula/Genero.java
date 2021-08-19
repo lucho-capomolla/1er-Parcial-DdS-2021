@@ -1,12 +1,20 @@
 package domain.business.pelicula;
 
-public enum Genero {
-    TERROR,
-    AVENTURA,
-    CIENCIA_FICCION,
-    ROMANCE,
-    DRAMA,
-    ACCION,
-    SUSPENSO,
-    COMEDIA
+public class Genero {
+    public int id;
+    public String name;
+
+    public String getGenero(int idGenero) {
+        if(id == idGenero) {
+            return name;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public void mostrarGenero() {
+        System.out.println("ID:" + id);
+        System.out.println("Nombre: " + name);
+    }
 }

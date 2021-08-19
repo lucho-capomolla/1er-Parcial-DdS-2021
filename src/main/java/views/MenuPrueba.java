@@ -5,15 +5,22 @@ import domain.business.Cliente;
 import domain.business.Ticket;
 import domain.business.comestibles.*;
 import domain.business.pelicula.Pelicula;
+import domain.business.pelicula.apiPelicula.ApiMovies;
+import domain.business.pelicula.apiPelicula.entidades.ListMovie;
+import domain.business.pelicula.apiPelicula.entidades.Movie;
 import domain.security.Usuario;
-import domain.security.database.ClienteDAO;
-import domain.security.database.UsuarioDAO;
+import domain.database.ClienteDAO;
+import domain.database.UsuarioDAO;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.System.exit;
 
 public class MenuPrueba {
 
-    public void iniciarMenu() {
+    public void iniciarMenu() throws IOException {
         Scanner entrada = new Scanner(System.in);
         boolean salir = false;
         int opcionElegida;
@@ -22,8 +29,9 @@ public class MenuPrueba {
             System.out.println("---------------¡Bienvenido a Cinema!---------------");
             System.out.println("- Si desea iniciar sesión, ingrese 1.");
             System.out.println("- Si no tiene un usuario, puede crearlo ingresando 2.");
-            System.out.println("- Si quiere ver las películas que estan en cartelera, ingrese 3.");
-            System.out.println("- Si desea salir, ingrese 4.");
+            System.out.println("- Si quiere consultar las películas que estan en cartelera, ingrese 3.");
+            System.out.println("- Si quiere consultar los próximos estrenos, ingrese 4.");
+            System.out.println("- Si desea salir, ingrese 5.");
             System.out.print("> ");
             opcionElegida = entrada.nextInt();
             System.out.println("-----------------------------------------------------");
@@ -38,7 +46,10 @@ public class MenuPrueba {
                 case 3: // Mostrar Peliculas en Cartelera
                     this.mostrarPeliculas();
                     break;
-                case 4: // Salir del Sistema
+                case 4: // Mostrar Próximos Estrenos
+                    this.mostrarProximosEstrenos();
+                    break;
+                case 5: // Salir del Sistema
                     salir = true;
                     break;
                 default:
@@ -47,9 +58,10 @@ public class MenuPrueba {
             }
         }
         System.out.println("¡Gracias por utilizar Cinema! Lo esperamos nuevamente.");
+        exit(0);
     }
 
-    public void iniciarSesion() {
+    public void iniciarSesion() throws IOException {
         // Una vez que inicio sesion, voy a tener diferentes opciones de acuerdo al Rol que tenga
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
@@ -163,20 +175,39 @@ public class MenuPrueba {
     }
 
 
-    public void mostrarPeliculas() {
-        int contador = 1;
+    public void mostrarPeliculas() throws IOException {
+        int contador = 0;
+        Scanner entrada = new Scanner(System.in);
+        ApiMovies apiMovies = new ApiMovies();
+        ListMovie pelis = apiMovies.peliculasEstreno();
+
+        for(Movie movie : pelis.getResults()) {
+            System.out.println("ID Película: " + contador + ":");
+            System.out.println("    - Titulo: " + pelis.getResults().get(contador).getTitle());
+            System.out.println("    - Título original: " + pelis.getResults().get(contador).getOriginal_title());
+            System.out.println("    - Trama: " + pelis.getResults().get(contador).getOverview());
+            System.out.println("    - Genero: " + apiMovies.obtenerGenero(pelis.getResults().get(contador).getGenre_ids()));
+            System.out.println("    - Fecha de Estreno: " + pelis.getResults().get(contador).getRelease_date());
+            System.out.println("    - Lenguaje original: " + pelis.getResults().get(contador).getOriginal_language());
+            System.out.println();
+            contador++;
+        }
+        /*
         Cinema miCinema = Cinema.getInstance();
         for(Pelicula pelicula : miCinema.getCartelera()) {
             System.out.println("Película " + contador + ":");
             System.out.println("    - Titulo: " + pelicula.getTitulo());
-            System.out.println("    - Genero: " + pelicula.getGenero());
+            System.out.println("    - Genero: " + pelicula.getGeneros());
             System.out.println("    - Duración en minutos: " + pelicula.getDuracionEnMin());
             System.out.println("    - Fecha de Estreno: " + pelicula.getFechaDeEstreno());
             System.out.println();
             contador++;
-        }
+        }*/
     }
 
+    public void mostrarProximosEstrenos() {
+
+    }
 
     // SIENDO ADMIN
     private void administrarPrecios() {
@@ -269,7 +300,7 @@ public class MenuPrueba {
 
 
     // SIENDO CLIENTE
-    private void inicioCliente(Usuario usuarioLogin) {
+    private void inicioCliente(Usuario usuarioLogin) throws IOException {
         Scanner entrada = new Scanner(System.in);
         //Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
@@ -301,27 +332,42 @@ public class MenuPrueba {
         }
     }
 
-    private void comprarEntrada(Cliente cliente) {
+    private void comprarEntrada(Cliente cliente) throws IOException {
         Scanner entrada = new Scanner(System.in);
         //Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
+        ApiMovies apiMovies = new ApiMovies();
+        ListMovie pelis = apiMovies.peliculasEstreno();
+        int cantidadPeliculas = pelis.getResults().size();
 
         while(!salir) {
 
-
-
-/*
- ToDo: para elegir una pelicula, tendria que listar todas las peliculas, y si la quiero elegir:
-    A) Escribo el Titulo de la Pelicula (lo malo es si uno lo escribe mal)
-    B) Listar las peliculas, y medio que "hardcodear", de forma que elija mediante un numero la pelicula deseada
- */
+           // if(opcionElegida.equals(1))
+             //   Horarios de la funcion "[14:00,15:15,16:45,18:30,20:30,00:00]"
+            System.out.println("--------CINE--------");
+            System.out.println("    - Si desea consultar la Cartelera de Películas, ingrese 1.");
+            System.out.println("    - Si desea comprar una Entrada, ingrese 2.");
+            System.out.println("    - Si desea volver al Menú Principal, ingrese 3.");
             System.out.print("> ");
             int opcionElegida = entrada.nextInt();
+
             switch(opcionElegida) {
                 case 1: // Mostrar peliculas en Cartelera
                     this.mostrarPeliculas();
                     break;
                 case 2: // Elegir una de esas peliculas para comprar la Entrada
+                    System.out.println("Ingrese el ID de la Película que desea ver: ");
+                    System.out.print("> ");
+                    opcionElegida = entrada.nextInt();
+
+                    if(0 > opcionElegida || opcionElegida > cantidadPeliculas-1) {
+                        System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
+                        System.out.println("Ingrese el ID de la Película que desea ver: ");
+                        System.out.print("> ");
+                        opcionElegida = entrada.nextInt();
+                    }
+
+                    System.out.println("Usted ha elegido la película: " + pelis.getResults().get(opcionElegida).getTitle());
                     break;
                 case 3: // Salir
                     salir = true;
@@ -376,7 +422,6 @@ public class MenuPrueba {
                     break;
             }
         }
-
 /*
  TODO:   - A) acumular todo en un carrito de compras del cliente, y pagar al final
          - B) pagar cada producto a medida que lo va "comprando"

@@ -1,11 +1,8 @@
-package domain.security.database;
-
-import domain.security.TipoRol;
-import domain.security.Usuario;
+package domain.database;
 
 import java.sql.*;
 
-import static domain.security.database.ConexionDB.newConnection;
+import static domain.database.ConexionDB.newConnection;
 
 public class PreciosDAO {
 

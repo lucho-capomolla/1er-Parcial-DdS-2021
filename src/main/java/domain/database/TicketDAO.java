@@ -1,11 +1,11 @@
-package domain.security.database;
+package domain.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static domain.security.database.ConexionDB.newConnection;
+import static domain.database.ConexionDB.newConnection;
 
 public class TicketDAO {
 

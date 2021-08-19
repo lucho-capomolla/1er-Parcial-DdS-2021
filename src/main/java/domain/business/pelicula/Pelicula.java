@@ -9,12 +9,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Pelicula {
+    private String idPelicula;
     private String titulo;
-    private String descripcion;
-    private String nombreDirector;
-    private Genero genero;
-    private int duracionEnMin;
+    private String tituloCompleto;
     private String fechaDeEstreno;
+    private String trama;
+    private String duracionEnMin;
+    private String duracionTotal;
+    private String generos;
+    private String director;
+    private String reparto;
     private String clasificacion;
 
     private EstadoPelicula estadoPelicula;
@@ -22,49 +26,60 @@ public class Pelicula {
 
 
     // Getters and Setters
-    public String getTitulo() {
-        return titulo;
-    }
+    public String getIdPelicula() { return idPelicula; }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    public void setIdPelicula(String idPelicula) { this.idPelicula = idPelicula; }
 
-    public int getDuracionEnMin() {
-        return duracionEnMin;
-    }
+    public String getTitulo() { return titulo; }
 
-    public void setDuracionEnMin(int duracionEnMin) {
-        this.duracionEnMin = duracionEnMin;
-    }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public Genero getGenero() {
-        return genero;
-    }
+    public String getTituloCompleto() { return tituloCompleto; }
 
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
+    public void setTituloCompleto(String tituloCompleto) { this.tituloCompleto = tituloCompleto; }
 
-    public String getFechaDeEstreno() {
-        return fechaDeEstreno;
-    }
+    public String getFechaDeEstreno() { return fechaDeEstreno; }
 
-    public void setFechaDeEstreno(String fechaDeEstreno) {
-        this.fechaDeEstreno = fechaDeEstreno;
-    }
+    public void setFechaDeEstreno(String fechaDeEstreno) { this.fechaDeEstreno = fechaDeEstreno; }
 
-    public void cambiarEstado(EstadoPelicula nuevoEstado) {
-        this.estadoPelicula = nuevoEstado;
-    }
+    public String getTrama() { return trama; }
+
+    public void setTrama(String trama) { this.trama = trama; }
+
+    public String getDuracionEnMin() { return duracionEnMin; }
+
+    public void setDuracionEnMin(String duracionEnMin) { this.duracionEnMin = duracionEnMin; }
+
+    public String getDuracionTotal() { return duracionTotal; }
+
+    public void setDuracionTotal(String duracionTotal) { this.duracionTotal = duracionTotal; }
+
+    public String getGeneros() { return generos; }
+
+    public void setGeneros(String generos) { this.generos = generos; }
+
+    public String getDirector() { return director; }
+
+    public void setDirector(String director) { this.director = director; }
+
+    public String getReparto() { return reparto; }
+
+    public void setReparto(String reparto) { this.reparto = reparto; }
+
+    public String getClasificacion() { return clasificacion; }
+
+    public void setClasificacion(String clasificacion) { this.clasificacion = clasificacion; }
+
+    public void setEstadoPelicula(EstadoPelicula estadoPelicula) { this.estadoPelicula = estadoPelicula; }
+
+    public EstadoPelicula getEstadoPelicula() { return estadoPelicula; }
+
+    public void cambiarEstado(EstadoPelicula estadoPelicula) { this.estadoPelicula = estadoPelicula; }
+
 
     // Constructor
-    public Pelicula(String titulo, int duracionEnMin, Genero genero, String fechaDeEstreno, double precioEntrada) {
-        this.titulo = titulo;
-        this.duracionEnMin = duracionEnMin;
-        this.genero = genero;
-        this.fechaDeEstreno = fechaDeEstreno;
-    }
+    public Pelicula() {}
+
 
     // Metodos
     public double calcularPrecio() {

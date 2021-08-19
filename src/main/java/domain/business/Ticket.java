@@ -1,7 +1,7 @@
 package domain.business;
 
 import domain.business.comestibles.Producto;
-import domain.security.database.TicketDAO;
+import domain.database.TicketDAO;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
