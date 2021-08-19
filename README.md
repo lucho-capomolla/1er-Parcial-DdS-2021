@@ -25,4 +25,4 @@ Las películas se estrenan los días jueves y duran en cartelera 3 semanas.
 Requerimientos no funcionales: 
 - Cuando el cliente esté por efectuar la compra aparecerá un cartel preguntadole si está seguro que desea realizarla o si quisiera quitar algún producto del carrito. 
 - La sesión del usuario deberá cerrarse luego de 5 minutos de inactividad.
-- Si existieran ya asientos tomados, estos aparecerán en rojo y no permitirá seleccionarlos. De no haber más butacas, se mostrará el mapa deshabilitado y una leyenda: “Función agotada”.
+- Si existieran ya asientos tomados, estos aparecerán en rojo y no permitirá seleccionarlos. De no haber más butacas en un horario determinado, dicho horario aparecerá en gris y se mostrará una leyenda: “Función agotada”.
