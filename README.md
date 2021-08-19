@@ -2,10 +2,8 @@
 
 ### Integrantes
 Capomolla, Luciano\
-*Legajo: 160.843-5*
 
-D'Antoni Gammuto, Priscila Sharon\
-*Legajo: 167.275-7*
+D'Antoni G., Priscila S.\
 
 ### Link
 [Google Drive](https://drive.google.com/drive/u/1/folders/1LmEufCj5gzect8zBlHH6bKDe1CgIHYDt)
