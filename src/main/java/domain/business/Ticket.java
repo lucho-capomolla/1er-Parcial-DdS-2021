@@ -12,21 +12,21 @@ import java.util.Date;
 public class Ticket {
     private static int contador = 0;
 
-    private int idTicket;
+    //private int idTicket;
     private String horaCreacion;
     private String fechaCreacion;
     private double precioTotal;
     private ArrayList<Compra> productosListados = new ArrayList<>();
 
     // Getters and Setters
-    public int getIdTicket() {
+   /* public int getIdTicket() {
         return idTicket;
     }
 
     public void setIdTicket(int idTicket) {
         this.idTicket = idTicket;
     }
-
+*/
     public String getHoraCreacion() {
         return horaCreacion;
     }
@@ -70,8 +70,8 @@ public class Ticket {
 
 
     public void generarTicket(String nombreArticulo) {
-        contador++;
-        this.setIdTicket(contador);
+        //contador++;
+        //this.setIdTicket(contador);
         Date date = new Date();
         DateFormat hora = new SimpleDateFormat("HH:mm:ss");
         this.setHoraCreacion(hora.format(date));
@@ -80,7 +80,9 @@ public class Ticket {
         this.setPrecioTotal(this.obtenerPrecioFinal());
 
         TicketDAO ticketDAO = new TicketDAO();
-        ticketDAO.almacenarTicket(this.getIdTicket(), this.getHoraCreacion(), this.getFechaCreacion(), this.getPrecioTotal(), nombreArticulo);
+        //ticketDAO.almacenarTicket(this.getIdTicket(), this.getHoraCreacion(), this.getFechaCreacion(), this.getPrecioTotal(), nombreArticulo);
+        ticketDAO.almacenarTicket(this.getHoraCreacion(), this.getFechaCreacion(), this.getPrecioTotal(), nombreArticulo);
+
     }
 
     public void obtenerProductos() {

@@ -1,12 +1,15 @@
 package domain.business;
 
+import domain.business.pelicula.Pelicula;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Sala {
     private int numeroSala;
     private int cantidadButacas;
-    private List<Butaca> butacas;
+    private List<Butaca> butacas = new ArrayList<>();
 
     // Getters and Setters
     public int getCantidadButacas() {
@@ -33,32 +36,24 @@ public class Sala {
         this.butacas.add(butaca);
     }
 
-    public void setButacas(List<Butaca> butacas) {
-        this.butacas = butacas;
-    }
-
 
     // Constructor
     public Sala(int numeroSala, int cantidadButacas) {
         this.numeroSala = numeroSala;
+
         this.setCantidadButacas(cantidadButacas);
-        this.crearSala();
     }
 
 
     // Metodos
-    private void crearSala() {
+    public void prepararButacas(String horario, Pelicula pelicula) {
         for(int i=1; i<=cantidadButacas; i++) {
-            Butaca butaca = new Butaca(i);
+            Butaca butaca = new Butaca(i, horario, pelicula);
             this.agregarButaca(butaca);
         }
     }
 
-    public List obtenerButacasLibres() {
-        return this.butacas.stream().filter(butaca -> butaca.isLibre()).collect(Collectors.toList());
-    }
-
-    private Butaca buscarButaca(int numeroButaca) {
+    /*private Butaca buscarButaca(int numeroButaca) {
         for(Butaca butacaBuscada : butacas) {
             if(butacaBuscada.getNumeroButaca() == numeroButaca) {
                 return butacaBuscada;
@@ -70,7 +65,7 @@ public class Sala {
     public boolean reservarButaca(int numeroButaca) {
         Butaca butacaBuscada;
         butacaBuscada = this.buscarButaca(numeroButaca);
-        if(butacaBuscada != null && butacaBuscada.isLibre()) {
+        if(butacaBuscada != null && butacaBuscada.estaLibre()) {
             butacaBuscada.ocuparButaca();
             return true;
         }
@@ -78,6 +73,6 @@ public class Sala {
             System.out.println("Esta butaca está ocupada o no existe.");
             return false;
         }
-    }
+    }*/
 
 }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
 
@@ -24,6 +25,9 @@ public class MenuPrueba {
 
     public void iniciarMenu() throws IOException {
         Scanner entrada = new Scanner(System.in);
+        Cinema miCinema = Cinema.getInstance();
+        miCinema.prepararCine();
+
         boolean salir = false;
         int opcionElegida;
 
@@ -192,6 +196,62 @@ public class MenuPrueba {
         }
     }
 
+    //TODO
+    private Butaca elegirButacas(Sala sala, Pelicula pelicula) {
+        Scanner entrada = new Scanner(System.in);
+        List<Butaca> butacasDisponibles = (sala.getButacas().stream().filter(butaca -> butaca.estaLibre()).filter(butaca -> butaca.getPelicula().getTitulo().equals(pelicula.getTitulo())).collect(Collectors.toList()));
+
+        boolean salir = false;
+        int opcionElegida;
+        int numButaca;
+        Butaca butacaElegida = null;
+
+        while(!salir) {
+            System.out.println("Elija el Número de Butaca que quiere reservar: ");
+            for(Butaca butacaBuscada : butacasDisponibles) {
+                System.out.println("    - N° Butaca: " + butacaBuscada.getNumeroButaca());
+            }
+            System.out.print("> ");
+            numButaca = entrada.nextInt();
+
+            while(0 >= numButaca || numButaca > sala.getCantidadButacas() && !butacasDisponibles.get(numButaca).estaLibre()) {
+                System.out.println("[WARNING] El número de Butaca que ha ingresado no está disponible.");
+                System.out.println("Elija el Número de Butaca que quiere reservar: ");
+                System.out.print("> ");
+                numButaca = entrada.nextInt();
+            }
+
+
+            System.out.println("Usted ha elegido la Butaca: " + numButaca);
+            System.out.println("¿Está seguro de la elección?");
+            System.out.println("    - Ingrese 1 para continuar con la compra.");
+            System.out.println("    - Ingrese 2 para volver atrás.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+
+            if(0 > opcionElegida || opcionElegida > 2) {
+                System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
+                System.out.println("Usted ha elegido la Butaca: " + numButaca);
+                System.out.println("¿Está seguro de la elección?");
+                System.out.println("    - Ingrese 1 para continuar con la compra.");
+                System.out.println("    - Ingrese 2 para volver atrás.");
+                System.out.print("> ");
+                opcionElegida = entrada.nextInt();
+            }
+
+            if(opcionElegida == 2) {
+                numButaca = 0;
+                break;
+            }
+
+            butacaElegida = butacasDisponibles.get(numButaca);
+            butacaElegida.ocuparButaca();
+            salir = true;
+            break;
+        }
+        return butacaElegida;
+    }
+
 
     public void mostrarProximosEstrenos() throws IOException {
         int contador = 0;
@@ -343,7 +403,7 @@ public class MenuPrueba {
 
     private void comprarEntrada(Cliente cliente) throws IOException {
         Scanner entrada = new Scanner(System.in);
-        //Cinema miCinema = Cinema.getInstance();
+        Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
         ApiMovies apiMovies = new ApiMovies();
         List<Pelicula> pelis = apiMovies.obtenerPeliculas();
@@ -399,13 +459,10 @@ public class MenuPrueba {
                     if(opcionElegida == 2) {
                         break;
                     }
-/*
-TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad de entradas y los asientos
- luego de esas elecciones, tiene la opcion de comprar algun comestible, o realizar la compra de las entradas
- */
 
                     System.out.print("¿Cuantas entradas desea comprar?: ");
                     int cantidadEntradas = entrada.nextInt();
+                    int cantidadEntradasReservadas = 0;
 
                     if(cantidadEntradas == 0) {
                         System.out.println("[WARNING] No puede ingresar 0 como cantidad de entradas.");
@@ -417,13 +474,15 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
                         Entrada entradaPelicula = new Entrada();
                         entradaPelicula.setPelicula(pelis.get(peliculaElegida));
 
-                        //this.elegirButacas();
-                        entradaPelicula.setButaca(new Butaca(1));
-                        entradaPelicula.setSala(1);
-
                         //this.elegirHorario();
-                        entradaPelicula.setHorarioFuncion("10:00");
+                        //entradaPelicula.setHorarioFuncion("10:00");
+                        entradaPelicula.setSala(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)).getNumeroSala());
 
+                        while(cantidadEntradasReservadas < cantidadEntradas) {
+                            entradaPelicula.setButaca(this.elegirButacas(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)), pelis.get(peliculaElegida)));
+                            entradaPelicula.setHorarioFuncion(entradaPelicula.getButaca().getHorario());
+                            cantidadEntradasReservadas++;
+                        }
                         entradaPelicula.setFechaEmision(LocalDate.now());
 
                         this.agregarAlCarritoEntradas(cliente, entradaPelicula);
