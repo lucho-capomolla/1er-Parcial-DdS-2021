@@ -12,6 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,11 +35,18 @@ public class ApiMovies {
     }
 
 
-    public ListMovie peliculasEstreno() throws IOException {
+    public ListMovie peliculasCartelera() throws IOException {
         AdapterAPIpelicula apiPelicula = this.retrofit.create(AdapterAPIpelicula.class);
         Call<ListMovie> pedidoPeliculas = apiPelicula.movies(apikey, "es", 1, "US");
         Response<ListMovie> respuestaPeliculas = pedidoPeliculas.execute();
         return respuestaPeliculas.body();
+    }
+
+    public ListMovie peliculasEstreno() throws IOException {
+        AdapterAPIpelicula apiPelicula = this.retrofit.create(AdapterAPIpelicula.class);
+        Call<ListMovie> pedidoEstrenos = apiPelicula.upcoming(apikey, "es", 1, "US");
+        Response<ListMovie> respuestaEstrenos = pedidoEstrenos.execute();
+        return respuestaEstrenos.body();
     }
 
     public Generos obtenerGeneros() throws IOException {
@@ -62,7 +70,24 @@ public class ApiMovies {
         return generoBuscado;
     }
 
-   /* public List<Pelicula> estrenos(List<Movie> peliculasApi) {
+    public List<Pelicula> obtenerEstrenos() throws IOException {
+        ListMovie listaPeliculas = this.peliculasEstreno();
+        return this.damePeliculas(listaPeliculas);
+    }
 
-    }*/
+    public List<Pelicula> obtenerPeliculas() throws IOException{
+        ListMovie listaPeliculas = this.peliculasCartelera();
+        return this.damePeliculas(listaPeliculas);
+    }
+
+    public List<Pelicula> damePeliculas(ListMovie listaPeliculas) throws IOException {
+        List<Pelicula> listaFinal = new ArrayList<>();
+        for(Movie movie : listaPeliculas.getResults()) {
+            Pelicula pelicula = new Pelicula();
+            pelicula.mappeoDAO(movie);
+            listaFinal.add(pelicula);
+        }
+        return listaFinal;
+    }
+
 }

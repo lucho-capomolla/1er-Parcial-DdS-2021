@@ -1,8 +1,6 @@
 package views;
 
-import domain.business.Cinema;
-import domain.business.Cliente;
-import domain.business.Ticket;
+import domain.business.*;
 import domain.business.comestibles.*;
 import domain.business.pelicula.Pelicula;
 import domain.business.pelicula.apiPelicula.ApiMovies;
@@ -13,6 +11,10 @@ import domain.database.ClienteDAO;
 import domain.database.UsuarioDAO;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -150,8 +152,6 @@ public class MenuPrueba {
         nuevoUsuario.setCliente(clienteDAO.buscarCliente(idCliente));
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.insertIDCliente(idCliente, email);
-        miCinema.agregarUsuario(nuevoUsuario);
-
     }
 
     private int crearCliente(String email) {
@@ -177,36 +177,39 @@ public class MenuPrueba {
 
     public void mostrarPeliculas() throws IOException {
         int contador = 0;
-        Scanner entrada = new Scanner(System.in);
         ApiMovies apiMovies = new ApiMovies();
-        ListMovie pelis = apiMovies.peliculasEstreno();
+        List<Pelicula> pelis = apiMovies.obtenerPeliculas();
 
-        for(Movie movie : pelis.getResults()) {
-            System.out.println("ID Película: " + contador + ":");
-            System.out.println("    - Titulo: " + pelis.getResults().get(contador).getTitle());
-            System.out.println("    - Título original: " + pelis.getResults().get(contador).getOriginal_title());
-            System.out.println("    - Trama: " + pelis.getResults().get(contador).getOverview());
-            System.out.println("    - Genero: " + apiMovies.obtenerGenero(pelis.getResults().get(contador).getGenre_ids()));
-            System.out.println("    - Fecha de Estreno: " + pelis.getResults().get(contador).getRelease_date());
-            System.out.println("    - Lenguaje original: " + pelis.getResults().get(contador).getOriginal_language());
+        for(Pelicula pelicula : pelis) {
+            System.out.println("ID Película: " + contador);
+            System.out.println("    - Titulo: " + pelicula.getTitulo());
+            System.out.println("    - Título original: " + pelicula.getTituloOriginal());
+            System.out.println("    - Trama: " + pelicula.getTrama());
+            System.out.println("    - Genero: " + pelicula.getGeneros());
+            System.out.println("    - Fecha de Estreno: " + pelicula.getFechaDeEstreno());
+            System.out.println("    - Lenguaje original: " + pelicula.getIdioma());
             System.out.println();
             contador++;
         }
-        /*
-        Cinema miCinema = Cinema.getInstance();
-        for(Pelicula pelicula : miCinema.getCartelera()) {
-            System.out.println("Película " + contador + ":");
-            System.out.println("    - Titulo: " + pelicula.getTitulo());
-            System.out.println("    - Genero: " + pelicula.getGeneros());
-            System.out.println("    - Duración en minutos: " + pelicula.getDuracionEnMin());
-            System.out.println("    - Fecha de Estreno: " + pelicula.getFechaDeEstreno());
-            System.out.println();
-            contador++;
-        }*/
     }
 
-    public void mostrarProximosEstrenos() {
 
+    public void mostrarProximosEstrenos() throws IOException {
+        int contador = 0;
+        ApiMovies apiMovies = new ApiMovies();
+        List<Pelicula> estrenos = apiMovies.obtenerEstrenos();
+
+        for(Pelicula pelicula : estrenos) {
+            System.out.println("ID Película: " + contador);
+            System.out.println("    - Titulo: " + pelicula.getTitulo());
+            System.out.println("    - Título original: " + pelicula.getTituloOriginal());
+            System.out.println("    - Trama: " + pelicula.getTrama());
+            System.out.println("    - Genero: " + pelicula.getGeneros());
+            System.out.println("    - Fecha de Estreno: " + pelicula.getFechaDeEstreno());
+            System.out.println("    - Lenguaje original: " + pelicula.getIdioma());
+            System.out.println();
+            contador++;
+        }
     }
 
     // SIENDO ADMIN
@@ -217,19 +220,23 @@ public class MenuPrueba {
 
         while(!salir) {
             System.out.println("---------------------------MENU PRINCIPAL--------------------------");
-            System.out.println("• Para consultar los precios de los Comestibles y la Entrada, ingrese 1.");
-            System.out.println("• Para cambiar los precios, ingrese 2.");
-            System.out.println("• Para volver al Menú Principal, ingrese 3.");
+            System.out.println("• Para consultar los precios de los Comestibles, ingrese 1.");
+            System.out.println("• Para consultar el precio de la Entrada, ingrese 2.");
+            System.out.println("• Para cambiar los precios, ingrese 3.");
+            System.out.println("• Para volver al Menú Principal, ingrese 4.");
             System.out.print("> ");
             System.out.print("");
             switch(entrada.nextInt()) {
                 case 1: // Consultar precios
-                    this.consultarPrecios();
+                    this.consultarPreciosComestibles();
                     break;
-                case 2: // Cambiar precios
+                case 2:
+                    this.consultarPrecioEntrada();
+                    break;
+                case 3: // Cambiar precios
                     this.cambiarPrecios();
                     break;
-                case 3: // Salir
+                case 4: // Salir
                     salir = true;
                     break;
                 default:
@@ -239,13 +246,18 @@ public class MenuPrueba {
         }
     }
 
-    public void consultarPrecios() {
+    public void consultarPreciosComestibles() {
         Cinema miCinema = Cinema.getInstance();
 
         System.out.println("Los precios de los Comestibles y la Entrada estándar son los siguientes:");
         System.out.println("    - Pochoclos: $" + miCinema.obtenerPrecioPochoclos());
         System.out.println("    - Bebidas: $" + miCinema.obtenerPrecioBebidas());
         System.out.println("    - Nachos: $" + miCinema.obtenerPrecioNachos());
+        System.out.println();
+    }
+
+    public void consultarPrecioEntrada() {
+        Cinema miCinema = Cinema.getInstance();
         System.out.println("    - Precio estándar de las Entradas: $" + miCinema.obtenerPrecioEntrada());
         System.out.println();
     }
@@ -337,17 +349,17 @@ public class MenuPrueba {
         //Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
         ApiMovies apiMovies = new ApiMovies();
-        ListMovie pelis = apiMovies.peliculasEstreno();
-        int cantidadPeliculas = pelis.getResults().size();
+        List<Pelicula> pelis = apiMovies.obtenerPeliculas();
+        int cantidadPeliculas = pelis.size();
+        List<Entrada> entradasPeliculas = new ArrayList<>();
 
         while(!salir) {
 
-           // if(opcionElegida.equals(1))
-             //   Horarios de la funcion "[14:00,15:15,16:45,18:30,20:30,00:00]"
             System.out.println("--------CINE--------");
             System.out.println("    - Si desea consultar la Cartelera de Películas, ingrese 1.");
-            System.out.println("    - Si desea comprar una Entrada, ingrese 2.");
-            System.out.println("    - Si desea volver al Menú Principal, ingrese 3.");
+            System.out.println("    - Si desea consultar el precio de la Entrada, ingrese 2.");
+            System.out.println("    - Si desea comprar una Entrada, ingrese 3.");
+            System.out.println("    - Si desea volver al Menú Principal, ingrese 4.");
             System.out.print("> ");
             int opcionElegida = entrada.nextInt();
 
@@ -355,27 +367,78 @@ public class MenuPrueba {
                 case 1: // Mostrar peliculas en Cartelera
                     this.mostrarPeliculas();
                     break;
-                case 2: // Elegir una de esas peliculas para comprar la Entrada
+                case 2:
+                    this.consultarPrecioEntrada();
+                    break;
+                case 3: // Elegir una de esas peliculas para comprar la Entrada
                     System.out.println("Ingrese el ID de la Película que desea ver: ");
+                    System.out.print("> ");
+                    int peliculaElegida = entrada.nextInt();
+
+                    if(0 > peliculaElegida || peliculaElegida > cantidadPeliculas-1) {
+                        System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
+                        System.out.println("Ingrese el ID de la Película que desea ver: ");
+                        System.out.print("> ");
+                        peliculaElegida = entrada.nextInt();
+                    }
+
+
+                    System.out.println("Usted ha elegido la película: " + pelis.get(peliculaElegida).getTitulo());
+                    System.out.println("¿Está seguro de la elección?");
+                    System.out.println("    - Ingrese 1 para continuar con la compra.");
+                    System.out.println("    - Ingrese 2 para volver atrás.");
                     System.out.print("> ");
                     opcionElegida = entrada.nextInt();
 
-                    if(0 > opcionElegida || opcionElegida > cantidadPeliculas-1) {
+                    if(0 > opcionElegida || opcionElegida > 2) {
                         System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
-                        System.out.println("Ingrese el ID de la Película que desea ver: ");
+                        System.out.println("Usted ha elegido la película: " + pelis.get(peliculaElegida).getTitulo());
+                        System.out.println("¿Está seguro de la elección?");
+                        System.out.println("    - Ingrese 1 para continuar con la compra.");
+                        System.out.println("    - Ingrese 2 para volver atrás.");
                         System.out.print("> ");
                         opcionElegida = entrada.nextInt();
                     }
 
-                    System.out.println("Usted ha elegido la película: " + pelis.getResults().get(opcionElegida).getTitle());
+                    if(opcionElegida == 2) {
+                        break;
+                    }
+/*
+TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad de entradas y los asientos
+ luego de esas elecciones, tiene la opcion de comprar algun comestible, o realizar la compra de las entradas
+ */
+
+                    System.out.print("¿Cuantas entradas desea comprar?: ");
+                    int cantidadEntradas = entrada.nextInt();
+
+                    if(cantidadEntradas == 0) {
+                        System.out.println("[WARNING] No puede ingresar 0 como cantidad de entradas.");
+                        System.out.print("¿Cuantas entradas desea comprar?: ");
+                        cantidadEntradas = entrada.nextInt();
+                    }
+
+                    for(int c=0; c<cantidadEntradas; c++){
+                        Entrada entradaPelicula = new Entrada();
+                        entradaPelicula.setPelicula(pelis.get(peliculaElegida));
+                        //this.elegirButacas();
+                        entradaPelicula.setButaca(new Butaca(1));
+                        entradaPelicula.setSala(1);
+                        //this.elegirHorario();
+                        entradaPelicula.setHorarioFuncion("10:00");
+                        entradaPelicula.setFechaEmision(LocalDate.now());
+
+                        this.agregarAlCarritoEntradas(cliente, entradaPelicula);
+                        entradasPeliculas.add(entradaPelicula);
+                    }
+                    this.efectuarCompraEntrada(entradasPeliculas, cliente);
+
                     break;
-                case 3: // Salir
+                case 4: // Salir
                     salir = true;
                     break;
                 default:
                     System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
                     break;
-
             }
         }
     }
@@ -388,7 +451,7 @@ public class MenuPrueba {
 
         while(!salir) {
             System.out.println("--------COMPRAS--------");
-            System.out.println("    - Si desea consultar los Precios, ingrese 1.");
+            System.out.println("    - Si desea consultar los Precios de los Comestibles, ingrese 1.");
             System.out.println("    - Si desea comprar solo un Producto, ingrese 2.");
             System.out.println("    - Si desea preparar un Combo, ingrese 3.");
             System.out.println("    - Si desea volver al Menú Principal, ingrese 4.");
@@ -398,19 +461,42 @@ public class MenuPrueba {
 
             switch(opcionElegida) {
                 case 1: // Mostrar Menú
-                    this.consultarPrecios();
+                    this.consultarPreciosComestibles();
                     break;
                 case 2: // Para comprar solamente un producto, sin necesidad de armar un Combo
                     producto = this.eleccionComestible();
+
+                    System.out.println("Usted ha elegido: " + producto.getArticulo());
+                    System.out.println("¿Está seguro de la elección?");
+                    System.out.println("    - Ingrese 1 para continuar con la compra.");
+                    System.out.println("    - Ingrese 2 para volver atrás.");
+                    System.out.print("> ");
+                    opcionElegida = entrada.nextInt();
+
+                    if(0 > opcionElegida || opcionElegida > 2) {
+                        System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
+                        System.out.println("Usted ha elegido: " + producto.getArticulo());
+                        System.out.println("¿Está seguro de la elección?");
+                        System.out.println("    - Ingrese 1 para continuar con la compra.");
+                        System.out.println("    - Ingrese 2 para volver atrás.");
+                        System.out.print("> ");
+                        opcionElegida = entrada.nextInt();
+                    }
+
+                    if(opcionElegida == 2) {
+                        producto = null;
+                        break;
+                    }
+
                     if(producto != null) {
-                        this.debitar(producto, cliente);
+                        this.agregarAlCarritoComestible(cliente, producto);
                         salir = true;
                     }
                     break;
                 case 3: // Preparar Combo
                     producto = this.prepararCombo();
                     if(producto != null) {
-                        this.debitar(producto, cliente);
+                        this.agregarAlCarritoComestible(cliente, producto);
                         salir = true;
                     }
                     break;
@@ -421,23 +507,8 @@ public class MenuPrueba {
                     System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
                     break;
             }
+            this.efectuarCompraComestible(producto, cliente);
         }
-/*
- TODO:   - A) acumular todo en un carrito de compras del cliente, y pagar al final
-         - B) pagar cada producto a medida que lo va "comprando"
- */
-        //this.debitar(producto, cliente);
-        /*System.out.println("¡Producto comprado!");
-        System.out.println("Costo: $" + producto.obtenerPrecio());
-
-        Cinema miCinema = Cinema.getInstance();
-
-        Ticket nuevoTicket = new Ticket();
-        nuevoTicket.agregarProductoATicket(producto);
-        nuevoTicket.generarTicket();
-        miCinema.agregarTicket(nuevoTicket);
-        cliente.comprar(nuevoTicket);*/
-
     }
 
     private Comestible eleccionComestible() {
@@ -542,7 +613,7 @@ public class MenuPrueba {
         Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
         Combo combo = new Combo();
-        combo.setArticulo("Combo Bestia Cinema");
+        combo.setArticulo("#Combo: ");
 
         while(!salir) {
 
@@ -557,6 +628,7 @@ public class MenuPrueba {
                 case 1:
                     Comestible comida = this.eleccionComestible();
                     combo.agregarProducto(comida);
+                    combo.setArticulo(combo.getArticulo().concat(comida.getArticulo()) + " | ");
                     break;
                 case 2:
                     salir = true;
@@ -566,24 +638,100 @@ public class MenuPrueba {
                     break;
             }
         }
-
         return combo;
     }
 
-    // TODO: falta meterlo en el Diagrama de clases
-    private void debitar(Producto producto, Cliente cliente) {
-
-        System.out.println("¡Producto comprado!");
-        System.out.println("Costo: $" + producto.obtenerPrecio());
-
-        Cinema miCinema = Cinema.getInstance();
-
-        Ticket nuevoTicket = new Ticket();
-        nuevoTicket.agregarProductoATicket(producto);
-        nuevoTicket.generarTicket();
-        miCinema.agregarTicket(nuevoTicket);
-        cliente.comprar(nuevoTicket);
+    private void agregarAlCarritoComestible(Cliente cliente, Producto producto) {
+        System.out.println("Se agregó " + producto.getArticulo() + " a su Carrito de Compras.");
+        System.out.println("    - Costo total: $" + producto.obtenerPrecio());
+        cliente.agregarAlCarrito(producto);
     }
 
+    private void efectuarCompraComestible(Producto producto, Cliente cliente) {
+        Scanner entrada = new Scanner(System.in);
+        int opcionElegida;
+
+        if(producto != null) {
+            System.out.println("$$$ Para efectuar la compra, ingrese 1 $$$");
+            System.out.println("De lo contrario, se limpiara el carrito.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+            if(opcionElegida == 1) {
+                this.debitarComestibles(cliente);
+            }
+            else {
+                cliente.setCarrito(new ArrayList<>());
+            }
+        }
+    }
+
+    // TODO: falta meterlo en el Diagrama de clases
+    private void debitarComestibles(Cliente cliente) {
+        Cinema miCinema = Cinema.getInstance();
+        Ticket nuevoTicket = new Ticket();
+        String nombreArticulo = "";
+        System.out.println("¡Productos comprados!:");
+        for(Producto producto : cliente.obtenerCarrito()){
+            System.out.println(" - " + producto.getArticulo());
+            System.out.println(" - Costo: $" + producto.obtenerPrecio());
+            nuevoTicket.agregarProductoATicket(producto);
+            nombreArticulo = nombreArticulo.concat(producto.getArticulo());
+        }
+
+        System.out.println(nombreArticulo);
+        System.out.println("Costo Final: $" + nuevoTicket.obtenerPrecioFinal());
+        nuevoTicket.generarTicket(nombreArticulo);
+        miCinema.agregarTicket(nuevoTicket);
+        cliente.setCarrito(new ArrayList<>());
+        //cliente.comprar(nuevoTicket);
+    }
+
+
+    private void agregarAlCarritoEntradas(Cliente cliente, Entrada entrada) {
+        Cinema miCinema = Cinema.getInstance();
+        System.out.println("Se agregó la Entrada de " + entrada.getPelicula().getTitulo() + " a su Carrito de Compras.");
+        System.out.println("    - Costo total: $" + miCinema.obtenerPrecioEntrada());
+        cliente.agregarEntrada(entrada);
+    }
+
+    private void efectuarCompraEntrada(List<Entrada> entradasPeliculas, Cliente cliente) {
+        Scanner entrada = new Scanner(System.in);
+        int opcionElegida;
+
+        if(entradasPeliculas != null) {
+            System.out.println("$$$ Para efectuar la compra, ingrese 1 $$$");
+            System.out.println("De lo contrario, se limpiara el carrito.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+            if(opcionElegida == 1) {
+                this.debitarEntradas(cliente);
+            }
+            else {
+                cliente.setEntradas(new ArrayList<>());
+            }
+        }
+    }
+
+    private void debitarEntradas(Cliente cliente) {
+        Cinema miCinema = Cinema.getInstance();
+        Ticket nuevoTicket = new Ticket();
+        String nombreArticulo = "";
+        System.out.println("¡Productos comprados!:");
+        Entrada entrada = cliente.obtenerEntradas().get(0);
+        int cantidadEntradas = cliente.obtenerEntradas().size();
+
+        for(int i=0; i<cantidadEntradas; i++){
+
+            System.out.println(" - " + entrada.getPelicula().getTitulo());
+            System.out.println(" - Costo: $" + entrada.obtenerPrecio());
+            nuevoTicket.agregarEntradaATicket(entrada);
+        }
+        nombreArticulo = nombreArticulo.concat(entrada.getPelicula().getTitulo() + " x " + cantidadEntradas);
+
+        nuevoTicket.generarTicket(nombreArticulo);
+        miCinema.agregarTicket(nuevoTicket);
+        cliente.setEntradas(new ArrayList<>());
+        //cliente.comprar(nuevoTicket);
+    }
 
 }

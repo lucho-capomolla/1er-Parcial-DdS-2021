@@ -1,5 +1,7 @@
 package domain.business;
 
+import domain.business.comestibles.Producto;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +13,8 @@ public class Cliente {
     private int nroDocumento;
     // Queda Hardcodeada la Billetera Virtual
     private BilleteraVirtual billeteraVirtual = new BilleteraVirtual(10000);
-    private ArrayList<Ticket> carrito = new ArrayList<>();
+    private ArrayList<Producto> carrito = new ArrayList<>();
+    private ArrayList<Entrada> entradas = new ArrayList<>();
 
     // Getters and Setters
     public String getNombre() { return nombre; }
@@ -34,17 +37,23 @@ public class Cliente {
 
     public void setNroDocumento(int nroDocumento) { this.nroDocumento = nroDocumento; }
 
-    public ArrayList<Ticket> obtenerCarrito() {
+    public ArrayList<Producto> obtenerCarrito() {
         return carrito;
     }
 
-    public void setCarrito(ArrayList<Ticket> carrito) {
+    public void setCarrito(ArrayList<Producto> carrito) {
         this.carrito = carrito;
     }
 
-    public void agregarAlCarrito(Ticket nuevaTicket) {
-        this.carrito.add(nuevaTicket);
+    public void agregarAlCarrito(Producto nuevoProducto) {
+        this.carrito.add(nuevoProducto);
     }
+
+    public ArrayList<Entrada> obtenerEntradas() { return entradas; }
+
+    public void setEntradas(ArrayList<Entrada> entradas) { this.entradas = entradas; }
+
+    public void agregarEntrada(Entrada nuevaEntrada) { this.entradas.add(nuevaEntrada); }
 
     public BilleteraVirtual getBilleteraVirtual() { return billeteraVirtual; }
 
@@ -60,12 +69,12 @@ public class Cliente {
     }
 
     // Metodos
-    public void comprar(Ticket nuevoTicket) {
+    /*public void comprar(Ticket nuevoTicket) {
         if(this.getBilleteraVirtual().debitar(nuevoTicket.obtenerPrecioFinal())) {
             agregarAlCarrito(nuevoTicket);
         }
         else {
             System.out.println("ERROR 404: MONEY NOT FOUND.");
         }
-    }
+    }*/
 }

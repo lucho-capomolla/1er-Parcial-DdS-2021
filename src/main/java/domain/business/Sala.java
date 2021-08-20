@@ -39,7 +39,8 @@ public class Sala {
 
 
     // Constructor
-    public Sala(int cantidadButacas) {
+    public Sala(int numeroSala, int cantidadButacas) {
+        this.numeroSala = numeroSala;
         this.setCantidadButacas(cantidadButacas);
         this.crearSala();
     }
@@ -78,6 +79,5 @@ public class Sala {
             return false;
         }
     }
-
 
 }

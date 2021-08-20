@@ -14,30 +14,10 @@ import java.util.List;
 
 public class Cinema {
     private static Cinema instance;
-    private static List<Usuario> usuarios = new ArrayList<>();
     private static List<Sala> salas = new ArrayList<>();
-    private static List<Pelicula> cartelera = new ArrayList<>();
     private static List<Ticket> ventas = new ArrayList<>();
 
     // Getters and Setters
-    public static List<Pelicula> getCartelera() {
-        return cartelera;
-    }
-
-    public static void agregarPeliculaEnCartelera(Pelicula pelicula) {
-        Cinema.cartelera.add(pelicula);
-    }
-
-    public static List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public static void agregarUsuario(Usuario usuario) {
-        Cinema.usuarios.add(usuario);
-    }
-
-    public static void setUsuarios(List<Usuario> usuarios) { Cinema.usuarios = usuarios; }
-
     public static void agregarTicket(Ticket nuevoTicket) { Cinema.ventas.add(nuevoTicket); }
 
 
@@ -50,25 +30,6 @@ public class Cinema {
     }
 
     // Metodos
-    public double obtenerBalanceDiario() {
-        // Obtengo todos los tickes del día o del momento y sumo el precio
-        double balanceFinal = 0;
-        for(Ticket ticket : ventas) {
-            balanceFinal += ticket.obtenerPrecioFinal();
-        }
-        return balanceFinal;
-    }
-
-    public double obtenerBalanceMensual() {
-        // Obtengo todos los tickets del ultimo mes de la BD y sumo el precio
-        return 0;
-    }
-
-    public double obtenerBalanceTotal() {
-        // Obtengo todos los tickets de la BD y sumo el precio
-        return 0;
-    }
-
     public Usuario buscarUsuario(String emailBuscado) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 

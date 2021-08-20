@@ -11,9 +11,9 @@ public class TicketDAO {
 
     private Connection conn;
 
-    public void almacenarTicket(int idTicket, String horaCreacion, String fechaCreacion, double precioTotal) {
+    public void almacenarTicket(int idTicket, String horaCreacion, String fechaCreacion, double precioTotal, String nombreProducto) {
 
-        String consulta = "INSERT INTO ticket (id_ticket, hora_creacion, fecha_creacion, precio_total) VALUES ('" + idTicket + "','" + horaCreacion + "','" + fechaCreacion + "','" + precioTotal + "');";
+        String consulta = "INSERT INTO ticket (id_ticket, hora_creacion, fecha_creacion, precio_total, nombre_producto) VALUES ('" + idTicket + "','" + horaCreacion + "','" + fechaCreacion + "','" + precioTotal + "','" + nombreProducto +"');";
 
         try {
             this.conn = newConnection();

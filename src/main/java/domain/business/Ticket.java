@@ -59,11 +59,17 @@ public class Ticket {
         this.productosListados.add(nuevoProducto);
     }
 
+    public void agregarEntradaATicket(Entrada nuevaEntrada) {
+        this.productosListados.add(nuevaEntrada);
+    }
+
+    public void setProductosListados(ArrayList<Compra> productosListados) { this.productosListados = productosListados;}
+
     // Constructor
     public Ticket() {}
 
 
-    public void generarTicket() {
+    public void generarTicket(String nombreArticulo) {
         contador++;
         this.setIdTicket(contador);
         Date date = new Date();
@@ -74,7 +80,7 @@ public class Ticket {
         this.setPrecioTotal(this.obtenerPrecioFinal());
 
         TicketDAO ticketDAO = new TicketDAO();
-        ticketDAO.almacenarTicket(this.getIdTicket(), this.getHoraCreacion(), this.getFechaCreacion(), this.getPrecioTotal());
+        ticketDAO.almacenarTicket(this.getIdTicket(), this.getHoraCreacion(), this.getFechaCreacion(), this.getPrecioTotal(), nombreArticulo);
     }
 
     public void obtenerProductos() {

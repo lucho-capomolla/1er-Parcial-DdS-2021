@@ -2,30 +2,31 @@ package domain.business;
 
 import domain.business.pelicula.Pelicula;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
 public class Entrada implements Compra {
-    private Date fechaEmision;
-    private LocalTime horarioFuncion;
+    private LocalDate fechaEmision;
+    private String horarioFuncion;
     private Pelicula pelicula;
     private Butaca butaca;
     private int sala;
 
     // Getters and Setters
-    public Date getFechaEmision() {
+    public LocalDate getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(Date fechaEmision) {
+    public void setFechaEmision(LocalDate fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 
-    public LocalTime getHorarioFuncion() {
+    public String getHorarioFuncion() {
         return horarioFuncion;
     }
 
-    public void setHorarioFuncion(LocalTime horarioFuncion) {
+    public void setHorarioFuncion(String horarioFuncion) {
         this.horarioFuncion = horarioFuncion;
     }
 
