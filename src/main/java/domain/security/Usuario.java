@@ -9,8 +9,6 @@ public class Usuario{
     private Cliente cliente;
     private Rol rol;
 
-    //private int idCliente;
-
     // Getters and Setters
     public String getEmail() {
         return email;

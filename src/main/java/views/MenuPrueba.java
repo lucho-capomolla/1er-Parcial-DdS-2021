@@ -29,11 +29,11 @@ public class MenuPrueba {
 
         while(!salir) {
             System.out.println("---------------¡Bienvenido a Cinema!---------------");
-            System.out.println("- Si desea iniciar sesión, ingrese 1.");
-            System.out.println("- Si no tiene un usuario, puede crearlo ingresando 2.");
-            System.out.println("- Si quiere consultar las películas que estan en cartelera, ingrese 3.");
-            System.out.println("- Si quiere consultar los próximos estrenos, ingrese 4.");
-            System.out.println("- Si desea salir, ingrese 5.");
+            System.out.println("- Si desea Iniciar Sesión, ingrese 1.");
+            System.out.println("- Si no tiene un Usuario, puede Crearlo ingresando 2.");
+            System.out.println("- Si quiere Consultar las películas que estan en Cartelera, ingrese 3.");
+            System.out.println("- Si quiere Consultar los próximos Estrenos, ingrese 4.");
+            System.out.println("- Si desea Salir, ingrese 5.");
             System.out.print("> ");
             opcionElegida = entrada.nextInt();
             System.out.println("-----------------------------------------------------");
@@ -55,7 +55,7 @@ public class MenuPrueba {
                     salir = true;
                     break;
                 default:
-                    System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
+                    System.out.println("[WARNING] La opción que ha elegido es incorrecta.");
                     break;
             }
         }
@@ -86,14 +86,13 @@ public class MenuPrueba {
             contrasenia = entrada.nextLine();
 
             if(contador == 0) {
-                System.out.println("Se acabaron los intentos, volviendo al Menú Principal...");
+                System.out.println("[ERROR] Se acabaron los intentos, volviendo al Menú Principal...");
                 return;
             }
             contador--;
         }
         Usuario usuarioLogin = miCinema.buscarUsuario(email);
         ClienteDAO clienteDAO = new ClienteDAO();
-        //usuarioLogin.setCliente(clienteDAO.buscarCliente(email));
 
         if(usuarioLogin.getRol().puedoAdministrarPrecios()) {
             // Es para indicar que ingresaste como ADMIN
@@ -227,10 +226,10 @@ public class MenuPrueba {
             System.out.print("> ");
             System.out.print("");
             switch(entrada.nextInt()) {
-                case 1: // Consultar precios
+                case 1: // Consultar precios Comestibles
                     this.consultarPreciosComestibles();
                     break;
-                case 2:
+                case 2: // Consultar precio Entrada
                     this.consultarPrecioEntrada();
                     break;
                 case 3: // Cambiar precios
@@ -248,8 +247,7 @@ public class MenuPrueba {
 
     public void consultarPreciosComestibles() {
         Cinema miCinema = Cinema.getInstance();
-
-        System.out.println("Los precios de los Comestibles y la Entrada estándar son los siguientes:");
+        System.out.println("Los precios de los Comestibles son los siguientes:");
         System.out.println("    - Pochoclos: $" + miCinema.obtenerPrecioPochoclos());
         System.out.println("    - Bebidas: $" + miCinema.obtenerPrecioBebidas());
         System.out.println("    - Nachos: $" + miCinema.obtenerPrecioNachos());
@@ -258,6 +256,7 @@ public class MenuPrueba {
 
     public void consultarPrecioEntrada() {
         Cinema miCinema = Cinema.getInstance();
+        System.out.println("El precio de la Entrada estándar es el siguiente:");
         System.out.println("    - Precio estándar de las Entradas: $" + miCinema.obtenerPrecioEntrada());
         System.out.println();
     }
@@ -271,31 +270,31 @@ public class MenuPrueba {
             System.out.println("• Para cambiar el precio de los Pochoclos, ingrese 1.");
             System.out.println("• Para cambiar el precio de las Bebidas, ingrese 2.");
             System.out.println("• Para cambiar el precio de los Nachos, ingrese 3.");
-            System.out.println("• Para cambiar el precio estándar de las entradas, ingrese 4.");
+            System.out.println("• Para cambiar el precio estándar de las Entradas, ingrese 4.");
             System.out.println("• Para finalizar, ingrese 5.");
             System.out.print("> ");
 
             switch(entrada.nextInt()) {
                 case 1: // Cambiar precio Pochoclos
-                    System.out.print("Ingrese el nuevo precio de los Pochoclos: $");
+                    System.out.println("Ingrese el nuevo precio de los Pochoclos: $");
                     System.out.print("> ");
                     miCinema.cambiarPrecioPochoclos(entrada.nextDouble());
                     System.out.println("Se actualizó el precio de los Pochoclos a $" + miCinema.obtenerPrecioPochoclos());
                     break;
                 case 2: // Cambiar precio Bebidas
-                    System.out.print("Ingrese el nuevo precio de las Bebidas: $");
+                    System.out.println("Ingrese el nuevo precio de las Bebidas: $");
                     System.out.print("> ");
                     miCinema.cambiarPrecioBebidas(entrada.nextDouble());
                     System.out.println("Se actualizó el precio de las Bebidas a $" + miCinema.obtenerPrecioBebidas());
                     break;
                 case 3: // Cambiar precio Nachos
-                    System.out.print("Ingrese el nuevo precio de los Nachos: $");
+                    System.out.println("Ingrese el nuevo precio de los Nachos: $");
                     System.out.print("> ");
                     miCinema.cambiarPrecioNachos(entrada.nextDouble());
                     System.out.println("Se actualizó el precio de los Nachos a $" + miCinema.obtenerPrecioNachos());
                     break;
                 case 4: // Cambiar precio estándar de Entradas
-                    System.out.print("Ingrese el nuevo precio estándar de las Entradas: $");
+                    System.out.println("Ingrese el nuevo precio estándar de las Entradas: $");
                     System.out.print("> ");
                     miCinema.cambiarPrecioEntrada(entrada.nextDouble());
                     System.out.println("Se actualizó el precio estándar de las Entradas a $" + miCinema.obtenerPrecioEntrada());
@@ -314,15 +313,13 @@ public class MenuPrueba {
     // SIENDO CLIENTE
     private void inicioCliente(Usuario usuarioLogin) throws IOException {
         Scanner entrada = new Scanner(System.in);
-        //Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
 
         while(!salir) {
-
             System.out.println("-----------------------MENÚ PRINCIPAL------------------------");
             System.out.println("• Si desea comprar una Entrada para una Película, ingrese 1.");
             System.out.println("• Si desea comprar alguna Bebida, Pochoclos, Nachos o un Combo, ingrese 2.");
-            System.out.println("• Si desea cerrar sesión, ingrese 3.");
+            System.out.println("• Si desea Cerrar Sesión, ingrese 3.");
             System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             System.out.println("");
@@ -338,7 +335,7 @@ public class MenuPrueba {
                     salir = true;
                     break;
                 default:
-                    System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
+                    System.out.println("[WARNING] La opción que ha elegido es incorrecta.");
                     break;
             }
         }
@@ -356,7 +353,7 @@ public class MenuPrueba {
         while(!salir) {
 
             System.out.println("--------CINE--------");
-            System.out.println("    - Si desea consultar la Cartelera de Películas, ingrese 1.");
+            System.out.println("    - Si desea consultar las Películas que están en Cartelera, ingrese 1.");
             System.out.println("    - Si desea consultar el precio de la Entrada, ingrese 2.");
             System.out.println("    - Si desea comprar una Entrada, ingrese 3.");
             System.out.println("    - Si desea volver al Menú Principal, ingrese 4.");
@@ -367,7 +364,7 @@ public class MenuPrueba {
                 case 1: // Mostrar peliculas en Cartelera
                     this.mostrarPeliculas();
                     break;
-                case 2:
+                case 2: // Consultar el precio de la Entrada
                     this.consultarPrecioEntrada();
                     break;
                 case 3: // Elegir una de esas peliculas para comprar la Entrada
@@ -381,7 +378,6 @@ public class MenuPrueba {
                         System.out.print("> ");
                         peliculaElegida = entrada.nextInt();
                     }
-
 
                     System.out.println("Usted ha elegido la película: " + pelis.get(peliculaElegida).getTitulo());
                     System.out.println("¿Está seguro de la elección?");
@@ -420,11 +416,14 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
                     for(int c=0; c<cantidadEntradas; c++){
                         Entrada entradaPelicula = new Entrada();
                         entradaPelicula.setPelicula(pelis.get(peliculaElegida));
+
                         //this.elegirButacas();
                         entradaPelicula.setButaca(new Butaca(1));
                         entradaPelicula.setSala(1);
+
                         //this.elegirHorario();
                         entradaPelicula.setHorarioFuncion("10:00");
+
                         entradaPelicula.setFechaEmision(LocalDate.now());
 
                         this.agregarAlCarritoEntradas(cliente, entradaPelicula);
@@ -495,6 +494,7 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
                     break;
                 case 3: // Preparar Combo
                     producto = this.prepararCombo();
+
                     if(producto != null) {
                         this.agregarAlCarritoComestible(cliente, producto);
                         salir = true;
@@ -504,7 +504,7 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
                     salir = true;
                     break;
                 default:
-                    System.out.println("[WARNING]La opción que ha elegido es incorrecta.");
+                    System.out.println("[WARNING] La opción que ha elegido es incorrecta.");
                     break;
             }
             this.efectuarCompraComestible(producto, cliente);
@@ -615,9 +615,10 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
         Combo combo = new Combo();
         combo.setArticulo("#Combo: ");
 
+
+        System.out.println("-------PREPARACION COMBO-------");
         while(!salir) {
 
-            System.out.println("-------PREPARACION COMBO-------");
             System.out.println("    - Si desea agregar Comida/Bebida en el combo, ingrese 1.");
             System.out.println("    - Si no quiere realizar un Combo, ingrese 2.");
             System.out.print("> ");
@@ -629,8 +630,13 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
                     Comestible comida = this.eleccionComestible();
                     combo.agregarProducto(comida);
                     combo.setArticulo(combo.getArticulo().concat(comida.getArticulo()) + " | ");
+                    System.out.println("    - Si desea finalizar el Combo, ingrese 3.");
                     break;
                 case 2:
+                    combo = null;
+                    salir = true;
+                    break;
+                case 3:
                     salir = true;
                     break;
                 default:
@@ -669,7 +675,7 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
     private void debitarComestibles(Cliente cliente) {
         Cinema miCinema = Cinema.getInstance();
         Ticket nuevoTicket = new Ticket();
-        String nombreArticulo = "";
+        String nombreArticulo = new String();
         System.out.println("¡Productos comprados!:");
         for(Producto producto : cliente.obtenerCarrito()){
             System.out.println(" - " + producto.getArticulo());
@@ -715,7 +721,7 @@ TODO: Elegir un horario, el cual esta matcheado con una sala, elegir la cantidad
     private void debitarEntradas(Cliente cliente) {
         Cinema miCinema = Cinema.getInstance();
         Ticket nuevoTicket = new Ticket();
-        String nombreArticulo = "";
+        String nombreArticulo = new String();
         System.out.println("¡Productos comprados!:");
         Entrada entrada = cliente.obtenerEntradas().get(0);
         int cantidadEntradas = cliente.obtenerEntradas().size();

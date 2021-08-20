@@ -32,15 +32,12 @@ public class Cinema {
     // Metodos
     public Usuario buscarUsuario(String emailBuscado) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-
         Usuario usuarioBuscado = usuarioDAO.buscarUsuario(emailBuscado);
-
         return usuarioBuscado;
     }
 
     public boolean validarUsuario(String email, String contrasenia) {
         Usuario usuarioBuscado = this.buscarUsuario(email);
-
         if(usuarioBuscado == null) {
             return false;
         }
@@ -54,25 +51,18 @@ public class Cinema {
         return validador.esValida(contrasenia);
     }
 
+
 // Siempre que creo un nuevo usuario, va a tener un Rol de USER
     public Usuario crearUsuario(String email, String contrasenia) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-
         usuarioDAO.insert(email, contrasenia, TipoRol.USER);
 
         Usuario nuevoUsuario = new Usuario(email, contrasenia, TipoRol.USER, 0);
-
         return nuevoUsuario;
     }
 
-    private List<Usuario> obtenerUsuarios() {
-        UsuariosDAO usuariosDAO = new UsuariosDAO();
 
-        return usuariosDAO.obtenerUsuarios();
-    }
-
-
-    // Consulto los Precios
+// Consulto los Precios
     public double obtenerPrecioEntrada() {
         PreciosDAO preciosDAO = new PreciosDAO();
         return preciosDAO.obtenerPrecioEntrada();
