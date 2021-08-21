@@ -152,16 +152,6 @@ public class Cinema {
         sala5.prepararButacas(horarios.get(2), pelis.get(18));
         sala5.prepararButacas(horarios.get(3), pelis.get(19));
         this.salas.add(sala5);
-
-        /*for(Sala sala : salas) {
-            System.out.println("Sala: " + sala.getNumeroSala());
-            System.out.println("Cantidad de Butacas: " + sala.getCantidadButacas());
-            for(Butaca butaca : sala.getButacas()) {
-                System.out.println("    - N° Butaca: " + butaca.getNumeroButaca());
-                System.out.println("    - Horario: " + butaca.getHorario());
-                System.out.println("    - Pelicula: " + butaca.getPelicula().getTitulo());
-            }
-        }*/
     }
 
     public Sala buscarSalaXPelicula(Pelicula peliculaBuscada) throws NullPointerException{
@@ -177,7 +167,6 @@ public class Cinema {
             }
             return null;
         } catch (Exception ex) {
-            // handle any errors
             System.out.println("No se puede obtener la Sala con la Película buscada.");
             return null;
         }

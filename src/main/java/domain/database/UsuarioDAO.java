@@ -56,6 +56,33 @@ public class UsuarioDAO {
         }
     }
 
+    public void insertRolCliente(TipoRol rol, String email) {
+
+        String mapeoRol = null;
+        if(rol == TipoRol.USER) {
+            mapeoRol = "USER";
+        }
+        else if(rol == TipoRol.ADMIN) {
+            mapeoRol = "ADMIN";
+        }
+
+        String consulta = "UPDATE usuario SET rol = '" + mapeoRol + "' WHERE email = '" + email +"';";
+
+        try {
+            this.conn = newConnection();
+
+            // Ejecución
+            PreparedStatement stmt = this.conn.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
+
+            // Execute the PreparedStatement
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("No se pudo ingresar el nuevo Rol del Usuario a la BD.");
+        }
+    }
+
     public int obtenerIDCliente(String emailBuscado) {
         String consulta = "SELECT * FROM usuario WHERE email = '" + emailBuscado + "';";
 

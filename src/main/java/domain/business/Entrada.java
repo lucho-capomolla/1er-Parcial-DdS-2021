@@ -14,9 +14,7 @@ public class Entrada implements Compra {
     private int sala;
 
     // Getters and Setters
-    public LocalDate getFechaEmision() {
-        return fechaEmision;
-    }
+    public LocalDate getFechaEmision() { return fechaEmision; }
 
     public void setFechaEmision(LocalDate fechaEmision) {
         this.fechaEmision = fechaEmision;
@@ -46,9 +44,7 @@ public class Entrada implements Compra {
         this.butaca = butaca;
     }
 
-    public int getSala() {
-        return sala;
-    }
+    public int getSala() { return sala; }
 
     public void setSala(int sala) {
         this.sala = sala;
@@ -60,14 +56,6 @@ public class Entrada implements Compra {
 
 
     // Metodos
-    public void elegirButaca(int numeroButaca) {
-        // Todo: en Views, el Sistema deberia mostrar las butacas disponibles, y el usuario elige el numero de asiento deseado
-    }
-
-    public void elegirPelicula(Pelicula pelicula) {
-        // Todo: en Views, el Sistema deberia mostrar las peliculas disponibles, y el usuario elige dicha pelicula y envia en este metodo
-    }
-
     @Override
     public double obtenerPrecio() {
         return this.getPelicula().calcularPrecio();

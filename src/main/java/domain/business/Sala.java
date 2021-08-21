@@ -24,10 +24,6 @@ public class Sala {
         return numeroSala;
     }
 
-    public void setNumeroSala(int numeroSala) {
-        this.numeroSala = numeroSala;
-    }
-
     public List<Butaca> getButacas() {
         return butacas;
     }
@@ -52,27 +48,4 @@ public class Sala {
             this.agregarButaca(butaca);
         }
     }
-
-    /*private Butaca buscarButaca(int numeroButaca) {
-        for(Butaca butacaBuscada : butacas) {
-            if(butacaBuscada.getNumeroButaca() == numeroButaca) {
-                return butacaBuscada;
-            }
-        }
-        return null;
-    }
-
-    public boolean reservarButaca(int numeroButaca) {
-        Butaca butacaBuscada;
-        butacaBuscada = this.buscarButaca(numeroButaca);
-        if(butacaBuscada != null && butacaBuscada.estaLibre()) {
-            butacaBuscada.ocuparButaca();
-            return true;
-        }
-        else {
-            System.out.println("Esta butaca está ocupada o no existe.");
-            return false;
-        }
-    }*/
-
 }

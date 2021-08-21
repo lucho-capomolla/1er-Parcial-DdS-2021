@@ -12,9 +12,4 @@ public class Genero {
             return null;
         }
     }
-
-    public void mostrarGenero() {
-        System.out.println("ID:" + id);
-        System.out.println("Nombre: " + name);
-    }
 }

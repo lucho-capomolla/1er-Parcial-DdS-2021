@@ -22,10 +22,6 @@ public class Usuario{
         return contrasenia;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -54,7 +50,6 @@ public class Usuario{
         else if(rol == TipoRol.USER) {
             this.rol = new User();
         }
-        //this.idCliente = idCliente;
         ClienteDAO clienteDAO = new ClienteDAO();
         this.cliente = clienteDAO.buscarCliente(idCliente);
     }

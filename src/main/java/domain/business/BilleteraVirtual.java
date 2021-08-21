@@ -12,12 +12,8 @@ public class BilleteraVirtual {
         this.saldo = saldo;
     }
 
-
     // Constructor
-    public BilleteraVirtual() {}
-
     public BilleteraVirtual(double saldo) { this.saldo = saldo; }
-
 
     // Metodos
     public boolean debitar(double monto) {

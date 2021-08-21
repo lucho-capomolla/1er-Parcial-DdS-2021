@@ -1,12 +1,12 @@
-import views.MenuPrueba;
+import views.MenuInicio;
 
 import java.io.IOException;
 
 public class Main {
 
-    private static MenuPrueba menuPrueba = new MenuPrueba();
+    private static MenuInicio menuInicio = new MenuInicio();
 
     public static void main(String[] args) throws IOException {
-        menuPrueba.iniciarMenu();
+        menuInicio.iniciarMenu();
     }
 }

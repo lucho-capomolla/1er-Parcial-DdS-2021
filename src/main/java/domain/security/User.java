@@ -7,7 +7,7 @@ public class User implements Rol{
     }
 
     @Override
-    public boolean puedoAdministrarPeliculas() {
+    public boolean puedoCambiarRoles() {
         return false;
     }
 }

@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cf2a724-ce69-4ea0-a5b6-0b850857db0e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/BilleteraVirtual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/BilleteraVirtual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Entrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Entrada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Sala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Sala.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/TipoComestible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/TipoComestible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/EstadoPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/EstadoPelicula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Genero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/database/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/database/UsuarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Rol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/MenuPrueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +39,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectId" id="1x2KGvjMWnBG9LY23eZuJdQrAuc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -31,15 +61,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -50,8 +78,20 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0cf2a724-ce69-4ea0-a5b6-0b850857db0e" name="Default Changelist" comment="" />
+      <created>1629547692907</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1629547692907</updated>
+      <workItem from="1629547711413" duration="7205000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -64,5 +104,15 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.StackOverflowError" package="java.lang" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
