@@ -2,8 +2,9 @@ package views;
 
 import domain.business.*;
 import domain.business.comestibles.*;
+import domain.business.pelicula.Entrada;
 import domain.business.pelicula.Pelicula;
-import domain.business.pelicula.apiPelicula.ApiMovies;
+import domain.business.pelicula.apiPelicula.APImovies;
 import domain.security.Usuario;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class UserView {
 
     public void mostrarPeliculas() throws IOException {
         int contador = 0;
-        ApiMovies apiMovies = new ApiMovies();
+        APImovies apiMovies = new APImovies();
         List<Pelicula> pelis = apiMovies.obtenerPeliculas();
 
         for(Pelicula pelicula : pelis) {
@@ -50,7 +51,8 @@ public class UserView {
             System.out.println("-----------------------MENÚ PRINCIPAL------------------------");
             System.out.println("• Si desea comprar una Entrada para una Película, ingrese 1.");
             System.out.println("• Si desea comprar alguna Bebida, Pochoclos, Nachos o un Combo, ingrese 2.");
-            System.out.println("• Si desea Cerrar Sesión, ingrese 3.");
+            System.out.println("• Si desea consultar su Billetera Virtual, ingrese 3.");
+            System.out.println("• Si desea Cerrar Sesión, ingrese 4.");
             System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             System.out.println("");
@@ -62,7 +64,10 @@ public class UserView {
                 case 2: // Comprar Comida,Bebida o armar un Combo
                     this.comprarComestibles(usuarioLogin.getCliente());
                     break;
-                case 3: // Salir
+                case 3: // Para accionar sobre la Billetera Virtual
+                    this.consultarBilleteraVirtual(usuarioLogin.getCliente());
+                    break;
+                case 4: // Salir
                     salir = true;
                     break;
                 default:
@@ -72,11 +77,44 @@ public class UserView {
         }
     }
 
+    private void consultarBilleteraVirtual(Cliente cliente) {
+        Scanner entrada = new Scanner(System.in);
+        boolean salir = false;
+        int opcionElegida = 0;
+
+        while(!salir) {
+            System.out.println(" - Para consultar el saldo de su Billetera, ingrese 1.");
+            System.out.println(" - Para agregar más saldo a su Billetera, ingrese 2.");
+            System.out.println(" - Si desea volver al Menú Principal, ingrese 3.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+            System.out.println("");
+
+            switch(opcionElegida) {
+                case 1:
+                    System.out.println(" - El saldo del Cliente es de: $" + cliente.getBilleteraVirtual().getSaldo());
+                    break;
+                case 2:
+                    System.out.print(" - Indique cuanto saldo quiere recargar: $");
+                    double cantidad = entrada.nextDouble();
+                    cliente.getBilleteraVirtual().recargar(cantidad);
+                    System.out.println(" - La recarga de $" + cantidad + " ha sido exitosa.");
+                    break;
+                case 3:
+                    salir = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
     private void comprarEntrada(Cliente cliente) throws IOException {
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
-        ApiMovies apiMovies = new ApiMovies();
+        APImovies apiMovies = new APImovies();
         List<Pelicula> pelis = apiMovies.obtenerPeliculas();
         int cantidadPeliculas = pelis.size();
         List<Entrada> entradasPeliculas = new ArrayList<>();
@@ -141,24 +179,40 @@ public class UserView {
                         cantidadEntradas = entrada.nextInt();
                     }
 
-                    for(int c=0; c<cantidadEntradas; c++){
+                    while(cantidadEntradasReservadas < cantidadEntradas) {
+
                         Entrada entradaPelicula = new Entrada();
-                        entradaPelicula.setPelicula(pelis.get(peliculaElegida));
 
                         entradaPelicula.setSala(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)).getNumeroSala());
 
-                        while(cantidadEntradasReservadas < cantidadEntradas) {
-                            entradaPelicula.setButaca(this.elegirButacas(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)), pelis.get(peliculaElegida)));
-                            entradaPelicula.setHorarioFuncion(entradaPelicula.getButaca().getHorario());
-                            cantidadEntradasReservadas++;
+                        String tituloPeliculaElegida = pelis.get(peliculaElegida).getTitulo();
+                        List<Butaca> butacasDisponibles = (miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)).getButacas().stream().filter(butaca -> butaca.estaLibre()).filter(butaca -> butaca.getPelicula().getTitulo().equals(tituloPeliculaElegida)).collect(Collectors.toList()));
+
+                        if(butacasDisponibles.isEmpty()) {
+                            System.out.println("Función Agotada. Intente con otra Película.");
+                            break;
                         }
+
+                        if(cantidadEntradas > butacasDisponibles.size()) {
+                            System.out.println("No hay suficientes butacas disponibles para la reserva. Intente con otra Película.");
+                            break;
+                        }
+
+                        entradaPelicula.setPelicula(pelis.get(peliculaElegida));
+                        entradaPelicula.setSala(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)).getNumeroSala());
+
+                        entradaPelicula.setButaca(this.elegirButacas(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)), pelis.get(peliculaElegida)));
+
+                        entradaPelicula.setHorarioFuncion(entradaPelicula.getButaca().getHorario());
                         entradaPelicula.setFechaEmision(LocalDate.now());
 
-                        this.agregarAlCarritoEntradas(cliente, entradaPelicula);
+                        this.agregarAlCarrito(cliente, entradaPelicula);
                         entradasPeliculas.add(entradaPelicula);
+                        cantidadEntradasReservadas++;
                     }
-                    this.efectuarCompraEntrada(entradasPeliculas, cliente);
 
+                    this.efectuarCompra(cliente);
+                    salir = true;
                     break;
                 case 4: // Salir
                     salir = true;
@@ -173,10 +227,9 @@ public class UserView {
     private Butaca elegirButacas(Sala sala, Pelicula pelicula) {
         Scanner entrada = new Scanner(System.in);
         List<Butaca> butacasDisponibles = (sala.getButacas().stream().filter(butaca -> butaca.estaLibre()).filter(butaca -> butaca.getPelicula().getTitulo().equals(pelicula.getTitulo())).collect(Collectors.toList()));
-
         boolean salir = false;
         int opcionElegida;
-        int numButaca;
+        int numButaca = -1;
         Butaca butacaElegida = null;
 
         while(!salir) {
@@ -184,18 +237,32 @@ public class UserView {
             for(Butaca butacaBuscada : butacasDisponibles) {
                 System.out.println("    - N° Butaca: " + butacaBuscada.getNumeroButaca());
             }
-            System.out.print("> ");
-            numButaca = entrada.nextInt();
 
-            while(0 >= numButaca || numButaca > sala.getCantidadButacas() && !butacasDisponibles.get(numButaca).estaLibre()) {
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+
+            for(int i=0; i<butacasDisponibles.size(); i++){
+                Butaca butaca = butacasDisponibles.get(i);
+                if(butaca.getNumeroButaca() == opcionElegida) {
+                    numButaca = i;
+                }
+            }
+
+            while(0 > numButaca || numButaca > butacasDisponibles.size()) {
                 System.out.println("[WARNING] El número de Butaca que ha ingresado no está disponible.");
                 System.out.println("Elija el Número de Butaca que quiere reservar: ");
                 System.out.print("> ");
-                numButaca = entrada.nextInt();
+                opcionElegida = entrada.nextInt();
+
+                for(int i=0; i<butacasDisponibles.size(); i++){
+                    Butaca butaca = butacasDisponibles.get(i);
+                    if(butaca.getNumeroButaca() == opcionElegida) {
+                        numButaca = i;
+                    }
+                }
             }
 
-
-            System.out.println("Usted ha elegido la Butaca: " + numButaca);
+            System.out.println("Usted ha elegido la Butaca: " + butacasDisponibles.get(numButaca).getNumeroButaca());
             System.out.println("¿Está seguro de la elección?");
             System.out.println("    - Ingrese 1 para continuar con la compra.");
             System.out.println("    - Ingrese 2 para volver atrás.");
@@ -204,7 +271,7 @@ public class UserView {
 
             if(0 > opcionElegida || opcionElegida > 2) {
                 System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
-                System.out.println("Usted ha elegido la Butaca: " + numButaca);
+                System.out.println("Usted ha elegido la Butaca: " + butacasDisponibles.get(numButaca).getNumeroButaca());
                 System.out.println("¿Está seguro de la elección?");
                 System.out.println("    - Ingrese 1 para continuar con la compra.");
                 System.out.println("    - Ingrese 2 para volver atrás.");
@@ -212,15 +279,12 @@ public class UserView {
                 opcionElegida = entrada.nextInt();
             }
 
-            if(opcionElegida == 2) {
-                numButaca = 0;
+            if(opcionElegida == 1) {
+                butacaElegida = butacasDisponibles.get(numButaca);
+                butacaElegida.ocuparButaca();
+                salir = true;
                 break;
             }
-
-            butacaElegida = butacasDisponibles.get(numButaca);
-            butacaElegida.ocuparButaca();
-            salir = true;
-            break;
         }
         return butacaElegida;
     }
@@ -270,7 +334,7 @@ public class UserView {
                     }
 
                     if(producto != null) {
-                        this.agregarAlCarritoComestible(cliente, producto);
+                        this.agregarAlCarrito(cliente, producto);
                         salir = true;
                     }
                     break;
@@ -278,7 +342,7 @@ public class UserView {
                     producto = this.prepararCombo();
 
                     if(producto != null) {
-                        this.agregarAlCarritoComestible(cliente, producto);
+                        this.agregarAlCarrito(cliente, producto);
                         salir = true;
                     }
                     break;
@@ -289,7 +353,7 @@ public class UserView {
                     System.out.println("[WARNING] La opción que ha elegido es incorrecta.");
                     break;
             }
-            this.efectuarCompraComestible(producto, cliente);
+            this.efectuarCompra(cliente);
         }
     }
 
@@ -401,7 +465,8 @@ public class UserView {
         while(!salir) {
 
             System.out.println("    - Si desea agregar Comida/Bebida en el combo, ingrese 1.");
-            System.out.println("    - Si no quiere realizar un Combo, ingrese 2.");
+            System.out.println("    - Si desea meter un Combo en el Combo, ingrese 2.");
+            System.out.println("    - Si no quiere realizar un Combo, ingrese 3.");
             System.out.print("> ");
             int opcionElegida = entrada.nextInt();
             System.out.println("");
@@ -409,15 +474,29 @@ public class UserView {
             switch(opcionElegida) {
                 case 1:
                     Comestible comida = this.eleccionComestible();
+
+                    if(comida != null) {
+                        break;
+                    }
                     combo.agregarProducto(comida);
                     combo.setArticulo(combo.getArticulo().concat(comida.getArticulo()) + " | ");
-                    System.out.println("    - Si desea finalizar el Combo, ingrese 3.");
+                    System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
                     break;
                 case 2:
+                    Producto comboInception = this.prepararCombo();
+
+                    if(comboInception != null) {
+                        break;
+                    }
+                    combo.agregarProducto(comboInception);
+                    combo.setArticulo(combo.getArticulo().concat(comboInception.getArticulo()) + " | ");
+                    System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
+                    break;
+                case 3:
                     combo = null;
                     salir = true;
                     break;
-                case 3:
+                case 4:
                     salir = true;
                     break;
                 default:
@@ -428,99 +507,106 @@ public class UserView {
         return combo;
     }
 
-
-    // Compra Comestibles
-    private void agregarAlCarritoComestible(Cliente cliente, Producto producto) {
-        System.out.println("Se agregó " + producto.getArticulo() + " a su Carrito de Compras.");
-        System.out.println("    - Costo total: $" + producto.obtenerPrecio());
-        cliente.agregarAlCarrito(producto);
+    private void agregarAlCarrito(Cliente cliente, Compra compra) {
+        cliente.agregarAlCarrito(compra);
     }
 
-    private void efectuarCompraComestible(Producto producto, Cliente cliente) {
+    private void efectuarCompra(Cliente cliente) {
+        Scanner entrada = new Scanner(System.in);
+        int opcionElegida;
+        boolean salir = false;
+        List<Compra> compras = cliente.obtenerCarrito();
+
+        while(!salir) {
+            if(compras != null) {
+                System.out.println("$$$ Si desea efectuar la compra, ingrese 1 $$$");
+                System.out.println(" - Si desea visualizar los productos del carrito, ingrese 2.");
+                System.out.println(" - De lo contrario, presione cualquier otra tecla para limpiar el carrito.");
+                System.out.print("> ");
+                opcionElegida = entrada.nextInt();
+                if(opcionElegida == 1) {
+                    this.debitarCompra(cliente);
+                    salir = true;
+                }
+                else if(opcionElegida == 2) {
+                    cliente.obtenerProductos();
+                    System.out.println("Si quiere quitar un producto del carrito, ingrese 1.");
+                    System.out.println("Si desea continuar con la compra, ingrese 2.");
+                    System.out.print("> ");
+                    opcionElegida = entrada.nextInt();
+                    if(opcionElegida == 1) {
+                        this.quitarProductoCarrito(cliente);
+                    }
+                }
+                else {
+                    cliente.limpiarCarrito();
+                    salir = true;
+                }
+            }
+        }
+
+    }
+
+    private void quitarProductoCarrito(Cliente cliente) {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
 
-        if(producto != null) {
-            System.out.println("$$$ Para efectuar la compra, ingrese 1 $$$");
-            System.out.println("De lo contrario, se limpiara el carrito.");
+        System.out.print("Seleccione el ID del producto que quiere quitar del Carrito: ");
+        System.out.print("> ");
+        opcionElegida = entrada.nextInt();
+
+        if(opcionElegida < 0 || opcionElegida > cliente.obtenerCarrito().size()){
+            System.out.println("[WARNING] La opción que ha ingresado es incorrecta.");
+            System.out.print("Seleccione el ID del producto que quiere quitar del Carrito: ");
             System.out.print("> ");
             opcionElegida = entrada.nextInt();
-            if(opcionElegida == 1) {
-                this.debitarComestibles(cliente);
-            }
-            else {
-                cliente.setCarrito(new ArrayList<>());
-            }
         }
+
+        cliente.quitarDelCarrito(cliente.obtenerCarrito().get(opcionElegida));
+        System.out.println("Se ha quitado el producto de forma exitosa.");
     }
 
-    private void debitarComestibles(Cliente cliente) {
+    private void debitarCompra(Cliente cliente) {
         Cinema miCinema = Cinema.getInstance();
         Ticket nuevoTicket = new Ticket();
         String nombreArticulo = new String();
+        boolean esEntrada = false;
         System.out.println("¡Productos comprados!:");
-        for(Producto producto : cliente.obtenerCarrito()){
-            System.out.println(" - " + producto.getArticulo());
-            System.out.println(" - Costo: $" + producto.obtenerPrecio());
-            nuevoTicket.agregarProductoATicket(producto);
-            nombreArticulo = nombreArticulo.concat(producto.getArticulo());
+        for (Compra compra : cliente.obtenerCarrito()) {
+            if (compra.getClass().equals(Entrada.class)) {
+                esEntrada = true;
+                nuevoTicket.agregarCompra(compra);
+                compra.mostrarCompra();
+                nombreArticulo = compra.obtenerNombre();
+            } else {
+                nuevoTicket.agregarCompra(compra);
+                compra.mostrarCompra();
+                nombreArticulo = nombreArticulo.concat(compra.obtenerNombre());
+            }
+        }
+
+        if(esEntrada) {
+            nombreArticulo = nombreArticulo.concat(" x " + cliente.obtenerCarrito().size());
         }
 
         System.out.println(nombreArticulo);
         System.out.println("Costo Final: $" + nuevoTicket.obtenerPrecioFinal());
-        nuevoTicket.generarTicket(nombreArticulo);
-        miCinema.agregarTicket(nuevoTicket);
-        cliente.setCarrito(new ArrayList<>());
-        cliente.comprar(nuevoTicket);
-        System.out.println("Saldo restante: $" + cliente.getBilleteraVirtual().getSaldo());
-    }
-
-    // Compra Entradas
-    private void agregarAlCarritoEntradas(Cliente cliente, Entrada entrada) {
-        Cinema miCinema = Cinema.getInstance();
-        System.out.println("Se agregó la Entrada de " + entrada.getPelicula().getTitulo() + " a su Carrito de Compras.");
-        System.out.println("    - Costo total: $" + miCinema.obtenerPrecioEntrada());
-        cliente.agregarEntrada(entrada);
-    }
-
-    private void efectuarCompraEntrada(List<Entrada> entradasPeliculas, Cliente cliente) {
-        Scanner entrada = new Scanner(System.in);
-        int opcionElegida;
-
-        if(entradasPeliculas != null) {
-            System.out.println("$$$ Para efectuar la compra, ingrese 1 $$$");
-            System.out.println("De lo contrario, se limpiara el carrito.");
-            System.out.print("> ");
-            opcionElegida = entrada.nextInt();
-            if(opcionElegida == 1) {
-                this.debitarEntradas(cliente);
-            }
-            else {
-                cliente.setEntradas(new ArrayList<>());
-            }
+        if(cliente.puedoComprar()){
+            nuevoTicket.generarTicket(nombreArticulo);
+            miCinema.agregarTicket(nuevoTicket);
+            cliente.limpiarCarrito();
+            cliente.comprar(nuevoTicket);
+            System.out.println("Saldo restante: $" + cliente.getBilleteraVirtual().getSaldo());
         }
-    }
-
-    private void debitarEntradas(Cliente cliente) {
-        Cinema miCinema = Cinema.getInstance();
-        Ticket nuevoTicket = new Ticket();
-        String nombreArticulo = new String();
-        System.out.println("¡Productos comprados!:");
-        Entrada entrada = cliente.obtenerEntradas().get(0);
-        int cantidadEntradas = cliente.obtenerEntradas().size();
-
-        for(int i=0; i<cantidadEntradas; i++){
-
-            System.out.println(" - " + entrada.getPelicula().getTitulo());
-            System.out.println(" - Costo: $" + entrada.obtenerPrecio());
-            nuevoTicket.agregarEntradaATicket(entrada);
+        else {
+            if(esEntrada) {
+                for(Compra compra : cliente.obtenerCarrito()) {
+                    ((Entrada)compra).getButaca().liberarButaca();
+                }
+            }
+            System.out.println("No hay saldo suficiente para realizar la compra.");
+            cliente.limpiarCarrito();
         }
-        nombreArticulo = nombreArticulo.concat(entrada.getPelicula().getTitulo() + " x " + cantidadEntradas);
 
-        nuevoTicket.generarTicket(nombreArticulo);
-        miCinema.agregarTicket(nuevoTicket);
-        cliente.setEntradas(new ArrayList<>());
-        cliente.comprar(nuevoTicket);
-        System.out.println("Saldo restante: $" + cliente.getBilleteraVirtual().getSaldo());
     }
 }

@@ -1,6 +1,5 @@
 package domain.business.pelicula.apiPelicula.entidades;
 
-import domain.business.pelicula.Genero;
 import java.util.List;
 
 public class Generos {

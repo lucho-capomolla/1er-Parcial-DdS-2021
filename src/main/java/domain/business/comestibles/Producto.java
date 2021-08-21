@@ -15,6 +15,9 @@ public abstract class Producto implements Compra {
     public abstract double obtenerPrecio();
 
     @Override
+    public String obtenerNombre() { return this.getArticulo(); }
+
+    @Override
     public void mostrarCompra() {
         System.out.println(this.getArticulo());
     }

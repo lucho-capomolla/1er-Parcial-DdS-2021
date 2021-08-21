@@ -1,4 +1,4 @@
-package domain.business.pelicula;
+package domain.business.pelicula.apiPelicula.entidades;
 
 public class Genero {
     public int id;

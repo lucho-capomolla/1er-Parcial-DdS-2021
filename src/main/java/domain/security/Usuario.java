@@ -39,8 +39,6 @@ public class Usuario{
     }
 
     // Constructor
-    public Usuario() {}
-
     public Usuario(String email, String contrasenia, TipoRol rol, int idCliente) {
         this.email = email;
         this.contrasenia = contrasenia;

@@ -1,20 +1,17 @@
 package domain.business;
 
 import domain.business.pelicula.Pelicula;
-import domain.business.pelicula.apiPelicula.ApiMovies;
+import domain.business.pelicula.apiPelicula.APImovies;
 import domain.security.TipoRol;
 import domain.security.Usuario;
 import domain.database.PreciosDAO;
 import domain.database.UsuarioDAO;
-import domain.database.UsuariosDAO;
 import domain.security.password.ValidadorPassword;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class Cinema {
@@ -90,6 +87,11 @@ public class Cinema {
     }
 
     // Cambios de Precios
+    public void cambiarPrecioEntrada(double precioEntrada) {
+        PreciosDAO preciosDAO = new PreciosDAO();
+        preciosDAO.cambiarPrecioEntrada(precioEntrada);
+    }
+
     public void cambiarPrecioPochoclos(double precioPochoclos) {
         PreciosDAO preciosDAO = new PreciosDAO();
         preciosDAO.cambiarPrecioPochoclos(precioPochoclos);
@@ -105,17 +107,11 @@ public class Cinema {
         preciosDAO.cambiarPrecioNachos(precioNachos);
     }
 
-    public void cambiarPrecioEntrada(double precioEntrada) {
-        PreciosDAO preciosDAO = new PreciosDAO();
-        preciosDAO.cambiarPrecioEntrada(precioEntrada);
-    }
-
-
     // Salas y Horarios
     // Van a haber 5 salas, y 4 horarios = {"10:00","13:00","16:00","21:00"}
     // Como en este cine hay 20 peliculas, se pasan 4 peliculas por sala, una por cada horario
     public void prepararCine() throws IOException {
-        ApiMovies apiMovies = new ApiMovies();
+        APImovies apiMovies = new APImovies();
         List<Pelicula> pelis = apiMovies.obtenerPeliculas();
 
         Sala sala1 = new Sala(1, 30);
@@ -157,8 +153,6 @@ public class Cinema {
     public Sala buscarSalaXPelicula(Pelicula peliculaBuscada) throws NullPointerException{
         try{
             for(Sala salaBuscada : this.salas) {
-                System.out.println("N° sala: " + salaBuscada.getNumeroSala());
-                System.out.println("Pelicula buscada: " + peliculaBuscada.getTitulo());
                 for(Butaca butaca : salaBuscada.getButacas()) {
                     if(butaca.getPelicula().getTitulo().equals(peliculaBuscada.getTitulo())) {
                         return salaBuscada;

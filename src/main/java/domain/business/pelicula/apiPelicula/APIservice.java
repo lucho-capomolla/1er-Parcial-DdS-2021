@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 import retrofit2.http.Query;
 
-public interface AdapterAPIpelicula {
+public interface APIservice {
 
     @GET("movie/now_playing")
     Call<ListMovie> movies(@Query("api_key") String apiKey, @Query("language") String language, @Query("page") int page, @Query("region") String region);

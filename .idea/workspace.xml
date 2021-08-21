@@ -7,14 +7,19 @@
     <list default="true" id="0cf2a724-ce69-4ea0-a5b6-0b850857db0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/database/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/database/UsuarioDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/database/UsuariosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/database/UsuariosDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Rol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Entrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Entrada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/entidades/Genero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Pelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Pelicula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/AdapterAPIpelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/APIservice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/ApiMovies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/APImovies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/entidades/Generos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/entidades/Generos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/AdminView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/UserView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/UserView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +84,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1629547692907</updated>
-      <workItem from="1629547711413" duration="9427000" />
+      <workItem from="1629547711413" duration="32324000" />
     </task>
     <servers />
   </component>

@@ -13,32 +13,20 @@ public class Cliente {
     private int nroDocumento;
     // Queda Hardcodeada la Billetera Virtual
     private BilleteraVirtual billeteraVirtual = new BilleteraVirtual(2000);
-
-    private ArrayList<Producto> carrito = new ArrayList<>();
-    private ArrayList<Entrada> entradas = new ArrayList<>();
+    private ArrayList<Compra> carrito = new ArrayList<>();
 
     // Getters and Setters
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
 
-    public ArrayList<Producto> obtenerCarrito() {
-        return carrito;
-    }
+    public ArrayList<Compra> obtenerCarrito() { return carrito; }
 
-    public void setCarrito(ArrayList<Producto> carrito) {
-        this.carrito = carrito;
-    }
+    public void limpiarCarrito() { this.carrito = new ArrayList<>(); }
 
-    public void agregarAlCarrito(Producto nuevoProducto) {
-        this.carrito.add(nuevoProducto);
-    }
+    public void quitarDelCarrito(Compra compra) { this.carrito.remove(compra);}
 
-    public ArrayList<Entrada> obtenerEntradas() { return entradas; }
-
-    public void setEntradas(ArrayList<Entrada> entradas) { this.entradas = entradas; }
-
-    public void agregarEntrada(Entrada nuevaEntrada) { this.entradas.add(nuevaEntrada); }
+    public void agregarAlCarrito(Compra nuevaCompra) { this.carrito.add(nuevaCompra); }
 
     public BilleteraVirtual getBilleteraVirtual() { return billeteraVirtual; }
 
@@ -56,5 +44,22 @@ public class Cliente {
     // Metodos
     public void comprar(Ticket nuevoTicket) {
         this.getBilleteraVirtual().debitar(nuevoTicket.obtenerPrecioFinal());
+    }
+
+    public void obtenerProductos() {
+        int contador = 0;
+        for(Compra compra : carrito) {
+            System.out.println("Producto: " + contador);
+            compra.mostrarCompra();
+            contador++;
+        }
+    }
+
+    public boolean puedoComprar() {
+        double aPagar = 0;
+        for(Compra compra : carrito) {
+            aPagar += compra.obtenerPrecio();
+        }
+        return (aPagar <= this.getBilleteraVirtual().getSaldo());
     }
 }

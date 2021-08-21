@@ -1,24 +1,15 @@
 package views;
 
 import domain.business.*;
-import domain.business.comestibles.*;
 import domain.business.pelicula.Pelicula;
-import domain.business.pelicula.apiPelicula.ApiMovies;
-import domain.business.pelicula.apiPelicula.entidades.ListMovie;
-import domain.business.pelicula.apiPelicula.entidades.Movie;
-import domain.security.User;
+import domain.business.pelicula.apiPelicula.APImovies;
 import domain.security.Usuario;
 import domain.database.ClienteDAO;
 import domain.database.UsuarioDAO;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
 
@@ -115,7 +106,7 @@ public class MenuInicio {
         }
     }
 
-    private void crearUsuario() {
+    public void crearUsuario() {
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
@@ -182,7 +173,7 @@ public class MenuInicio {
 
     public void mostrarProximosEstrenos() throws IOException {
         int contador = 0;
-        ApiMovies apiMovies = new ApiMovies();
+        APImovies apiMovies = new APImovies();
         List<Pelicula> estrenos = apiMovies.obtenerEstrenos();
 
         for(Pelicula pelicula : estrenos) {
