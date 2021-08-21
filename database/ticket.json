@@ -1,0 +1,11 @@
+[
+{"type":"header","version":"5.1.0","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"cinemadb"},
+{"type":"table","name":"ticket","database":"cinemadb","data":
+[
+{"id_ticket":"1","hora_creacion":"20:22:40","fecha_creacion":"20\/08\/2021","precio_total":"600","nombre_articulo":"Free Guy: Tomando el control x 2"},
+{"id_ticket":"2","hora_creacion":"20:54:46","fecha_creacion":"20\/08\/2021","precio_total":"900","nombre_articulo":"Free Guy: Tomando el control x 3"},
+{"id_ticket":"3","hora_creacion":"20:55:23","fecha_creacion":"20\/08\/2021","precio_total":"1125","nombre_articulo":"#Combo: Balde | Balde | Pepsi | Pepsi | Sprite | "}
+]
+}
+]

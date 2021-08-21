@@ -1,9 +1,0 @@
-[
-{"type":"header","version":"5.1.0","comment":"Export to JSON plugin for PHPMyAdmin"},
-{"type":"database","name":"cinemadb"},
-{"type":"table","name":"precios","database":"cinemadb","data":
-[
-{"precio_entrada":"200","precio_pochoclos":"120","precio_bebidas":"100","precio_nachos":"150"}
-]
-}
-]

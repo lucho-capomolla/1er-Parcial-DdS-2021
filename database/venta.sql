@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-08-2021 a las 17:05:20
+-- Tiempo de generación: 21-08-2021 a las 02:17:59
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -24,22 +24,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `precios`
+-- Estructura de tabla para la tabla `venta`
 --
 
-CREATE TABLE `precios` (
-  `precio_entrada` int(11) DEFAULT NULL,
-  `precio_pochoclos` int(11) DEFAULT NULL,
-  `precio_bebidas` int(11) DEFAULT NULL,
-  `precio_nachos` int(11) DEFAULT NULL
+CREATE TABLE `venta` (
+  `id_venta` int(11) NOT NULL,
+  `precio` double DEFAULT NULL,
+  `descripcion` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `precios`
+-- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `precios` (`precio_entrada`, `precio_pochoclos`, `precio_bebidas`, `precio_nachos`) VALUES
-(200, 120, 100, 150);
+INSERT INTO `venta` (`id_venta`, `precio`, `descripcion`) VALUES
+(1, 300, 'precio_entrada'),
+(2, 100, 'precio_pochoclos'),
+(3, 150, 'precio_bebidas'),
+(4, 200, 'precio_nachos');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`id_venta`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

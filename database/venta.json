@@ -1,0 +1,12 @@
+[
+{"type":"header","version":"5.1.0","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"cinemadb"},
+{"type":"table","name":"venta","database":"cinemadb","data":
+[
+{"id_venta":"1","precio":"300","descripcion":"precio_entrada"},
+{"id_venta":"2","precio":"100","descripcion":"precio_pochoclos"},
+{"id_venta":"3","precio":"150","descripcion":"precio_bebidas"},
+{"id_venta":"4","precio":"200","descripcion":"precio_nachos"}
+]
+}
+]
