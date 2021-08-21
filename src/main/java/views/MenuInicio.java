@@ -115,7 +115,7 @@ public class MenuInicio {
         }
     }
 
-    public void crearUsuario() {
+    private void crearUsuario() {
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
@@ -160,7 +160,7 @@ public class MenuInicio {
         usuarioDAO.insertIDCliente(idCliente, email);
     }
 
-    public int crearCliente(String email) {
+    private int crearCliente(String email) {
         Scanner entrada = new Scanner(System.in);
         ClienteDAO clienteDAO = new ClienteDAO();
 

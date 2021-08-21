@@ -10,4 +10,7 @@ public class Admin implements Rol {
     public boolean puedoCambiarRoles() {
         return true;
     }
+
+    @Override
+    public String mostrarRol() { return "ADMIN"; }
 }

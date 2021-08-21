@@ -31,9 +31,10 @@ public class AdminView {
             System.out.println("• Para consultar los precios de los Comestibles, ingrese 1.");
             System.out.println("• Para consultar el precio de la Entrada, ingrese 2.");
             System.out.println("• Para cambiar los precios, ingrese 3.");
-            System.out.println("• Para hacer Admin a otro Usuario, ingrese 4.");
-            System.out.println("• Para sacar los permisos de Admin a un Usuario, ingrese 5.");
-            System.out.println("• Para volver al Menú Principal, ingrese 6.");
+            System.out.println("• Para consultar todos los Usuarios, ingrese 4.");
+            System.out.println("• Para hacer Admin a otro Usuario, ingrese 5.");
+            System.out.println("• Para sacar los permisos de Admin a un Usuario, ingrese 6.");
+            System.out.println("• Para volver al Menú Principal, ingrese 7.");
             System.out.print("> ");
             System.out.print("");
             switch(entrada.nextInt()) {
@@ -46,13 +47,16 @@ public class AdminView {
                 case 3: // Cambiar precios
                     this.cambiarPrecios();
                     break;
-                case 4: // Hacer nuevo Admin
+                case 4: // Consultar todos los Usuarios
+                    this.consultarUsuarios();
+                    break;
+                case 5: // Hacer nuevo Admin
                     this.nuevoAdmin();
                     break;
-                case 5: // Sacar Admin
+                case 6: // Sacar Admin
                     this.quitarAdmin();
                     break;
-                case 6: // Salir
+                case 7: // Salir
                     salir = true;
                     break;
                 default:
@@ -78,7 +82,21 @@ public class AdminView {
         System.out.println();
     }
 
-    public void cambiarPrecios() {
+    private void consultarUsuarios() {
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        List<Usuario> usuarios = usuariosDAO.obtenerUsuarios();
+        int contador = 0;
+
+        for(Usuario usuario : usuarios) {
+
+            System.out.println("Usuario: " + contador);
+            System.out.println("    - Email Usuario: " + usuario.getEmail());
+            System.out.println("    - Rol:" + usuario.getRol().mostrarRol());
+            contador++;
+        }
+    }
+
+    private void cambiarPrecios() {
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
@@ -126,7 +144,7 @@ public class AdminView {
         }
     }
 
-    public void nuevoAdmin() {
+    private void nuevoAdmin() {
         Scanner entrada = new Scanner(System.in);
         UsuariosDAO usuariosDAO = new UsuariosDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -178,7 +196,7 @@ public class AdminView {
         return;
     }
 
-    public void quitarAdmin() {
+    private void quitarAdmin() {
         Scanner entrada = new Scanner(System.in);
         UsuariosDAO usuariosDAO = new UsuariosDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();

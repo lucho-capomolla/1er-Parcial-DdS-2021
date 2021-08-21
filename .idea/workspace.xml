@@ -6,23 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="0cf2a724-ce69-4ea0-a5b6-0b850857db0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/BilleteraVirtual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/BilleteraVirtual.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Entrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Entrada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Sala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Sala.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/TipoComestible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/TipoComestible.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/EstadoPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/EstadoPelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Genero.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/database/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/database/UsuarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/database/UsuariosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/database/UsuariosDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Rol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/MenuPrueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/AdminView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +44,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -86,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1629547692907</updated>
-      <workItem from="1629547711413" duration="7205000" />
+      <workItem from="1629547711413" duration="9427000" />
     </task>
     <servers />
   </component>

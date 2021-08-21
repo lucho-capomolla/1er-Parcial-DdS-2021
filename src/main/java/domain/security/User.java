@@ -10,4 +10,9 @@ public class User implements Rol{
     public boolean puedoCambiarRoles() {
         return false;
     }
+
+    @Override
+    public String mostrarRol() {
+        return "USER";
+    }
 }
