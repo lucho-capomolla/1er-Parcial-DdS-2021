@@ -40,7 +40,6 @@ public class Sala {
         this.setCantidadButacas(cantidadButacas);
     }
 
-
     // Metodos
     public void prepararButacas(String horario, Pelicula pelicula) {
         for(int i=1; i<=cantidadButacas; i++) {

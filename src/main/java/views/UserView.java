@@ -201,7 +201,7 @@ public class UserView {
                         entradaPelicula.setPelicula(pelis.get(peliculaElegida));
                         entradaPelicula.setSala(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)).getNumeroSala());
 
-                        entradaPelicula.setButaca(this.elegirButacas(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)), pelis.get(peliculaElegida)));
+                        entradaPelicula.setButaca(this.elegirButaca(miCinema.buscarSalaXPelicula(pelis.get(peliculaElegida)), pelis.get(peliculaElegida)));
 
                         entradaPelicula.setHorarioFuncion(entradaPelicula.getButaca().getHorario());
                         entradaPelicula.setFechaEmision(LocalDate.now());
@@ -224,7 +224,7 @@ public class UserView {
         }
     }
 
-    private Butaca elegirButacas(Sala sala, Pelicula pelicula) {
+    private Butaca elegirButaca(Sala sala, Pelicula pelicula) {
         Scanner entrada = new Scanner(System.in);
         List<Butaca> butacasDisponibles = (sala.getButacas().stream().filter(butaca -> butaca.estaLibre()).filter(butaca -> butaca.getPelicula().getTitulo().equals(pelicula.getTitulo())).collect(Collectors.toList()));
         boolean salir = false;
@@ -291,7 +291,7 @@ public class UserView {
 
     private void comprarComestibles(Cliente cliente) {
         Scanner entrada = new Scanner(System.in);
-        Producto producto = null;
+        Compra compra = null;
         boolean salir = false;
 
         while(!salir) {
@@ -309,9 +309,9 @@ public class UserView {
                     adminView.consultarPreciosComestibles();
                     break;
                 case 2: // Para comprar solamente un producto, sin necesidad de armar un Combo
-                    producto = this.eleccionComestible();
+                    compra = this.eleccionComestible();
 
-                    System.out.println("Usted ha elegido: " + producto.getArticulo());
+                    System.out.println("Usted ha elegido: " + compra.obtenerNombre());
                     System.out.println("¿Está seguro de la elección?");
                     System.out.println("    - Ingrese 1 para continuar con la compra.");
                     System.out.println("    - Ingrese 2 para volver atrás.");
@@ -320,7 +320,7 @@ public class UserView {
 
                     if(0 > opcionElegida || opcionElegida > 2) {
                         System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
-                        System.out.println("Usted ha elegido: " + producto.getArticulo());
+                        System.out.println("Usted ha elegido: " + compra.obtenerNombre());
                         System.out.println("¿Está seguro de la elección?");
                         System.out.println("    - Ingrese 1 para continuar con la compra.");
                         System.out.println("    - Ingrese 2 para volver atrás.");
@@ -329,20 +329,22 @@ public class UserView {
                     }
 
                     if(opcionElegida == 2) {
-                        producto = null;
+                        compra = null;
                         break;
                     }
 
-                    if(producto != null) {
-                        this.agregarAlCarrito(cliente, producto);
+                    if(compra != null) {
+                        this.agregarAlCarrito(cliente, compra);
+                        this.efectuarCompra(cliente);
                         salir = true;
                     }
                     break;
                 case 3: // Preparar Combo
-                    producto = this.prepararCombo();
+                    compra = this.prepararCombo();
 
-                    if(producto != null) {
-                        this.agregarAlCarrito(cliente, producto);
+                    if(compra != null) {
+                        this.agregarAlCarrito(cliente, compra);
+                        this.efectuarCompra(cliente);
                         salir = true;
                     }
                     break;
@@ -353,7 +355,6 @@ public class UserView {
                     System.out.println("[WARNING] La opción que ha elegido es incorrecta.");
                     break;
             }
-            this.efectuarCompra(cliente);
         }
     }
 
@@ -453,17 +454,14 @@ public class UserView {
         return bebida;
     }
 
-    private Producto prepararCombo() {
+    private Compra prepararCombo() {
         Scanner entrada = new Scanner(System.in);
-        Cinema miCinema = Cinema.getInstance();
         boolean salir = false;
         Combo combo = new Combo();
         combo.setArticulo("#Combo: ");
 
-
         System.out.println("-------PREPARACION COMBO-------");
         while(!salir) {
-
             System.out.println("    - Si desea agregar Comida/Bebida en el combo, ingrese 1.");
             System.out.println("    - Si desea meter un Combo en el Combo, ingrese 2.");
             System.out.println("    - Si no quiere realizar un Combo, ingrese 3.");
@@ -473,24 +471,68 @@ public class UserView {
 
             switch(opcionElegida) {
                 case 1:
-                    Comestible comida = this.eleccionComestible();
+                    Compra compra = this.eleccionComestible();
 
-                    if(comida != null) {
+                    System.out.println("Usted ha elegido: " + compra.obtenerNombre());
+                    System.out.println("¿Está seguro de la elección?");
+                    System.out.println("    - Ingrese 1 para continuar con la compra.");
+                    System.out.println("    - Ingrese 2 para volver atrás.");
+                    System.out.print("> ");
+                    opcionElegida = entrada.nextInt();
+
+                    if(0 > opcionElegida || opcionElegida > 2) {
+                        System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
+                        System.out.println("Usted ha elegido: " + compra.obtenerNombre());
+                        System.out.println("¿Está seguro de la elección?");
+                        System.out.println("    - Ingrese 1 para continuar con la compra.");
+                        System.out.println("    - Ingrese 2 para volver atrás.");
+                        System.out.print("> ");
+                        opcionElegida = entrada.nextInt();
+                    }
+
+                    if(opcionElegida == 2) {
+                        compra = null;
                         break;
                     }
-                    combo.agregarProducto(comida);
-                    combo.setArticulo(combo.getArticulo().concat(comida.getArticulo()) + " | ");
-                    System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
+
+                    if(compra != null) {
+                        combo.agregarProducto(compra);
+                        combo.setArticulo(combo.getArticulo().concat(compra.obtenerNombre()) + " | ");
+                        System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
+                        break;
+                    }
                     break;
                 case 2:
-                    Producto comboInception = this.prepararCombo();
+                    Compra comboInception = this.prepararCombo();
 
-                    if(comboInception != null) {
+                    System.out.println("Usted ha elegido: " + comboInception.obtenerNombre());
+                    System.out.println("¿Está seguro de la elección?");
+                    System.out.println("    - Ingrese 1 para continuar con la compra.");
+                    System.out.println("    - Ingrese 2 para volver atrás.");
+                    System.out.print("> ");
+                    opcionElegida = entrada.nextInt();
+
+                    if(0 > opcionElegida || opcionElegida > 2) {
+                        System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
+                        System.out.println("Usted ha elegido: " + comboInception.obtenerNombre());
+                        System.out.println("¿Está seguro de la elección?");
+                        System.out.println("    - Ingrese 1 para continuar con la compra.");
+                        System.out.println("    - Ingrese 2 para volver atrás.");
+                        System.out.print("> ");
+                        opcionElegida = entrada.nextInt();
+                    }
+
+                    if(opcionElegida == 2) {
+                        comboInception = null;
                         break;
                     }
-                    combo.agregarProducto(comboInception);
-                    combo.setArticulo(combo.getArticulo().concat(comboInception.getArticulo()) + " | ");
-                    System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
+
+                    if(comboInception != null) {
+                        combo.agregarProducto(comboInception);
+                        combo.setArticulo(combo.getArticulo().concat(comboInception.obtenerNombre()) + " | ");
+                        System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
+                        break;
+                    }
                     break;
                 case 3:
                     combo = null;
@@ -508,6 +550,7 @@ public class UserView {
     }
 
     private void agregarAlCarrito(Cliente cliente, Compra compra) {
+        System.out.println("Se agrego al carrito del cliente: " + compra.obtenerNombre());
         cliente.agregarAlCarrito(compra);
     }
 
@@ -571,8 +614,14 @@ public class UserView {
         Ticket nuevoTicket = new Ticket();
         String nombreArticulo = new String();
         boolean esEntrada = false;
+
+        int contador = 0;
+
         System.out.println("¡Productos comprados!:");
         for (Compra compra : cliente.obtenerCarrito()) {
+            System.out.println(contador);
+            contador++;
+
             if (compra.getClass().equals(Entrada.class)) {
                 esEntrada = true;
                 nuevoTicket.agregarCompra(compra);

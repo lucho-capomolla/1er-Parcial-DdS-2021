@@ -1,23 +1,32 @@
 package domain.business.comestibles;
 
+import domain.business.Compra;
+
 import java.util.ArrayList;
 
-public class Combo extends Producto {
-    private ArrayList<Producto> productosDelCombo = new ArrayList<>();
+public class Combo implements Compra {
+    private String nombreArticulo;
+    private ArrayList<Compra> comprasDelCombo = new ArrayList<>();
 
     // Getters and Setters
-    public void agregarProducto(Producto nuevoProducto) {
-        productosDelCombo.add(nuevoProducto);
+    public void agregarProducto(Compra nuevaCompra) {
+        comprasDelCombo.add(nuevaCompra);
     }
 
-    public void quitarProducto(Producto productoASacar) {
-        productosDelCombo.remove(productoASacar);
+    public void quitarProducto(Compra compraASacar) {
+        comprasDelCombo.remove(compraASacar);
+    }
+
+    public String getArticulo() { return nombreArticulo; }
+
+    public void setArticulo(String articulo) {
+        this.nombreArticulo = articulo;
     }
 
     public ArrayList obtenerProductosDelCombo() {
         ArrayList<String> nombreProductos = new ArrayList<>();
-        for (Producto producto : productosDelCombo) {
-            nombreProductos.add(producto.getArticulo());
+        for (Compra compra : comprasDelCombo) {
+            nombreProductos.add(compra.obtenerNombre());
         }
         return nombreProductos;
     }
@@ -26,8 +35,8 @@ public class Combo extends Producto {
     // Constructor
     public Combo() {}
 
-    public Combo(ArrayList<Producto> productosDelCombo) {
-        this.productosDelCombo = productosDelCombo;
+    public Combo(ArrayList<Compra> productosDelCombo) {
+        this.comprasDelCombo = productosDelCombo;
     }
 
 
@@ -35,18 +44,23 @@ public class Combo extends Producto {
     @Override
     public double obtenerPrecio() {
         double precioTotal = 0;
-        if(productosDelCombo.size() >= 3) {
-            for (Producto producto : productosDelCombo) {
-                precioTotal += producto.obtenerPrecio();
+        if(comprasDelCombo.size() >= 3) {
+            for (Compra compra : comprasDelCombo) {
+                precioTotal += compra.obtenerPrecio();
             }
             return precioTotal - (precioTotal * 0.10);
         }
         else {
-            for (Producto producto : productosDelCombo) {
-                precioTotal += producto.obtenerPrecio();
+            for (Compra compra : comprasDelCombo) {
+                precioTotal += compra.obtenerPrecio();
             }
             return precioTotal;
         }
-
     }
+
+    @Override
+    public String obtenerNombre() { return this.getArticulo(); }
+
+    @Override
+    public void mostrarCompra() { System.out.println(this.getArticulo()); }
 }

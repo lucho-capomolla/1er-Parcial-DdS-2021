@@ -6,19 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="0cf2a724-ce69-4ea0-a5b6-0b850857db0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cinema.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Compra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Entrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Entrada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Sala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Sala.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Producto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/entidades/Genero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Pelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/Pelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/AdapterAPIpelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/APIservice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/ApiMovies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/APImovies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/entidades/Generos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/pelicula/apiPelicula/entidades/Generos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/security/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/MenuInicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Combo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Combo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Comestible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Comestible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/business/comestibles/Producto.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/UserView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/UserView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,17 +52,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -84,7 +66,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1629547692907</updated>
-      <workItem from="1629547711413" duration="32324000" />
+      <workItem from="1629547711413" duration="33073000" />
+      <workItem from="1629664821646" duration="4173000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,6 @@
 package domain.business;
 
-import domain.business.comestibles.Producto;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Cliente {
     private String nombre;
