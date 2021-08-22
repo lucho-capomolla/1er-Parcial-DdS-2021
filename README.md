@@ -27,7 +27,7 @@ D'Antoni G., Priscila S.
 >Se obtendrá un ticket por cada compra que se efectúe. Es decir, si se compra primero una entrada, luego una gaseosa y por último un combo, serán tres tickets diferentes.
 
 Requerimientos no funcionales:
--Cuando el cliente esté por efectuar la compra, aparecerá un cartel preguntando si está seguro que desea realizarla, o si quisiera quitar algún producto del carrito. Esto servirá para evitar que compre cosas de las que luego se arrepintió o agregó por error.
--La sesión del usuario deberá cerrarse luego de 5 minutos de inactividad, para así, evitar que si este se olvidará de cerrarla, otra persona no pueda utilizarla.
--Si existieran ya asientos tomados, estos aparecerán en rojo y no se permitirá seleccionarlos. Esta funcionalidad es muy útil, ya que evitará que el usuario deba seleccionar asiento por asiento para saber cuáles están disponibles y cuáles no.
--Aquel usuario que posea el rol administrador tendrá la capacidad de agregar nuevos administradores o quitar a otro ya existente.
+- Cuando el cliente esté por efectuar la compra, aparecerá un cartel preguntando si está seguro que desea realizarla, o si quisiera quitar algún producto del carrito. Esto servirá para evitar que compre cosas de las que luego se arrepintió o agregó por error.
+- La sesión del usuario deberá cerrarse luego de 5 minutos de inactividad, para así, evitar que si este se olvidará de cerrarla, otra persona no pueda utilizarla.
+- Si existieran ya asientos tomados, estos aparecerán en rojo y no se permitirá seleccionarlos. Esta funcionalidad es muy útil, ya que evitará que el usuario deba seleccionar asiento por asiento para saber cuáles están disponibles y cuáles no.
+- Aquel usuario que posea el rol administrador tendrá la capacidad de agregar nuevos administradores o quitar a otro ya existente.
