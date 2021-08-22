@@ -4,7 +4,7 @@ import domain.business.Compra;
 
 import java.util.ArrayList;
 
-public class Combo implements Compra {
+public class Combo extends Producto {
     private String nombreArticulo;
     private ArrayList<Compra> comprasDelCombo = new ArrayList<>();
 
@@ -31,14 +31,12 @@ public class Combo implements Compra {
         return nombreProductos;
     }
 
-
     // Constructor
     public Combo() {}
 
     public Combo(ArrayList<Compra> productosDelCombo) {
         this.comprasDelCombo = productosDelCombo;
     }
-
 
     // Metodos
     @Override
@@ -57,10 +55,4 @@ public class Combo implements Compra {
             return precioTotal;
         }
     }
-
-    @Override
-    public String obtenerNombre() { return this.getArticulo(); }
-
-    @Override
-    public void mostrarCompra() { System.out.println(this.getArticulo()); }
 }

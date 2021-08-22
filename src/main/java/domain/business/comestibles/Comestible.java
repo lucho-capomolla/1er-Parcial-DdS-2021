@@ -1,8 +1,6 @@
 package domain.business.comestibles;
 
-import domain.business.Compra;
-
-public class Comestible implements Compra {
+public class Comestible extends Producto {
     private String nombreArticulo;
     private TipoComestible tipoComestible;
 
@@ -20,10 +18,4 @@ public class Comestible implements Compra {
     public double obtenerPrecio() {
         return tipoComestible.obtenerPrecio();
     }
-
-    @Override
-    public String obtenerNombre() { return this.getArticulo(); }
-
-    @Override
-    public void mostrarCompra() { System.out.println(this.getArticulo()); }
 }
