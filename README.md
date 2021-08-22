@@ -4,9 +4,6 @@
 Capomolla, Luciano\
 D'Antoni G., Priscila S.
 
-### Link
-[Google Drive](https://drive.google.com/drive/u/1/folders/1LmEufCj5gzect8zBlHH6bKDe1CgIHYDt)
-
 ## Cinema :clapper: :popcorn:
 
 ![Imagen](https://cooltivarte.com/portal/wp-content/uploads/2020/08/por-que-se-comen-palomitas-en-el-cine-en-vez-de-otros-039-snacks-039.jpg)
@@ -22,6 +19,9 @@ D'Antoni G., Priscila S.
 >La página contará con una opción para comprar consumibles, pudiendo tratarse de pochoclos, nachos o alguna bebida. Los primeros vienen en tres tamaños diferentes, una bolsita de 100 gr, un cartón que contiene 250 gr y el balde de 500 gr. El precio base está definido por la bolsita. A medida que aumenta el peso, el precio se duplica y cuatriplica (por ejemplo, si el precio de la bolsita es de $100, el del cartón será de $200 y el del balde de $400). La bebida viene en un único tamaño estándar de 500 ml y el precio es el mismo para todas. Existe una variedad de marcas que ofrece el establecimiento para estas, entre ellas: Sprite, Manaos, Pepsi, Agua, Jugo, Mirinda.
 >El cliente podrá elegir entre cualquiera de los tres productos o todos. Para elegir varios, deberá armar un combo. En caso de agregar tres o más dentro de un combo, se le otorgará un descuento del 10%.
 >
+>Para establecer los precios o cambiarlos, se deberá tener el rol administrador que poseerá dichos permisos. A su vez, este podrá darle o quitarle el rol de administrador a otros usuarios.
+>Solo existen, por el momento, dos roles: admin y user. Este último servirá para realizar todo aquello que cualquier cliente registrado pueda hacer en el sistema.
+>
 >El usuario poseerá en el sistema una billetera virtual que podrá recargar con un cierto monto de dinero. Esta será utilizada para pagar las compras que realice en el sitio.
 >
 >Se obtendrá un ticket por cada compra que se efectúe. Es decir, si se compra primero una entrada, luego una gaseosa y por último un combo, serán tres tickets diferentes.
@@ -31,3 +31,4 @@ Requerimientos no funcionales:
 - La sesión del usuario deberá cerrarse luego de 5 minutos de inactividad, para así, evitar que si este se olvidará de cerrarla, otra persona no pueda utilizarla.
 - Si existieran ya asientos tomados, estos aparecerán en rojo y no se permitirá seleccionarlos. Esta funcionalidad es muy útil, ya que evitará que el usuario deba seleccionar asiento por asiento para saber cuáles están disponibles y cuáles no.
 - Aquel usuario que posea el rol administrador tendrá la capacidad de agregar nuevos administradores o quitar a otro ya existente.
+- Se deberán guardar en una base de datos los tickets para poder realizar los balances correspondientes a fin de cada mes.
