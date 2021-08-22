@@ -20,6 +20,7 @@ public class MenuInicio {
     public void iniciarMenu() throws IOException {
         Scanner entrada = new Scanner(System.in);
         Cinema miCinema = Cinema.getInstance();
+        miCinema.prepararCine();
 
         boolean salir = false;
         int opcionElegida;

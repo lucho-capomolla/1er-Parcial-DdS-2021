@@ -18,6 +18,8 @@ public class UserView {
     private static UserView instance;
     private AdminView adminView = AdminView.getInstance();
 
+    private UserView() {}
+
     public static UserView getInstance() {
         if(instance == null) {
             instance = new UserView();

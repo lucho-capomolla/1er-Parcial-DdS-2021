@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 public class AdminView {
     private static AdminView instance;
 
+    private AdminView() {}
+
     public static AdminView getInstance() {
         if(instance == null) {
             instance = new AdminView();

@@ -23,9 +23,7 @@ public class Cinema {
     // Getters and Setters
     public static void agregarTicket(Ticket nuevoTicket) { Cinema.ventas.add(nuevoTicket); }
 
-    private Cinema() {
-        this.prepararCine();
-    }
+    private Cinema() { }
     
     // Singleton del Cinema
     public static Cinema getInstance() {
