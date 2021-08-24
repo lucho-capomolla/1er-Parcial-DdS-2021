@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class Combo extends Producto {
     private String nombreArticulo;
-    private ArrayList<Compra> comprasDelCombo = new ArrayList<>();
+    private ArrayList<Producto> comprasDelCombo = new ArrayList<>();
 
     // Getters and Setters
-    public void agregarProducto(Compra nuevaCompra) {
-        comprasDelCombo.add(nuevaCompra);
+    public void agregarProducto(Producto nuevoProducto) {
+        comprasDelCombo.add(nuevoProducto);
     }
 
-    public void quitarProducto(Compra compraASacar) {
-        comprasDelCombo.remove(compraASacar);
+    public void quitarProducto(Producto productoASacar) {
+        comprasDelCombo.remove(productoASacar);
     }
 
     public String getArticulo() { return nombreArticulo; }
@@ -34,7 +34,7 @@ public class Combo extends Producto {
     // Constructor
     public Combo() {}
 
-    public Combo(ArrayList<Compra> productosDelCombo) {
+    public Combo(ArrayList<Producto> productosDelCombo) {
         this.comprasDelCombo = productosDelCombo;
     }
 

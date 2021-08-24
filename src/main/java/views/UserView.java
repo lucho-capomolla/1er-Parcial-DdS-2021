@@ -456,7 +456,7 @@ public class UserView {
         return bebida;
     }
 
-    private Compra prepararCombo() {
+    private Producto prepararCombo() {
         Scanner entrada = new Scanner(System.in);
         boolean salir = false;
         Combo combo = new Combo();
@@ -473,9 +473,9 @@ public class UserView {
 
             switch(opcionElegida) {
                 case 1:
-                    Compra compra = this.eleccionComestible();
+                    Producto producto = this.eleccionComestible();
 
-                    System.out.println("Usted ha elegido: " + compra.obtenerNombre());
+                    System.out.println("Usted ha elegido: " + producto.obtenerNombre());
                     System.out.println("¿Está seguro de la elección?");
                     System.out.println("    - Ingrese 1 para continuar con la compra.");
                     System.out.println("    - Ingrese 2 para volver atrás.");
@@ -484,7 +484,7 @@ public class UserView {
 
                     if(0 > opcionElegida || opcionElegida > 2) {
                         System.out.println("[WARNING] Usted ha elegido una opción inválida. Por favor intente nuevamente.");
-                        System.out.println("Usted ha elegido: " + compra.obtenerNombre());
+                        System.out.println("Usted ha elegido: " + producto.obtenerNombre());
                         System.out.println("¿Está seguro de la elección?");
                         System.out.println("    - Ingrese 1 para continuar con la compra.");
                         System.out.println("    - Ingrese 2 para volver atrás.");
@@ -493,19 +493,19 @@ public class UserView {
                     }
 
                     if(opcionElegida == 2) {
-                        compra = null;
+                        producto = null;
                         break;
                     }
 
-                    if(compra != null) {
-                        combo.agregarProducto(compra);
-                        combo.setArticulo(combo.getArticulo().concat(compra.obtenerNombre()) + " | ");
+                    if(producto != null) {
+                        combo.agregarProducto(producto);
+                        combo.setArticulo(combo.getArticulo().concat(producto.obtenerNombre()) + " | ");
                         System.out.println("    - Si desea finalizar el Combo, ingrese 4.");
                         break;
                     }
                     break;
                 case 2:
-                    Compra comboInception = this.prepararCombo();
+                    Producto comboInception = this.prepararCombo();
 
                     System.out.println("Usted ha elegido: " + comboInception.obtenerNombre());
                     System.out.println("¿Está seguro de la elección?");

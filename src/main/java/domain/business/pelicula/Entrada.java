@@ -74,7 +74,7 @@ public class Entrada implements Compra {
 
     public double calcularPrecio() {
         Date date = new Date();
-        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
         String fechaHoy = fecha.format(date);
 
         Calendar c = Calendar.getInstance();
